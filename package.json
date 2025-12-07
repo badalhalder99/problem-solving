@@ -1,0 +1,13 @@
+{
+  "name": "problem_solving",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon Easy/String/p-15.js",
+    "start": "node Easy/String/p-15.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
