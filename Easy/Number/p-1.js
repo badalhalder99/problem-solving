@@ -1,1 +1,1 @@
-console.log("Hi, from medium problem!")
+console.log("Hi, from easy problem!")
