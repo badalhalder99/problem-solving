@@ -1,5 +1,5 @@
 - String method:
-- - split(), slice(), toUpperCase(), toLoweCase(), replace(), replaceAll(), match(), length(), toUpperCase(), toLowerCase(), for of loop, indexOf(), charAt(),
+- - split(), slice(), substring(), toUpperCase(), toLoweCase(), replace(), replaceAll(), match(), length(), toUpperCase(), toLowerCase(), for of loop, indexOf(), charAt(), match(), matchAll(), includes()
 
 
 
@@ -10,7 +10,7 @@
 
 
 - Array method:
-- join(), push(), length(), slice(), for of loop, indexOf()
+- join(), push(), length(), slice(), for of loop, indexOf(), includes()
 
 
 
