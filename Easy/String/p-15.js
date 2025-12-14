@@ -333,3 +333,62 @@ console.log(output)
  * - Time complexity around O(n * m), acceptable for normal use cases
 **/
 
+/**************************************************************************************************************************************************************How do you replace only the FIRST occurrence of a substring in a string?************************************************************************************************************************************************************************************************************************ */
+// Solution-02:
+function replaceFirstOccurrence(str, target, replacement) {
+   // Handle corner cases
+   if (!target) return str;
+
+   return str.replace(target, replacement);
+}
+
+console.log(
+   replaceFirstOccurrence(
+      "I love JS because JS is powerful",
+      "JS",
+      "JavaScript"
+   )
+);
+
+// Solution-02:
+
+function replaceFirstIgnoreCase(str, target, replacement) {
+   if (!target) return str;
+
+   const pattern = new RegExp(target, "i"); // no 'g'
+   return str.replace(pattern, replacement);
+}
+
+console.log(
+   replaceFirstIgnoreCase(
+      "js is great. I love JS!",
+      "js",
+      "JavaScript"
+   )
+);
+
+/**************************************************************************************************************************************************************How do you replace only the last occurrence of a substring in a string?************************************************************************************************************************************************************************************************************************ */
+
+function replaceLastOccurrence(str, target, replacement) {
+   // Handle corner cases
+   if (!target) return str;
+
+   const index = str.lastIndexOf(target);
+
+   // If target not found
+   if (index === -1) return str;
+
+   return (
+      str.slice(0, index) +
+      replacement +
+      str.slice(index + target.length)
+   );
+}
+
+console.log(
+   replaceLastOccurrence(
+      "apple banana apple",
+      "apple",
+      "orange"
+   )
+);
