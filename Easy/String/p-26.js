@@ -185,27 +185,28 @@ result = "olleH " + "dlroW"
 
 
 /*
-****************************************************Simplified Pseudocode*************************************************
+****************************************************Simplified Pseudocode**************************************************
 FUNCTION reverseWords(sentence):
 
-    IF sentence is invalid (null, undefined, not string)
-        RETURN empty string
+   IF sentence is invalid (null, undefined, not string)
+      RETURN empty string
 
-    SET result = ""
-    SET word = ""
+   SET result = ""
+   SET word = ""
 
-    FOR each character char in sentence:
-        IF char is NOT a space:
-            word = char + word      // build reversed word
-        ELSE:
-            result = result + word + char   // flush reversed word + space
-            word = ""                        // reset active word
+   FOR each character char in sentence:
+      IF char is NOT a space:
+         word = char + word      // build reversed word
+      ELSE:
+         result = result + word + char   // flush reversed word + space
+         word = ""                        // reset active word
 
-    END FOR
+   END FOR
 
-    result = result + word   // flush last word
+   result = result + word   // flush last word
 
-    RETURN result
+   RETURN result
+
 ***************************************************************************************************************************
 */
 /**
