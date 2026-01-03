@@ -58,6 +58,7 @@ const firstNonRepeatingCharCustom = (str) => {
    return null;
 };
 
+console.log(firstNonRepeatingCharCustom("swiss"));
 
 /*
 ────────────────────────────────────────────────────────────────────────────
