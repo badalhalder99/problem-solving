@@ -83,29 +83,124 @@ const maxChar = (str) => {
 SOLUTION 1 — DIAGRAM
 ===============================================================================
 
-Input:
+/*
+===============================================================================
+DETAILED DIAGRAM — STEP BY STEP (VERY BEGINNER FRIENDLY)
+===============================================================================
+
+INPUT STRING
+------------
 "Danny"
 
-Lowercase:
-"danny"
 
-Characters:
-d  a  n  n  y
+STEP 1: Convert to lowercase
+----------------------------
+Original :  D   a   n   n   y
+Lowercase:  d   a   n   n   y
 
-Frequency Counter Object:
-{
+Reason:
+- We want case-insensitive counting
+- 'D' and 'd' should be treated the same
+
+
+STEP 2: Loop through each character and COUNT
+----------------------------------------------
+
+We use an OBJECT to store counts.
+
+Start with empty object:
+freqCounter = {}
+
+
+Read characters ONE BY ONE:
+
+1) char = 'd'
+freqCounter = {
+  d: 1
+}
+
+2) char = 'a'
+freqCounter = {
+  d: 1,
+  a: 1
+}
+
+3) char = 'n'
+freqCounter = {
+  d: 1,
+  a: 1,
+  n: 1
+}
+
+4) char = 'n' (again)
+freqCounter = {
+  d: 1,
+  a: 1,
+  n: 2
+}
+
+5) char = 'y'
+freqCounter = {
   d: 1,
   a: 1,
   n: 2,
   y: 1
 }
 
-Highest count:
-n → 2
 
-Output:
+STEP 3: Find the character with MAX count
+------------------------------------------
+
+Initialize:
+maxCount = 0
+maxChar  = null
+
+
+Check each key in freqCounter:
+
+Check 'd' → count = 1
+1 > 0 → YES
+maxCount = 1
+maxChar  = 'd'
+
+Check 'a' → count = 1
+1 > 1 → NO (skip)
+
+Check 'n' → count = 2
+2 > 1 → YES
+maxCount = 2
+maxChar  = 'n'
+
+Check 'y' → count = 1
+1 > 2 → NO (skip)
+
+
+STEP 4: FINAL RESULT
+--------------------
+
+Most frequent character:
+'n'
+
+Returned value:
 "n"
+
+
+ONE-LINE VISUAL SUMMARY
+----------------------
+"Danny"
+   ↓
+"danny"
+   ↓
+{ d:1, a:1, n:2, y:1 }
+   ↓
+highest count = 2
+   ↓
+OUTPUT → "n"
+
+===============================================================================
 */
+
+
 
 
 /*
