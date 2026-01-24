@@ -1,6 +1,6 @@
 /*
 ===============================================================================
-PROBLEM: Check if a string has balanced parentheses (only round brackets)
+PROBLEM: Check if a string has balanced parentheses-(only round brackets) ?
 ===============================================================================
 
 PROBLEM STATEMENT
@@ -181,6 +181,10 @@ const isBalancedParenthesesCustom = (str) => {
 };
 
 
+
+console.log(isBalancedParenthesesCustom("((a + b))"));  // true
+console.log(isBalancedParenthesesCustom(")("));         // false
+
 /*
 ===============================================================================
 SOLUTION 2 — LINE BY LINE EXPLANATION
@@ -236,6 +240,3 @@ Final openCount = 0
 ✔ Balanced
 */
 
-
-console.log(isBalancedParenthesesCustom("((a + b))"));  // true
-console.log(isBalancedParenthesesCustom(")("));         // false
