@@ -58,6 +58,7 @@ SOLUTION 1: MODERN STYLE (Array + join) — No repeat()
 const repeatStringModern = (str, n) => {
    if (typeof str !== "string") return "";
    if (n <= 0) return "";
+
    if (str === "") return "";
 
    return new Array(n).fill(str).join("");
