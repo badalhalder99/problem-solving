@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon Easy/String/p-40.js",
+    "dev": "nodemon practice.js",
     "start": "node Easy/String/p-40.js"
   },
   "devDependencies": {

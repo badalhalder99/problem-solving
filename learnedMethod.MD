@@ -10,7 +10,7 @@
 
 
 - Array method:
-- join(), push(), length(), slice(), for of loop, indexOf(), includes(),
+- join(), push(), length(), slice(), for of loop, indexOf(), includes(), some(), every(), find()
 
 
 
