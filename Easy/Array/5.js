@@ -8,13 +8,14 @@
 
 /* Solution-01:*/
 function removeDuplicateValues(arr) {
-  // Convert the input array into a Set (automatically removes duplicates)
+  // Convert the input array into a Set
+  // A Set automatically removes duplicate values
   const uniqueSetArr = new Set(arr);
 
-  // Spread the Set object back into a new array to get only unique values
+   // Spread the Set object back into a new array
+   // This converts the Set into an array of unique values
   const uniqueArr = [...uniqueSetArr];
 
-  // Return the final array containing unique elements
   return uniqueArr;
 }
 

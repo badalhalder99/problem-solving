@@ -1,4 +1,6 @@
-// - Find the sum of all elements in an array? - the sum of arr is 275
+// - Find the sum of all elements in an array? -> the sum of arr is 275:
+
+// solution- 01
 const arr = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
 const sumAll = (arr) => {
@@ -13,10 +15,10 @@ const sumAll = (arr) => {
 const output = sumAll(arr)
 console.log(`Ouput is ${output}`)
 
+// solution- 02:
+const array = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
-const arr2 = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
-
-const sumAll2 = (arr) => {
+const sumOfArrElement = (arr) => {
 
    let total = 0
 
@@ -27,8 +29,8 @@ const sumAll2 = (arr) => {
    return total
 }
 
-const output2 = sumAll2(arr2)
-console.log(`Ouput is ${output2}`)
+const result = sumOfArrElement(array)
+console.log(`Ouput is ${result}`)
 
 
 
@@ -55,27 +57,3 @@ JavaScript-এ:
 👉 function যদি কিছু return না করে
 👉 তাহলে default ভাবে return হয় "undefined"
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
