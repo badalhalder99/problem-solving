@@ -6,12 +6,9 @@ const reverseArr = (arr) => {
 
    let reversed = []
 
-   for (let i = arr.length - 1; i < arr.length; i--) {
-      const current = arr[i]
-      reversed.push(current)
-   }
+   
 
-   return reversed
+   return reversed;
 }
 
 const output = reverseArr(numbers)
