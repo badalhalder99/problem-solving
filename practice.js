@@ -1,28 +1,29 @@
-// - Reverse an array in place?
+// - Check if an array contains a specific value?
 
 const numbers = [1, 2, 3, 4, 5]
 
-const reverseArr = (arr) => {
+const checkValue = (arr, search) => {
 
-   let left = 0
-   let right = arr.length - 1
-
-   while (left < right) {
-
-      [arr[left], arr[right]] = [arr[right], arr[left]]
-
-      left++
-      right--
+   if (!arr.includes(search)) {
+      return false
+   } else {
+      return true
    }
-
-   return arr;
 }
 
-const output = reverseArr(numbers)
+const output = checkValue(numbers, 5)
 console.log(output)
 
+// simplier approach:
 
+const numbers2 = [10, 20, 30, 40, 50]
 
+const checkValues = (arr, search) => {
+   return arr.includes(search);
+}
+
+const outputs = checkValue(numbers2, 30)
+console.log(outputs)
 
 
 
