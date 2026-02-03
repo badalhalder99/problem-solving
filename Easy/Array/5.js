@@ -70,6 +70,16 @@ const arr3 = [];
 console.log(reverseArrayInPlace(arr3)); // []
 
 /*
+
+arr = [1, 2, 3, 4, 5, 6]
+
+[arr[left], arr[right]] = [arr[right], arr[left]];
+
+[arr[1], arr[6]] = [arr[6], arr[1]];
+[arr[2], arr[5]] = [arr[5], arr[2]];
+[arr[3], arr[4]] = [arr[4], arr[3]];
+
+
 ════════════════════════════════════════════════════════════
 REVERSE ARRAY IN PLACE — FULL CODE + EXPLANATION
 EVERYTHING INSIDE JS MULTILINE COMMENT
