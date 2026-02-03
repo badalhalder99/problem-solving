@@ -1,47 +1,26 @@
-// - Check if an array contains a specific value?
+// - Find the index of a value in an array?
 
-const numbers = [1, 2, 3, 4, 5]
 
-const checkValue = (arr, search) => {
+const nameArray = ["badal", 'asim', 'anik', 'sourof', 'rudro', 'tapos']
 
-   if (!arr.includes(search)) {
-      return false
-   } else {
-      return true
+const checkValues = (arr, value) => {
+   if (arr.length === 0) return -1
+   if (!value || typeof value !== 'string') return "please enter value"
+
+   let index = -1
+
+   for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === value) {
+         index = i
+         break  // Stop once found
+      }
    }
+
+   return index
 }
 
-const output = checkValue(numbers, 5)
-console.log(output)
-
-// simplier approach:
-
-const numbers2 = [10, 20, 30, 40, 50]
-
-const checkValues = (arr, search) => {
-   return arr.includes(search);
-}
-
-const outputs = checkValue(numbers2, 30)
-console.log(outputs)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const result = checkValues(nameArray, 'anik')
+console.log(result)
 
 
 
