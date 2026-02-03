@@ -1,10 +1,15 @@
 /*
 ════════════════════════════════════════════════════════════
-1️⃣ PROBLEM HEADER BLOCK
+1️⃣ Problem: Reverse an Array In Place?
 ════════════════════════════════════════════════════════════
 
-PROBLEM TITLE
-Reverse an Array In Place
+// Easy solution using js - 00:
+
+const arr = [1, 2, 3, 4, 5];
+arr.reverse();
+console.log(arr); // [5, 4, 3, 2, 1]
+
+- But this is not enough need to learn from deep:
 
 PROBLEM STATEMENT
 Given an array, reverse its elements **in place**.
@@ -34,22 +39,22 @@ CORNER CASES
 ════════════════════════════════════════════════════════════================================================
 2️⃣ SOLUTION 1 — MODERN (Two Pointer Technique)- (always follow this one, this is easy for remember)
 ════════════════════════════════════════════════════════════================================================
-
-CODE
 */
+
+
 function reverseArrayInPlace(arr) {
-  let left = 0;
-  let right = arr.length - 1;
+   let left = 0;
+   let right = arr.length - 1;
 
-  while (left < right) {
-    // Swap elements
-    [arr[left], arr[right]] = [arr[right], arr[left]];
+   while (left < right) {
+      // Swap elements
+      [arr[left], arr[right]] = [arr[right], arr[left]];
 
-    left++;
-    right--;
-  }
+      left++;
+      right--;
+   }
 
-  return arr;
+   return arr;
 }
 
 /*
