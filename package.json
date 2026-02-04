@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon practice.js",
-    "start": "node Easy/String/p-40.js"
+    "start": "node  practice.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"

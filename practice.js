@@ -1,6 +1,13 @@
-const lastElement = (arr) => {
-   // return arr[arr.length - 1]
-   return arr.at(-1)
+// - Remove the last element and return it?
+
+const numbers = [1, 2, 3, 4, 5]
+
+const removeLast = (arr) => {
+   const lastElement = arr.pop()
+
+   return lastElement;
 }
 
-console.log(lastElement([1, 2, 3, 4, 5]))
+console.log(removeLast(numbers))  // 5
+console.log(numbers)      // [1, 2, 3, 4]
+
