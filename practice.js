@@ -1,26 +1,27 @@
-// - Find the index of a value in an array?
+// - PROBLEM: Flatten a Nested Array One Level
+// - Output:
+// - [1, 2, 3, 4, 5, 6]
 
+const arr = [1, [2, 3], [4, 5], 6]
 
-const nameArray = ["badal", 'asim', 'anik', 'sourof', 'rudro', 'tapos']
+const flaternArr = (arr) => {
 
-const checkValues = (arr, value) => {
-   if (arr.length === 0) return -1
-   if (!value || typeof value !== 'string') return "please enter value"
+   let newArr = []
 
-   let index = -1
+   for (let outerItem of arr) {
+      if (Array.isArray(outerItem)) {
 
-   for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === value) {
-         index = i
-         break  // Stop once found
+         for (let item of outerItem) {
+            newArr.push(item)
+         }
+
+      } else {
+         newArr.push(outerItem)
       }
    }
 
-   return index
+   return newArr
 }
 
-const result = checkValues(nameArray, 'anik')
-console.log(result)
-
-
-
+const output = flaternArr(arr)
+console.log(output)
