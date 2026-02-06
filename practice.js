@@ -1,26 +1,32 @@
 
 /*
 ===============================================================================
-PROBLEM: Create an array of n zeros??
+PROBLEM: Find the second largest number in an array.?
 ===============================================================================
 
 */
 
 const numbers = [15, 30, 55, 13, 27, 48, 35, 12, 17, 23, 36, 44, 93, 76]
 
-const createArr = (count, number) => {
+const secondLargest = (arr) => {
 
-   if (!count || typeof count !== 'number' ) return []
+   if (!Array.isArray(arr) || arr.length === 0) return []
 
-   let result = []
+   let firstLarge = arr[0]
+   let secondLarge = arr[1]
 
-   for (let i = 0; i < count; i++) {
-      result.push(number)
+   for (let i = 0; i < arr.length; i++) {
+
+      let current = arr[i]
+
+      if (secondLarge > firstLarge) {
+         secondLarge = current
+      }
    }
 
-   return result
+   return secondLarge
 }
 
-const output = createArr(12, 0)
+const output = secondLargest(numbers)
 console.log(output)
 
