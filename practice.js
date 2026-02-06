@@ -1,13 +1,26 @@
-// - Remove the last element and return it?
 
-const numbers = [1, 2, 3, 4, 5]
+/*
+===============================================================================
+PROBLEM: Create an array of n zeros??
+===============================================================================
 
-const removeLast = (arr) => {
-   const lastElement = arr.pop()
+*/
 
-   return lastElement;
+const numbers = [15, 30, 55, 13, 27, 48, 35, 12, 17, 23, 36, 44, 93, 76]
+
+const createArr = (count, number) => {
+
+   if (!count || typeof count !== 'number' ) return []
+
+   let result = []
+
+   for (let i = 0; i < count; i++) {
+      result.push(number)
+   }
+
+   return result
 }
 
-console.log(removeLast(numbers))  // 5
-console.log(numbers)      // [1, 2, 3, 4]
+const output = createArr(12, 0)
+console.log(output)
 
