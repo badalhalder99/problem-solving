@@ -1,18 +1,32 @@
 
+// - Remove falsy values from an array?
+
+// 0 → falsy
+// "" → falsy
+// null → falsy
+// undefined → falsy
+// false → falsy
+// NaN → falsy
 
 // - Soluton - 02:
 
-const numbers2 = [15, 30, 55, 13, 27, 48, 35, 12, 17, 23, 36, 44, 93, 76]
+const numbers = [15, 30, 0, 13, NaN, 48, undefined, null, 17, false, 36, 44, 93, ""]
 
-const getFirstAndSecondLargestNumber = (arr = []) => {
+const removeFalsyValue = (arr = []) => {
 
-   const result = arr.sort((a, b) => a - b).reverse()
+   if (!Array.isArray(arr) || arr.length === 0) return []
 
-   const largest = result[0]
-   const secondLargest = result[1]
+   let newArr = []
 
-   return `The firstLargest number is ${largest} and The secondLargest number is ${secondLargest}`
+   for (let item of arr) {
+      if (item) {
+         newArr.push(item)
+      }
+   }
+
+   return newArr
+
 }
 
-const output2 = getFirstAndSecondLargestNumber(numbers2)
-console.log(output2)
+const output = removeFalsyValue(numbers)
+console.log(output)
