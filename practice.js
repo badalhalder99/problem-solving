@@ -1,32 +1,18 @@
 
-/*
-===============================================================================
-PROBLEM: Find the second largest number in an array.?
-===============================================================================
 
-*/
+// - Soluton - 02:
 
-const numbers = [15, 30, 55, 13, 27, 48, 35, 12, 17, 23, 36, 44, 93, 76]
+const numbers2 = [15, 30, 55, 13, 27, 48, 35, 12, 17, 23, 36, 44, 93, 76]
 
-const secondLargest = (arr) => {
+const getFirstAndSecondLargestNumber = (arr = []) => {
 
-   if (!Array.isArray(arr) || arr.length === 0) return []
+   const result = arr.sort((a, b) => a - b).reverse()
 
-   let firstLarge = arr[0]
-   let secondLarge = arr[1]
+   const largest = result[0]
+   const secondLargest = result[1]
 
-   for (let i = 0; i < arr.length; i++) {
-
-      let current = arr[i]
-
-      if (secondLarge > firstLarge) {
-         secondLarge = current
-      }
-   }
-
-   return secondLarge
+   return `The firstLargest number is ${largest} and The secondLargest number is ${secondLargest}`
 }
 
-const output = secondLargest(numbers)
-console.log(output)
-
+const output2 = getFirstAndSecondLargestNumber(numbers2)
+console.log(output2)
