@@ -183,13 +183,12 @@ const chunkArrayCustom = (arr, size) => {
       // element tempChunk এ ঢুকানো হচ্ছে
 
       if (tempChunk.length === size) {
-      // যখন tempChunk পূর্ণ হয়ে যায়
+         // যখন tempChunk পূর্ণ হয়ে যায়
+         result.push(tempChunk)
+         // result এ পাঠানো হয়
 
-      result.push(tempChunk)
-      // result এ পাঠানো হয়
-
-      tempChunk = []
-      // আবার নতুন chunk শুরু
+         tempChunk = []
+         // আবার নতুন chunk শুরু
       }
    }
 

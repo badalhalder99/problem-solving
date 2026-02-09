@@ -23,5 +23,9 @@ console.log(output)
 // Using filter
 const countOccurrence2 = (arr, value) => {
    if (!Array.isArray(arr)) return 0
+
    return arr.filter(item => item === value).length
 }
+
+const output2 = countOccurrence2(numbers, 7)
+console.log(output2)
