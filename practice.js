@@ -1,22 +1,25 @@
-// - Problem: Find common elements between two arrays?
+// - Problem: Problem - Find duplicates in an array?
 
-const arr1 = [1, 2, 3, 4, 5]
-const arr2 = [6, 2, 3, 7, 8]
+const arr = [1, 2, 3, 4, 5, 2, 3]
 
-const commonElements = (arr1, arr2) => {
-   if (!Array.isArray(arr1) || arr1.length === 0) return []
-   if (!Array.isArray(arr2) || arr2.length === 0) return []
+const findDuplicates = (arr) => {
+   if (!Array.isArray(arr) || arr.length === 0) return []
 
-   let common = []
+   let seen = []
+   let duplicate = []
 
-   for (let item of arr1) {
-      if (arr2.includes(item)) {
-         common.push(item)
+   for (let item of arr) {
+      if (seen.includes(item)) {
+         if (!duplicate.includes(item)) {
+            duplicate.push(item)
+         }
+      } else {
+         seen.push(item)
       }
    }
 
-   return common
+   return duplicate;
 }
 
-const output = commonElements(arr1, arr2)
+const output = findDuplicates(arr)
 console.log(output)
