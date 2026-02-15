@@ -56,23 +56,24 @@ SOLUTION (CUSTOM — LOOP BASED)
 
 const rightRotateByKPosition = (arr, k) => {
 
-  if (!Array.isArray(arr) || arr.length === 0) return []
-  if (!k || typeof k !== 'number') return []
+   if (!Array.isArray(arr) || arr.length === 0) return []
+   if (!k || typeof k !== 'number') return []
 
-  k = k % arr.length
-  let rightRotate = []
+   k = k % arr.length
 
-  // push the last k elements first
-  for (let i = arr.length - k; i < arr.length; i++) {
-    rightRotate.push(arr[i])
-  }
+   let rightRotate = []
 
-  // then push the remaining elements
-  for (let i = 0; i < arr.length - k; i++) {
-    rightRotate.push(arr[i])
-  }
+   // push the last k elements first
+   for (let i = arr.length - k; i < arr.length; i++) {
+      rightRotate.push(arr[i])
+   }
 
-  return rightRotate
+   // then push the remaining elements
+   for (let i = 0; i < arr.length - k; i++) {
+      rightRotate.push(arr[i])
+   }
+
+   return rightRotate
 }
 
 const rightRotateByKPosition2 = (arr, k) => {
@@ -109,7 +110,7 @@ if (!k || typeof k !== 'number') return []
 → Return empty array
 → Rotation needs a valid number
 
-
+----------------------------------------------->
 k = k % arr.length
 
 → Prevent unnecessary extra rotations
@@ -122,6 +123,20 @@ k = 7
 7 % 5 = 2
 So rotating 7 times = rotating 2 times
 
+🧠 Real Life Analogy
+
+ধরো ঘড়ি আছে 🕒
+
+12 টা বাজে।
+
+তুমি 15 ঘণ্টা এগাও।
+
+15 % 12 = 3
+
+মানে এখন 3 টা বাজবে।
+
+ঘড়ির মতো array-ও circular।
+------------------------------------------------->
 
 let rightRotate = []
 
