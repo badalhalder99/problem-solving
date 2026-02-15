@@ -1,25 +1,20 @@
-// - Problem: Problem - Find duplicates in an array?
+// - Problem: Rotate the array to the right by k positions?
 
-const arr = [1, 2, 3, 4, 5, 2, 3]
+const arr = [1, 2, 3, 4, 5]
 
-const findDuplicates = (arr) => {
+const rightRotateByKPosition = (arr, position) => {
    if (!Array.isArray(arr) || arr.length === 0) return []
+   if (!position || typeof position !== 'number') return []
 
-   let seen = []
-   let duplicate = []
+   let rightRotate = []
 
-   for (let item of arr) {
-      if (seen.includes(item)) {
-         if (!duplicate.includes(item)) {
-            duplicate.push(item)
-         }
-      } else {
-         seen.push(item)
-      }
+   for (let i = 0; i < arr.length; i++) {
+      let current = arr[i]
+      rightRotate.push(current + position)
    }
 
-   return duplicate;
+   return rightRotate;
 }
 
-const output = findDuplicates(arr)
+const output = rightRotateByKPosition(arr, 2)
 console.log(output)
