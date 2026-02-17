@@ -1,39 +1,27 @@
-// - Problem: Find the missing number in the array from 1 to n?
+// - Problem: Move all zeros to the end of the array?
 
+const arr = [4, 0, 5, 0, 0, 3]
 
+const movedZeroEnd = (arr) => {
 
-// const findMissingNumber = (arr, n) => {
+   if (!Array.isArray(arr) || arr.length === 0) return []
 
-//    if (!Array.isArray(arr) || arr.length === 0) return []
-//    if (!n || typeof n !== 'number') return []
+   let nonZero = []
+   let zero = []
 
-//    const set = new Set(arr)
-//    let missingArr = []
+   for (let item of arr) {
+      if (item !== 0) {
+         nonZero.push(item)
+      } else {
+         zero.push(item)
+      }
+   }
 
-//    for (let i = 1; i <= n; i++) {
-//       if (!set.has(i)) {
-//          missingArr.push(i)
-//       }
-//    }
+   const movedAllZeroToEnd = [...nonZero, ...zero]
 
-//    return missingArr
-// }
-
-// const arr = [1, 3, 6, 7, 8, 9, 10]
-// const output = findMissingNumber(arr, 10)
-// console.log(output) // [2, 4, 5]
-
-
-const findMissingNumberModern = (arr, n) => {
-   if (!Array.isArray(arr) || arr.length === 0) return null
-   if (typeof n !== "number") return null
-
-   const expectedSum = (n * (n + 1)) / 2
-   const actualSum = arr.reduce((sum, num) => sum + num, 0)
-
-   return expectedSum - actualSum
+   return movedAllZeroToEnd
 }
 
+const output = movedZeroEnd(arr)
+console.log(output)
 
-// Test cases
-console.log(findMissingNumberModern([1, 2, 5, 7, 8, 9, 10], 7))
