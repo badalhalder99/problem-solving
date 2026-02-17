@@ -1,27 +1,39 @@
-// - Problem: Rotate the array to the right by k positions?
+// - Problem: Find the missing number in the array from 1 to n?
 
-const arr = [1, 2, 3, 4, 5]
 
-const rightRotateByKPosition = (arr, k) => {
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (!k || typeof k !== 'number') return []
 
-   k = k % arr.length
+// const findMissingNumber = (arr, n) => {
 
-   let rightRotate = []
+//    if (!Array.isArray(arr) || arr.length === 0) return []
+//    if (!n || typeof n !== 'number') return []
 
-   for (let i = arr.length - k; i < arr.length; i++) {
-      let current = arr[i]
-      rightRotate.push(current)
-   }
+//    const set = new Set(arr)
+//    let missingArr = []
 
-   for (let i = 0; i < arr.length - k; i++) {
-      let current = arr[i]
-      rightRotate.push(current)
-   }
+//    for (let i = 1; i <= n; i++) {
+//       if (!set.has(i)) {
+//          missingArr.push(i)
+//       }
+//    }
 
-   return rightRotate;
+//    return missingArr
+// }
+
+// const arr = [1, 3, 6, 7, 8, 9, 10]
+// const output = findMissingNumber(arr, 10)
+// console.log(output) // [2, 4, 5]
+
+
+const findMissingNumberModern = (arr, n) => {
+   if (!Array.isArray(arr) || arr.length === 0) return null
+   if (typeof n !== "number") return null
+
+   const expectedSum = (n * (n + 1)) / 2
+   const actualSum = arr.reduce((sum, num) => sum + num, 0)
+
+   return expectedSum - actualSum
 }
 
-const output = rightRotateByKPosition(arr, 2)
-console.log(output)
+
+// Test cases
+console.log(findMissingNumberModern([1, 2, 5, 7, 8, 9, 10], 7))
