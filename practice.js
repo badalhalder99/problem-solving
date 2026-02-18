@@ -6,20 +6,29 @@ const findMostFrequentElement = (arr) => {
 
    if (!Array.isArray(arr) || arr.length === 0) return []
 
-   let element
-   let count = 0
+   // Step 1: Count frequencies
+   let frequencyObj = {}
 
    for (let item of arr) {
-      if (arr.includes(item)) {
-         count ++
+      if (frequencyObj[item]) {
+         frequencyObj[item] = frequencyObj[item] + 1
       } else {
-         
+         frequencyObj[item] = 1
       }
    }
 
-   const movedAllZeroToEnd = [...nonZero, ...zero]
+   // Step 2: Find max frequency
+   let maxElement = null
+   let maxCount = 0
 
-   return movedAllZeroToEnd
+   for (let key in frequencyObj) {
+      if (frequencyObj[key] > maxCount) {
+         maxCount = frequencyObj[key]
+         maxElement = key
+      }
+   }
+
+   return Number(maxElement)
 }
 
 const output = findMostFrequentElement(arr)

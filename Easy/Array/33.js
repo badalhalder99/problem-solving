@@ -1,6 +1,6 @@
 /*
 ===============================================================================
-PROBLEM: Find the Most Frequent Element in an Array
+PROBLEM: Find the Most Frequent Element in an Array?
 ===============================================================================
 
 PROBLEM STATEMENT:
