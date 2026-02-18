@@ -1,36 +1,39 @@
-// - Problem: Find the most frequent element in an array?
+// - Problem:  Sort Array by Parity (Even First)
 
-const arr = [4, 4, 5, 6, 5, 4, 6, 6, 6]
+const arr = [5, 7, 2, 8, 11, 20]
 
-const findMostFrequentElement = (arr) => {
+const sortArrayByParity = (arr) => {
 
    if (!Array.isArray(arr) || arr.length === 0) return []
 
-   // Step 1: Count frequencies
-   let frequencyObj = {}
+   let evens = []
+   let odds = []
 
    for (let item of arr) {
-      if (frequencyObj[item]) {
-         frequencyObj[item] = frequencyObj[item] + 1
+      if (item % 2 === 0) {
+         evens.push(item)
       } else {
-         frequencyObj[item] = 1
+         odds.push(item)
       }
    }
 
-   // Step 2: Find max frequency
-   let maxElement = null
-   let maxCount = 0
+   const sorted = [...evens, ...odds]
 
-   for (let key in frequencyObj) {
-      if (frequencyObj[key] > maxCount) {
-         maxCount = frequencyObj[key]
-         maxElement = key
-      }
-   }
-
-   return Number(maxElement)
+   return sorted
 }
 
-const output = findMostFrequentElement(arr)
+const output = sortArrayByParity(arr)
 console.log(output)
 
+const sortArrayByParity2 = (arr) => {
+
+   if (!Array.isArray(arr) || arr.length === 0) return []
+
+   const evens = arr.filter(item => item % 2 === 0)
+   const odds = arr.filter(item => item % 2 !== 0)
+
+   return [...evens, ...odds]
+}
+
+const result = sortArrayByParity2(arr)
+console.log(result)
