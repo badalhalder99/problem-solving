@@ -1,19 +1,19 @@
-// - Problem: Move all zeros to the end of the array?
+// - Problem: Find the most frequent element in an array?
 
-const arr = [4, 0, 5, 0, 0, 3]
+const arr = [4, 4, 5, 6, 5, 4, 6, 6, 6]
 
-const movedZeroEnd = (arr) => {
+const findMostFrequentElement = (arr) => {
 
    if (!Array.isArray(arr) || arr.length === 0) return []
 
-   let nonZero = []
-   let zero = []
+   let element
+   let count = 0
 
    for (let item of arr) {
-      if (item !== 0) {
-         nonZero.push(item)
+      if (arr.includes(item)) {
+         count ++
       } else {
-         zero.push(item)
+         
       }
    }
 
@@ -22,6 +22,6 @@ const movedZeroEnd = (arr) => {
    return movedAllZeroToEnd
 }
 
-const output = movedZeroEnd(arr)
+const output = findMostFrequentElement(arr)
 console.log(output)
 
