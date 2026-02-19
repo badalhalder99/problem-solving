@@ -1,39 +1,21 @@
-// - Problem:  Sort Array by Parity (Even First)
+// - Problem:  Insert an element at a specific index?
 
-const arr = [5, 7, 2, 8, 11, 20]
+const arr = [10, 20, 40, 50]
 
-const sortArrayByParity = (arr) => {
+const insertElementAtSpecificIndex = (arr, insertedElement, indexNumber) => {
 
    if (!Array.isArray(arr) || arr.length === 0) return []
+   if (!indexNumber || typeof indexNumber !== 'number') return []
 
-   let evens = []
-   let odds = []
 
-   for (let item of arr) {
-      if (item % 2 === 0) {
-         evens.push(item)
-      } else {
-         odds.push(item)
-      }
-   }
+   const beforeIndex = arr.slice(0, indexNumber)
+   const afterIndex = arr.slice(indexNumber)
 
-   const sorted = [...evens, ...odds]
+   const newArr = [...beforeIndex, insertedElement , ...afterIndex]
 
-   return sorted
+   return newArr
 }
 
-const output = sortArrayByParity(arr)
+const output = insertElementAtSpecificIndex(arr, 30, 2)
 console.log(output)
 
-const sortArrayByParity2 = (arr) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return []
-
-   const evens = arr.filter(item => item % 2 === 0)
-   const odds = arr.filter(item => item % 2 !== 0)
-
-   return [...evens, ...odds]
-}
-
-const result = sortArrayByParity2(arr)
-console.log(result)
