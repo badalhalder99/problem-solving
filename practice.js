@@ -1,64 +1,32 @@
-// - Problem:  Remove element at specific index?
+// function getIntersection(arr1, arr2) {
+//   return arr1.filter(item => arr2.includes(item));
+// }
 
-const arr = [10, 20, 30, 40, 50]
+// // Example
+// const a = [1, 2, 3, 4];
+// const b = [3, 4, 5, 6];
 
-const removeElementAtSpecificIndex = (arr, indexNumber) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (!indexNumber || typeof indexNumber !== 'number') return []
-
-
-   const beforeIndex = arr.slice(0, indexNumber)
-   const afterIndex = arr.slice(indexNumber + 1)
-
-   const newArr = [...beforeIndex , ...afterIndex]
-
-   return newArr
-}
-
-const output = removeElementAtSpecificIndex(arr, 2)
-console.log(output)
-
-// - Problem:  Remove element at specific index?
-
-const arr2 = [10, 20, 30, 40, 50]
-
-const removeElementAtSpecificIndex2 = (arr, indexNumber) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (!indexNumber || typeof indexNumber !== 'number') return []
+// console.log(getIntersection(a, b));
+// // Output: [3, 4]
 
 
-   const beforeIndex = arr.slice(0, indexNumber)
-   const afterIndex = arr.slice(indexNumber + 1)
+const arr1 = [1, 2, 3, 4];
+const arr2 = [3, 4, 5, 6];
 
-   const newArr = arr.filter( (item, index) => index !== indexNumber)
 
-   return newArr
-}
 
-const output2 = removeElementAtSpecificIndex2(arr2, 2)
-console.log(output2)
 
-// - Problem:  Remove element at specific index?
+/*
+===============================================================================
+EXAMPLE
+===============================================================================
+*/
 
-const arr3 = [10, 20, 30, 40, 50]
+const a = [1, 2, 2, 3, 4];
+const b = [2, 3, 5];
 
-const removeElementAtSpecificIndex3 = (arr, indexNumber) => {
+console.log(getIntersection(a, b));
 
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (!indexNumber || typeof indexNumber !== 'number') return []
 
-   let newArr = []
 
-   for (let item of arr) {
-      if (arr.indexOf(item) !== indexNumber) {
-         newArr.push(item)
-      }
-   }
 
-   return newArr
-}
-
-const output3 = removeElementAtSpecificIndex3(arr3, 2)
-console.log(output3)
