@@ -1,31 +1,25 @@
-// function getIntersection(arr1, arr2) {
-//   return arr1.filter(item => arr2.includes(item));
-// }
+// - Problem: Find Union of Two Arrays?
 
-// // Example
-// const a = [1, 2, 3, 4];
-// const b = [3, 4, 5, 6];
-
-// console.log(getIntersection(a, b));
-// // Output: [3, 4]
+const arr1 = [1, 2, 3, 4]
+const arr2 = [3, 4, 5, 6]
 
 
-const arr1 = [1, 2, 3, 4];
-const arr2 = [3, 4, 5, 6];
+function getUnion(arr1, arr2) {
 
+   if (!Array.isArray(arr1) || arr1.length === 0) return []
+   if (!Array.isArray(arr2) || arr2.length === 0) return []
 
+   const combined = [...arr1, ...arr2]
 
+   const set = new Set(combined)
 
-/*
-===============================================================================
-EXAMPLE
-===============================================================================
-*/
+   const unique = [...set]
 
-const a = [1, 2, 2, 3, 4];
-const b = [2, 3, 5];
+   return unique
+}
 
-console.log(getIntersection(a, b));
+console.log(getUnion(arr1, arr2));
+
 
 
 
