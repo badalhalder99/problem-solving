@@ -1,21 +1,22 @@
+// - 🧠 PROBLEM EXPLANATION: Find a pair of numbers that sum to target?
+const arr = [35, 21, 56, 29, 14]
 
-const arr = [1, 2, 3, 4, 5]
+const findPair = (arr, target) => {
 
-const shuffleArry = (arr) => {
+   if (!Array.isArray(arr) || arr.length < 2) return []
+   if (!target || typeof target !== 'number') return null
 
-   if (!Array.isArray(arr) || arr.length === 0) return []
+   for (let i = 0; i < arr.length; i++) {
 
-   const result = [...arr]
+      for (let j = i + 1; j < arr.length; j++) {
 
-   for (let i = result.length - 1; i > 0; i--) {
-
-      let randomIndex = Math.floor(Math.random() * (i + 1));
-
-      [result[i], result[randomIndex]] = [result[randomIndex], result[i]]
+         if (arr[i] + arr[j] === target) {
+            return [arr[i], arr[j]]
+         }
+      }
    }
 
-   return result
 }
 
-const output = shuffleArry(arr)
+const output = findPair(arr, 35)
 console.log(output)
