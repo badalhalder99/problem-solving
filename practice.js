@@ -1,26 +1,21 @@
-// - Problem: Find Union of Two Arrays?
 
-const arr1 = [1, 2, 3, 4]
-const arr2 = [3, 4, 5, 6]
+const arr = [1, 2, 3, 4, 5]
 
+const shuffleArry = (arr) => {
 
-function getUnion(arr1, arr2) {
+   if (!Array.isArray(arr) || arr.length === 0) return []
 
-   if (!Array.isArray(arr1) || arr1.length === 0) return []
-   if (!Array.isArray(arr2) || arr2.length === 0) return []
+   const result = [...arr]
 
-   const combined = [...arr1, ...arr2]
+   for (let i = result.length - 1; i > 0; i--) {
 
-   const set = new Set(combined)
+      let randomIndex = Math.floor(Math.random() * (i + 1));
 
-   const unique = [...set]
+      [result[i], result[randomIndex]] = [result[randomIndex], result[i]]
+   }
 
-   return unique
+   return result
 }
 
-console.log(getUnion(arr1, arr2));
-
-
-
-
-
+const output = shuffleArry(arr)
+console.log(output)

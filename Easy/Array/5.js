@@ -41,14 +41,16 @@ CORNER CASES
 ════════════════════════════════════════════════════════════================================================
 */
 
+const arr1 = [1, 2, 3, 4, 5, 6];
 
-function reverseArrayInPlace(arr) {
+const reverseArrayInPlace = (arr) => {
+
    let left = 0;
    let right = arr.length - 1;
 
    while (left < right) {
       // Swap elements
-      [arr[left], arr[right]] = [arr[right], arr[left]];
+      [arr[left], arr[right]] = [arr[right], arr[left]]; // semicolon keep must here;
 
       left++;
       right--;
@@ -57,10 +59,6 @@ function reverseArrayInPlace(arr) {
    return arr;
 }
 
-/*
-FUNCTION CALLS (TEST CASES)
-*/
-const arr1 = [1, 2, 3, 4, 5];
 console.log(reverseArrayInPlace(arr1)); // [5, 4, 3, 2, 1]
 
 const arr2 = [10];
@@ -190,19 +188,19 @@ RETURN arr
 CODE
 */
 function reverseArraySimple(arr) {
-  let start = 0;
-  let end = arr.length - 1;
+   let start = 0;
+   let end = arr.length - 1;
 
-  while (start < end) {
-    let temp = arr[start];
-    arr[start] = arr[end];
-    arr[end] = temp;
+   while (start < end) {
+      let temp = arr[start];
+      arr[start] = arr[end];
+      arr[end] = temp;
 
-    start++;
-    end--;
-  }
+      start++;
+      end--;
+   }
 
-  return arr;
+   return arr;
 }
 
 /*
