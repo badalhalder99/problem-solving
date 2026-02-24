@@ -1,9 +1,9 @@
 
-//- Problem: Convert array to object with index as key??
+//- Problem: Find the top k largest elements?
 
 const arr = ["a", "b", "c", "d", "e"]
 
-const convertArrayToObject = (arr, target) => {
+const convertArrayToObject = (arr, k) => {
    if (!Array.isArray(arr) || arr.length === 0) return {}
 
    let newObj = {}
