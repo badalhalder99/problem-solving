@@ -1,22 +1,30 @@
-// - 🧠 PROBLEM EXPLANATION: Find a pair of numbers that sum to target?
-const arr = [35, 21, 56, 29, 14]
 
-const findPair = (arr, target) => {
+//- Problem: Return array without null/undefined?
 
-   if (!Array.isArray(arr) || arr.length < 2) return []
-   if (!target || typeof target !== 'number') return null
+const arr = [10, 20, 30, undefined, null, 12, 0, false, "", "hello"];
 
-   for (let i = 0; i < arr.length; i++) {
+const removeNullUndefined = (arr) => {
+   if (!Array.isArray(arr) || arr.length === 0) return [];
 
-      for (let j = i + 1; j < arr.length; j++) {
+   let result = []
 
-         if (arr[i] + arr[j] === target) {
-            return [arr[i], arr[j]]
-         }
+   for (let item of arr) {
+      if (item !== null && item !== undefined) {
+         result.push(item)
       }
    }
 
-}
+   return result
+};
 
-const output = findPair(arr, 35)
-console.log(output)
+console.log(removeNullUndefined(arr)); // [10, 20, 30, 12, 0, false, "", "hello"]
+
+
+// // ✅ Method 2: filter() with explicit check
+// const result = arr.filter(item => item !== null && item !== undefined);
+// console.log(result); // [10, 20, 30, 12, 0, false, "", "hello"]
+
+
+// // ✅ Method 3: filter() using nullish check
+// const result2 = arr.filter(item => item != null); // != catches both null & undefined
+// console.log(result2); // [10, 20, 30, 12, 0, false, "", "hello"]
