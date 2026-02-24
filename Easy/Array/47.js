@@ -139,7 +139,6 @@ const convertArrayToObject = (arr, target) => {
 
    /*
    - Classic for loop (still very common)
-
       for (let i = 0; i < arr.length; i++) {
          console.log(`Index ${i}: ${arr[i]}`);
       }
@@ -151,6 +150,7 @@ const convertArrayToObject = (arr, target) => {
 
 const output = convertArrayToObject(arr)
 console.log(output);
+
 //-------------------------------------------------------------------------------------------------------------------------//
 // - Solution -02:
 const arr2 = ["a", "b", "c", "d", "e"];
@@ -169,6 +169,7 @@ const convertArrayToObject2 = (arr) => {
 
 const output2 = convertArrayToObject2(arr2);
 console.log(output2);
+
 //-------------------------------------------------------------------------------------------------------------------------//
 // - Solution - Unique:
 const colors = ["red", "green", "blue", "yellow", "purple"];
