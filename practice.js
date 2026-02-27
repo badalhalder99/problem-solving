@@ -1,22 +1,23 @@
 
-//- Problem:  “Create a Range Array from Start to End”
 
+const condition = (n) => {
+   return n % 2 === 0
+}
 
-const rangeArray = (start, end) => {
-   if (typeof start !== "number") return []
-   if (typeof end !== "number") return []
-   if (start > end) return []
+const splitArray = (arr, condition) => {
+   if (!Array.isArray(arr) || typeof condition !== "function") return [[], []];
 
-   let result = []
+   const pass = [];
+   const fail = [];
 
-   for (let i = start; i <= end; i++) {
-      result.push(i)
+   for (const item of arr) {
+      condition(item) ? pass.push(item) : fail.push(item);
+      console.log(condition(item))
    }
 
-   return result
-};
+   return [pass, fail];
+}
 
-const output = rangeArray(2, 7)
-console.log(output);
-
+const output = splitArray([1, 2, 3, 4, 5, 6], condition)
+console.log(output)
 
