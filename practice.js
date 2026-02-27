@@ -1,41 +1,22 @@
 
-//- Problem: Find the top k largest elements?
+//- Problem:  “Create a Range Array from Start to End”
 
-const arr = ["a", "b", "c", "d", "e"]
 
-const convertArrayToObject = (arr, k) => {
-   if (!Array.isArray(arr) || arr.length === 0) return {}
+const rangeArray = (start, end) => {
+   if (typeof start !== "number") return []
+   if (typeof end !== "number") return []
+   if (start > end) return []
 
-   let newObj = {}
+   let result = []
 
-   for (let i = 0; i < arr.length; i++) {
-      newObj[i] = arr[i]
+   for (let i = start; i <= end; i++) {
+      result.push(i)
    }
 
-   return newObj
-
+   return result
 };
 
-const output = convertArrayToObject(arr)
+const output = rangeArray(2, 7)
 console.log(output);
 
-// const arr = ["a", "b", "c", "d", "e"]
 
-// const convertArrayToObject = (arr, target) => {
-//    if (!Array.isArray(arr) || arr.length === 0) return {}
-
-
-//    // for (let i = 0; i < arr.length; i++) {
-//    //    i = newObj[i]
-//    // }
-
-//    return arr.forEach((item, index) => {
-//        return {
-//          newObj[index] : newObj[item]
-//       }
-//    });
-
-// };
-
-// const output = convertArrayToObject(arr)
-// console.log(output);
