@@ -209,7 +209,7 @@ const createRange = (start, end) => {
    if (typeof start !== "number" || typeof end !== "number") return [];
 
    const result = [];
-   const step = start <= end ? 1 : -1;
+   const step = start <= end ? 1 : -1; // Handles forward + backward
 
    for (let i = start; step > 0 ? i <= end : i >= end; i += step) {
       result.push(i);
