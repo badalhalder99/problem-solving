@@ -203,6 +203,7 @@ You need to list all floors you pass:
 🏢 [3, 4, 5, 6, 7]
 ===============================================================================
 */
+// - This is the best solution.So must follow this instead of other solution:
 
 const createRange = (start, end) => {
    if (typeof start !== "number" || typeof end !== "number") return [];
@@ -216,6 +217,9 @@ const createRange = (start, end) => {
 
    return result;
 };
+
+const showResult = createRange(5, 1);
+console.log(showResult);
 
 /*
 🧠 FUNCTION NAME: createRange
