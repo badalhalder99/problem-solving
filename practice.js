@@ -1,23 +1,26 @@
+// -  Find longest consecutive sequence (basic)?
 
+const arr = [10, 5, 12, 3, 55, 4, 11]
 
-const condition = (n) => {
-   return n % 2 === 0
-}
+const consecutiveSequence = (arr) => {
+   if (!Array.isArray(arr) || arr.length === 0) return [];
 
-const splitArray = (arr, condition) => {
-   if (!Array.isArray(arr) || typeof condition !== "function") return [[], []];
+   const sorted = arr.sort((a, b) => a - b)
 
-   const pass = [];
-   const fail = [];
+   let result = []
 
-   for (const item of arr) {
-      condition(item) ? pass.push(item) : fail.push(item);
-      console.log(condition(item))
+   let prev = sorted[0]
+   let next = sorted[1]
+
+   for (const item of sorted) {
+      if (prev += 1 === next) {
+         result.push(item)
+      }
    }
-
-   return [pass, fail];
+    console.log(result)
+   return result.length;
 }
 
-const output = splitArray([1, 2, 3, 4, 5, 6], condition)
+const output = consecutiveSequence(arr)
 console.log(output)
 
