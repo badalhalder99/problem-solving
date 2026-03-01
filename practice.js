@@ -1,41 +1,29 @@
-// -  Check if an object is empty?
+const shallowCopyWithForIn = (obj) => {
 
-const checkEmptyObject = (obj) => {
-   if (obj === null || typeof obj !== "object" || Array.isArray(obj)) {
-      return false;
+   if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
+      return null
    }
+
+   let shallowCopy = {}
 
    for (let key in obj) {
       if (Object.hasOwn(obj, key)) {
-      return false; // found a key → NOT empty
+         shallowCopy[key] = obj[key]
       }
    }
 
-   return true; // no keys found → empty
+   return shallowCopy
 };
 
-console.log(checkEmptyObject({})) // true
-console.log(checkEmptyObject({ a: 1 }) ) // false
-console.log(checkEmptyObject(Object.create({a:1}))) // true (no own keys)
-console.log(checkEmptyObject([])) // false
-console.log(checkEmptyObject(null)) // false
-
-console.log("Solution two is bottom")
-
-// - Solution -02:
-
-const checkEmptyObjects = (obj) => {
-   if (obj === null || typeof obj !== "object" || Array.isArray(obj)) {
-      return false;
-   }
-
-   const arr = Object.keys(obj)
-
-   return arr.length === 0
-};
-
-console.log(checkEmptyObjects({})) // true
-console.log(checkEmptyObjects({ a: 1 }) ) // false
-console.log(checkEmptyObjects(Object.create({a:1}))) // true (no own keys)
-console.log(checkEmptyObjects([])) // false
-console.log(checkEmptyObjects(null)) // false
+console.log(shallowCopyWithForIn({ a: 1, b: 2 }))            // { a: 1, b: 2 }
+console.log(shallowCopyWithForIn({}))                        // {}
+console.log(shallowCopyWithForIn({ name: "Badal" }))         // { name: "Badal" }
+console.log(shallowCopyWithForIn({ user: { id: 1 } }))       // { user: { id: 1 } }
+console.log(shallowCopyWithForIn(null))                      // null
+console.log(shallowCopyWithForIn(undefined))                 // null
+console.log(shallowCopyWithForIn(123))                       // null
+console.log(shallowCopyWithForIn("hello"))                   // null
+console.log(shallowCopyWithForIn(true))                      // null
+console.log(shallowCopyWithForIn([1, 2, 3]))                 // null
+console.log(shallowCopyWithForIn(Object.create({ a: 1 })))   // {}
+console.log(shallowCopyWithForIn({ [Symbol("id")]: 100 }))   // { [Symbol(id)]: 100 }
