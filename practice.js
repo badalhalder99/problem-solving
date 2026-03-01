@@ -1,26 +1,31 @@
-// -  Find longest consecutive sequence (basic)?
+// -  Count the number of keys in an object.?
 
-const arr = [10, 5, 12, 3, 55, 4, 11]
-
-const consecutiveSequence = (arr) => {
-   if (!Array.isArray(arr) || arr.length === 0) return [];
-
-   const sorted = arr.sort((a, b) => a - b)
-
-   let result = []
-
-   let prev = sorted[0]
-   let next = sorted[1]
-
-   for (const item of sorted) {
-      if (prev += 1 === next) {
-         result.push(item)
-      }
-   }
-    console.log(result)
-   return result.length;
+const obj = {
+   name: 'Badal',
+   age: 30,
+   job: "Software Engineer(Frontend)",
+   education: 'MBA',
+   salary: 30000,
+   siblings: 4
 }
 
-const output = consecutiveSequence(arr)
-console.log(output)
+const countKeyOfObject = (obj) => {
+
+   if (obj === null || typeof obj !== "object" || Array.isArray(obj)) {
+      return 0
+   }
+
+   let count = 0
+
+   for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+         count++
+      }
+   }
+
+   return count
+}
+
+const output = countKeyOfObject(obj)
+console.log(`The object length is ${output}`)
 
