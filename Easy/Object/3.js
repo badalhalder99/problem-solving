@@ -1,4 +1,4 @@
-// - shallowCopy an object (shallow copy)?
+
 /*
 ===============================================================================
 *Problem: Do you able to clone an object (shallow copy)?
