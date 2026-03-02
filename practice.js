@@ -1,9 +1,3 @@
-/*
-=============================================================================================================================
-*Problem: How to get all keys of an object.
-=============================================================================================================================
-*/
-
 const person = {
    name: 'Asim Howlader',
    age: 30,
@@ -14,23 +8,14 @@ const person = {
    education: 'MBA'
 }
 
-// Using Object.keys()
-// Object.keys(person).forEach(key => {
-//   console.log(`${key}: ${person[key]}`);
-// });
-
-// // Using Object.entries()
-// Object.entries(person).forEach(([key, value]) => {
-//   console.log(`${key}: ${value}`);
-// });
-
-// Using Object.keys()
+// Using Object.keys():
 Object.keys(person).forEach(key => {
-   console.log(`${key}: ${person[key]}`)
-})
+  console.log(`${person[key]}`);
+});
 
-console.log("New approach is given below:::::::::::::::::::::::::::::::::::::::::::::::::::::")
+console.log('.............................................................')
 
+// Using Object.entries():
 Object.entries(person).forEach(([key, value]) => {
-   console.log(`${key}: ${value}`)
-})
+  console.log(`${value}`);
+});
