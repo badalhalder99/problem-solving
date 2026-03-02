@@ -14,18 +14,24 @@ const person = {
    education: 'MBA'
 }
 
-const checkObjectKey = (obj) => {
+const checkObjectKey = (obj, searchKey) => {
 
    if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
       return null
    }
 
-   const values = Object.values(obj)
-
-   return values
+   for (let key in obj) {
+      if (Object.hasOwn(obj, key) && key === searchKey) {
+         return true
+      } else {
+         return false
+      }
+   }
 };
 
-const output = checkObjectKey(person)
-console.log(output) 
+const output = checkObjectKey(person, "age")
+console.log(output)
+
+
 
 
