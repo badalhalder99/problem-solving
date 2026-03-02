@@ -1,3 +1,9 @@
+/*
+=============================================================================================================================
+*Problem: Check if an object has a specific key?
+=============================================================================================================================
+*/
+
 const person = {
    name: 'Asim Howlader',
    age: 30,
@@ -8,14 +14,18 @@ const person = {
    education: 'MBA'
 }
 
-// Using Object.keys():
-Object.keys(person).forEach(key => {
-  console.log(`${person[key]}`);
-});
+const checkObjectKey = (obj) => {
 
-console.log('.............................................................')
+   if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
+      return null
+   }
 
-// Using Object.entries():
-Object.entries(person).forEach(([key, value]) => {
-  console.log(`${value}`);
-});
+   const values = Object.values(obj)
+
+   return values
+};
+
+const output = checkObjectKey(person)
+console.log(output) 
+
+
