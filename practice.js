@@ -1,37 +1,38 @@
-// const shallowCopyWithForIn = (obj) => {
+/*
+=============================================================================================================================
+*Problem: How to merge two objects?
+=============================================================================================================================
+*/
 
-//    if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
-//       return null
-//    }
+const obj1 = { name: "Alice", age: 25 };
+const obj2 = { city: "Dhaka", age: 30 };
 
-//    let shallowCopy = {}
+const mergeWithForIn = (a, b) => {
+   if (a === null || typeof a !== 'object' || Array.isArray(a)) {
+      return null
+   }
 
-//    for (let key in obj) {
-//       if (Object.hasOwn(obj, key)) {
-//          shallowCopy[key] = obj[key]
-//       }
-//    }
+   if (b === null || typeof b !== 'object' || Array.isArray(b)) {
+      return null
+   }
 
-//    return shallowCopy
-// };
+   let result = {};
 
-// console.log(shallowCopyWithForIn({ a: 1, b: 2 }))            // { a: 1, b: 2 }
-// console.log(shallowCopyWithForIn({}))                        // {}
-// console.log(shallowCopyWithForIn({ name: "Badal" }))         // { name: "Badal" }
-// console.log(shallowCopyWithForIn({ user: { id: 1 } }))       // { user: { id: 1 } }
-// console.log(shallowCopyWithForIn(null))                      // null
-// console.log(shallowCopyWithForIn(undefined))                 // null
-// console.log(shallowCopyWithForIn(123))                       // null
-// console.log(shallowCopyWithForIn("hello"))                   // null
-// console.log(shallowCopyWithForIn(true))                      // null
-// console.log(shallowCopyWithForIn([1, 2, 3]))                 // null
-// console.log(shallowCopyWithForIn(Object.create({ a: 1 })))   // {}
-// console.log(shallowCopyWithForIn({ [Symbol("id")]: 100 }))   // { [Symbol(id)]: 100 }
+   for (const key in a) {
+      if (Object.hasOwn(a, key)) {
+         result[key] = a[key];
+      }
+   }
 
-const person = {
-   name: 'asim',
-   age: 30
+   for (const key in b) {
+      if (Object.hasOwn(b, key)) {
+         result[key] = b[key];
+      }
+   }
+
+   return result;
 };
 
-const result = person["name"]
-console.log(result);
+console.log(mergeWithForIn(obj1, obj2));
+// { name: "Alice", age: 30, city: "Dhaka" }
+
