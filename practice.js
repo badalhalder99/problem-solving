@@ -1,6 +1,6 @@
 /*
 =============================================================================================================================
-*Problem: Check if an object has a specific key?
+*Problem: Delete a property from an object?
 =============================================================================================================================
 */
 
@@ -14,22 +14,24 @@ const person = {
    education: 'MBA'
 }
 
-const checkObjectKey = (obj, searchKey) => {
+const removeProperty = (obj, wantToRemoveKey) => {
 
    if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
       return null
    }
 
+   let newObj = {}
+
    for (let key in obj) {
-      if (Object.hasOwn(obj, key) && key === searchKey) {
-         return true
-      } else {
-         return false
+      if (key !== wantToRemoveKey) {
+         newObj[key] = obj[key]
       }
    }
+
+   return newObj
 };
 
-const output = checkObjectKey(person, "age")
+const output = removeProperty(person, "age");
 console.log(output)
 
 
