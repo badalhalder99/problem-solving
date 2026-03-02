@@ -1,38 +1,36 @@
 /*
 =============================================================================================================================
-*Problem: How to merge two objects?
+*Problem: How to get all keys of an object.
 =============================================================================================================================
 */
 
-const obj1 = { name: "Alice", age: 25 };
-const obj2 = { city: "Dhaka", age: 30 };
+const person = {
+   name: 'Asim Howlader',
+   age: 30,
+   salary: 30000,
+   gender: "male",
+   country: "Bangladesh",
+   district: "Barishal",
+   education: 'MBA'
+}
 
-const mergeWithForIn = (a, b) => {
-   if (a === null || typeof a !== 'object' || Array.isArray(a)) {
-      return null
-   }
+// Using Object.keys()
+// Object.keys(person).forEach(key => {
+//   console.log(`${key}: ${person[key]}`);
+// });
 
-   if (b === null || typeof b !== 'object' || Array.isArray(b)) {
-      return null
-   }
+// // Using Object.entries()
+// Object.entries(person).forEach(([key, value]) => {
+//   console.log(`${key}: ${value}`);
+// });
 
-   let result = {};
+// Using Object.keys()
+Object.keys(person).forEach(key => {
+   console.log(`${key}: ${person[key]}`)
+})
 
-   for (const key in a) {
-      if (Object.hasOwn(a, key)) {
-         result[key] = a[key];
-      }
-   }
+console.log("New approach is given below:::::::::::::::::::::::::::::::::::::::::::::::::::::")
 
-   for (const key in b) {
-      if (Object.hasOwn(b, key)) {
-         result[key] = b[key];
-      }
-   }
-
-   return result;
-};
-
-console.log(mergeWithForIn(obj1, obj2));
-// { name: "Alice", age: 30, city: "Dhaka" }
-
+Object.entries(person).forEach(([key, value]) => {
+   console.log(`${key}: ${value}`)
+})
