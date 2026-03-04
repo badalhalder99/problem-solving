@@ -1,40 +1,32 @@
 /*
 =============================================================================================================================
-*Problem: Convert object to array of key - value pairs?
+*Problem: Convert array of key-value pairs to object?
 =============================================================================================================================
 */
 
 
-const person = {
-   name: 'Asim Howlader',
-   age: 30,
-   salary: 30000,
-   gender: "male",
-   country: "Bangladesh",
-   district: "Barishal",
-   education: 'MBA'
-}
+const arr = [
+  [ 'name', 'Asim Howlader' ],
+  [ 'age', 30 ],
+  [ 'salary', 30000 ],
+  [ 'gender', 'male' ],
+  [ 'country', 'Bangladesh' ],
+  [ 'district', 'Barishal' ],
+  [ 'education', 'MBA' ]
+]
 
-const convertObjToArr = (obj) => {
+const convertArrToObject = (arr) => {
 
-   if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
-      return []
-   }
+     if (!Array.isArray(arr) || arr.length === 0) return {};
 
-   let arr = []
+   let obj = {}
 
-   for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
-         arr.push([key, obj[key]])
-      }
-   }
+   arr.forEach(([key, value]) => obj[key] = value)
 
-   return arr
+   return obj
 };
 
-const output = convertObjToArr(person);
+const output = convertArrToObject(arr);
 console.log(output)
-
-
 
 
