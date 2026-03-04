@@ -1,56 +1,42 @@
 /*
 =============================================================================================================================
-*Problem: How to invert object keys and values?
+*Problem: How to check if two objects are equal (shallow).?
 =============================================================================================================================
 */
 
-const person = {
-   name: 'Asim Howlader',
-   age: 30,
-   salary: 30000,
-   gender: "male",
-   country: "Bangladesh",
-   district: "Barishal",
-   education: 'MBA'
-}
+// const person = {
+//    name: 'Asim Howlader',
+//    age: 30,
+//    salary: 30000,
+//    gender: "male",
+//    country: "Bangladesh",
+//    district: "Barishal",
+//    education: 'MBA'
+// }
 
-// const invertObj = (obj) => {
+/*
+=============================================================================================================================
+*Solution - 02: Approach 2: JSON.stringify() (simple but limited)
+=============================================================================================================================
+*/
 
-//    if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
-//       return {}
-//    }
-
-//    let newObj = {}
-
-//    for (let key in obj) {
-//       newObj[obj[key]] = key
-//    }
-
-//    return newObj
-// };
-
-// const output = invertObj(person);
-// console.log(output)
-
-// - Object.fromEntries() + map() — most concise:
-const invertObject = (obj) => {
-
-   if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) return {}
-
-   const arr = Object.entries(obj)
-
-   let newArr = []
-
-   for (let [key, value] of arr) {
-      newArr.push([value, key])
+const shallowEqual = (obj1, obj2) => {
+   if (obj1 === null || typeof obj1 !== 'object' || Array.isArray(obj1)) {
+      return false;
    }
 
-   // const result = arr.map(([key, value]) => [value, key]) // this line is alternative of line 42 to 46
+   if (obj2 === null || typeof obj2 !== 'object' || Array.isArray(obj2)) {
+      return false;
+   }
 
-   const invertedObj = Object.fromEntries(newArr)
-
-   return invertedObj
+   return JSON.stringify(obj1) === JSON.stringify(obj2)
 };
 
-const show = invertObject(person)
-console.log(show)
+console.log("Equal objects:", shallowEqual({ name: 'Asim', age: 30 }, { name: 'Asim', age: 30 })); // - true
+console.log("Different order:", shallowEqual({ a: 1, b: 2 }, { b: 2, a: 1 }));                     // - false ⚠️
+console.log("Different values:", shallowEqual({ name: 'Asim' }, { name: 'Nabil' }));               // - false
+console.log("Different key count:", shallowEqual({ a: 1 }, { a: 1, b: 2 }));                       // - false
+console.log("Nested objects:", shallowEqual({ a: { x: 1 } }, { a: { x: 1 } }));                    // - true  ⚠️
+console.log("null vs object:", shallowEqual(null, { a: 1 }));                                      // - false
+console.log("Arrays:", shallowEqual([1, 2], [1, 2]));                                              // - false
+
