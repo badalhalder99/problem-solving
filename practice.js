@@ -1,8 +1,9 @@
 /*
 =============================================================================================================================
-*Problem: Delete a property from an object?
+*Problem: Convert object to array of key - value pairs?
 =============================================================================================================================
 */
+
 
 const person = {
    name: 'Asim Howlader',
@@ -14,24 +15,18 @@ const person = {
    education: 'MBA'
 }
 
-const removeProperty = (obj, wantToRemoveKey) => {
+const convertObjToArr = (obj) => {
 
    if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
-      return null
+      return []
    }
 
-   let newObj = {}
+   const arr = Object.entries(obj)
 
-   for (let key in obj) {
-      if (key !== wantToRemoveKey) {
-         newObj[key] = obj[key]
-      }
-   }
-
-   return newObj
+   return arr
 };
 
-const output = removeProperty(person, "age");
+const output = convertObjToArr(person);
 console.log(output)
 
 
