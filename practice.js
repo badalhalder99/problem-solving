@@ -1,32 +1,56 @@
 /*
 =============================================================================================================================
-*Problem: Convert array of key-value pairs to object?
+*Problem: How to invert object keys and values?
 =============================================================================================================================
 */
 
+const person = {
+   name: 'Asim Howlader',
+   age: 30,
+   salary: 30000,
+   gender: "male",
+   country: "Bangladesh",
+   district: "Barishal",
+   education: 'MBA'
+}
 
-const arr = [
-  [ 'name', 'Asim Howlader' ],
-  [ 'age', 30 ],
-  [ 'salary', 30000 ],
-  [ 'gender', 'male' ],
-  [ 'country', 'Bangladesh' ],
-  [ 'district', 'Barishal' ],
-  [ 'education', 'MBA' ]
-]
+// const invertObj = (obj) => {
 
-const convertArrToObject = (arr) => {
+//    if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
+//       return {}
+//    }
 
-     if (!Array.isArray(arr) || arr.length === 0) return {};
+//    let newObj = {}
 
-   let obj = {}
+//    for (let key in obj) {
+//       newObj[obj[key]] = key
+//    }
 
-   arr.forEach(([key, value]) => obj[key] = value)
+//    return newObj
+// };
 
-   return obj
+// const output = invertObj(person);
+// console.log(output)
+
+// - Object.fromEntries() + map() — most concise:
+const invertObject = (obj) => {
+
+   if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) return {}
+
+   const arr = Object.entries(obj)
+
+   let newArr = []
+
+   for (let [key, value] of arr) {
+      newArr.push([value, key])
+   }
+
+   // const result = arr.map(([key, value]) => [value, key]) // this line is alternative of line 42 to 46
+
+   const invertedObj = Object.fromEntries(newArr)
+
+   return invertedObj
 };
 
-const output = convertArrToObject(arr);
-console.log(output)
-
-
+const show = invertObject(person)
+console.log(show)
