@@ -1,42 +1,48 @@
 /*
 =============================================================================================================================
-*Problem: How to check if two objects are equal (shallow).?
+*Problem: Get value by dot notation string ("user.name")?
 =============================================================================================================================
 */
 
-// const person = {
-//    name: 'Asim Howlader',
-//    age: 30,
-//    salary: 30000,
-//    gender: "male",
-//    country: "Bangladesh",
-//    district: "Barishal",
-//    education: 'MBA'
-// }
-
-/*
-=============================================================================================================================
-*Solution - 02: Approach 2: JSON.stringify() (simple but limited)
-=============================================================================================================================
-*/
-
-const shallowEqual = (obj1, obj2) => {
-   if (obj1 === null || typeof obj1 !== 'object' || Array.isArray(obj1)) {
-      return false;
+const obj = {
+   user: {
+      name: 'Asim Howlader',
+      age: 30,
+      address: {
+         city: 'Barishal',
+         country: 'Bangladesh'
+      }
    }
-
-   if (obj2 === null || typeof obj2 !== 'object' || Array.isArray(obj2)) {
-      return false;
-   }
-
-   return JSON.stringify(obj1) === JSON.stringify(obj2)
 };
 
-console.log("Equal objects:", shallowEqual({ name: 'Asim', age: 30 }, { name: 'Asim', age: 30 })); // - true
-console.log("Different order:", shallowEqual({ a: 1, b: 2 }, { b: 2, a: 1 }));                     // - false ⚠️
-console.log("Different values:", shallowEqual({ name: 'Asim' }, { name: 'Nabil' }));               // - false
-console.log("Different key count:", shallowEqual({ a: 1 }, { a: 1, b: 2 }));                       // - false
-console.log("Nested objects:", shallowEqual({ a: { x: 1 } }, { a: { x: 1 } }));                    // - true  ⚠️
-console.log("null vs object:", shallowEqual(null, { a: 1 }));                                      // - false
-console.log("Arrays:", shallowEqual([1, 2], [1, 2]));                                              // - false
+const getValueByDotNotation = (obj, path) => {
+
+   if (obj === null || typeof obj !== 'object' || typeof path !== 'string' || path.trim() === '') {
+      return undefined;
+   }
+
+   // Step 2: Split path into keys
+   const keys = path.split('.');
+
+   // Step 3: Walk down the object
+   let current = obj;
+
+   for (let key of keys) {
+      if (current === null || typeof current !== 'object' || !current.hasOwnProperty(key)) {
+         return undefined;  // path doesn't exist
+      }
+      current = current[key];
+   }
+
+   return current;
+};
+
+console.log("user.name                   :", getValueByDotNotation(obj, 'user.name'));             // - 'Asim Howlader'
+console.log("user.age                    :", getValueByDotNotation(obj, 'user.age'));              // - 30
+console.log("user.address.city           :", getValueByDotNotation(obj, 'user.address.city'));     // - 'Barishal'
+console.log("user.address.country        :", getValueByDotNotation(obj, 'user.address.country')); // - 'Bangladesh'
+console.log("user.address.zip (missing)  :", getValueByDotNotation(obj, 'user.address.zip'));     // - undefined
+console.log("user.phone (missing)        :", getValueByDotNotation(obj, 'user.phone'));           // - undefined
+console.log("null object                 :", getValueByDotNotation(null, 'user.name'));            // - undefined
+console.log("empty path                  :", getValueByDotNotation(obj, ''));                      // - undefined
 
