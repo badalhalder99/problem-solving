@@ -21,7 +21,13 @@ const convertObjToArr = (obj) => {
       return []
    }
 
-   const arr = Object.entries(obj)
+   let arr = []
+
+   for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+         arr.push([key, obj[key]])
+      }
+   }
 
    return arr
 };
