@@ -38,10 +38,10 @@ That string represents the path to the value.
 Object:
 
 {
-  user: {
-    name: "Asim",
-    age: 30
-  }
+   user: {
+      name: "Asim",
+      age: 30
+   }
 }
 
 Path string:

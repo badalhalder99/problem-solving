@@ -18,23 +18,22 @@ const obj = {
 const getValueByDotNotation = (obj, path) => {
 
    if (obj === null || typeof obj !== 'object' || typeof path !== 'string' || path.trim() === '') {
-      return undefined;
+      return undefined
    }
 
-   // Step 2: Split path into keys
-   const keys = path.split('.');
+   const keys = path.split('.')
 
-   // Step 3: Walk down the object
-   let current = obj;
+   let current = obj
 
    for (let key of keys) {
       if (current === null || typeof current !== 'object' || !current.hasOwnProperty(key)) {
-         return undefined;  // path doesn't exist
+         return undefined
       }
-      current = current[key];
+
+      current = current[key]
    }
 
-   return current;
+   return current
 };
 
 console.log("user.name                   :", getValueByDotNotation(obj, 'user.name'));             // - 'Asim Howlader'
