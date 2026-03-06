@@ -25,3 +25,11 @@ const deepClone = (obj) => {
 
 const output = deepClone(user)
 console.log(output)
+
+/*🔁 How It Works
+
+return JSON.parse(JSON.stringify(obj))
+```
+JSON.stringify(obj)  →  converts object to JSON string
+JSON.parse(string)   →  converts string back to a brand new object
+*/
