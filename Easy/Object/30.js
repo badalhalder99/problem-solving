@@ -372,8 +372,11 @@ JSON method does NOT support:
 
 ### 🔁 How It Works
 ```
+return JSON.parse(JSON.stringify(obj))
+
 JSON.stringify(obj)  →  converts object to JSON string
 JSON.parse(string)   →  converts string back to a brand new object
+
 */
 
 // - ✅ What It Handles
