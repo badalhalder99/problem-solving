@@ -1,50 +1,41 @@
-const deepFreeze = (obj) => {
+const user = {
+  name: "Asim",
+  age: 30,
+  salary: 30000,
+  country: "Bangladesh"
+}
 
-   if (obj === null || typeof obj !== 'object') {
+const listKeys = ["name", "country"]
+
+const pickSpecificKey = (obj, listKeys) => {
+   if (obj === null || typeof obj !== "object" || Array.isArray(obj)) {
       return obj
    }
 
-   const keys = Object.getOwnPropertyNames(obj)
+   if (listKeys.length === 0 || !Array.isArray(listKeys)) {
+      return {}
+   }
 
-   for (let key of keys) {
+   let newObj = {}
 
-      const value = obj[key]
-
-      if (value && typeof value === 'object' && !Object.isFrozen(value)) {
-         deepFreeze(value)
+   for (let key of listKeys) {
+      if (Object.hasOwn(obj, key)) {
+         newObj[key] = obj[key]
       }
    }
 
-   return Object.freeze(obj)
-};
+   return newObj
+}
+
+const show = pickSpecificKey(user, listKeys)
+console.log(show)
 
 
 /*
-------------------------------------------------------------
-📊 EXAMPLE
-------------------------------------------------------------
+Expected Result:
+
+{
+  name: "Asim",
+  country: "Bangladesh"
+}
 */
-
-const user = {
-   name: "Asim",
-   address: {
-      city: "Dhaka",
-      location: {
-         area: "Dhanmondi"
-      }
-   }
-};
-
-deepFreeze(user);
-
-/*
-------------------------------------------------------------
-🧪 TEST
-------------------------------------------------------------
-*/
-
-user.name = "Rahim";                  // ❌ blocked
-user.address.city = "Sylhet";         // ❌ blocked
-user.address.location.area = "Banani" // ❌ blocked
-
-console.log(user);
