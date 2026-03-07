@@ -436,33 +436,36 @@ const total = countProperties(data)
 console.log(total) // - 5
 
 /*
+============================================================================================================================
+Code Explanation::
+============================================================================================================================
 function countProperties(obj) {
 
-  // Step 1: Validate input
-  if (obj === null || typeof obj !== "object") {
-    return 0
-  }
+   // Step 1: Validate input
+   if (obj === null || typeof obj !== "object") {
+      return 0
+   }
 
-  let count = 0
+   let count = 0
 
-  // Step 2: Loop through properties
-  for (const key in obj) {
+   // Step 2: Loop through properties
+   for (const key in obj) {
 
-    if (Object.hasOwn(obj, key)) {
+      if (Object.hasOwn(obj, key)) {
 
       // Step 3: Count current property
       count++
 
       // Step 4: If nested object → recurse
       if (obj[key] !== null && typeof obj[key] === "object" && !Array.isArray(obj[key])) {
-        count += countProperties(value)
+         count += countProperties(value)
       }
 
-    }
+      }
 
-  }
+   }
 
-  return count
+   return count
 }
 */
 
