@@ -10,8 +10,7 @@ You are given:
 1️⃣ An object
 2️⃣ A property path that may point to a nested value
 
-Your task is to determine whether that nested property
-exists inside the object.
+Your task is to determine whether that nested property exists inside the object.
 
 You only need to check existence — NOT retrieve the value.
 
@@ -20,18 +19,17 @@ You only need to check existence — NOT retrieve the value.
 🔍 What is a Nested Property?
 ===============================================================================
 
-A nested property means a property that exists inside
-another object.
+A nested property means a property that exists inside another object.
 
 Example:
 
 const user = {
-  profile: {
-    name: "Asim",
-    address: {
-      city: "Dhaka"
-    }
-  }
+   profile: {
+      name: "Asim",
+      address: {
+         city: "Dhaka"
+      }
+   }
 };
 
 Here:
@@ -48,11 +46,11 @@ profile.address.city → deeply nested property
 Object:
 
 {
-  user: {
-    profile: {
-      name: "Asim"
-    }
-  }
+   user: {
+      profile: {
+         name: "Asim"
+      }
+   }
 }
 
 Property path to check:
@@ -73,11 +71,11 @@ Because the full path exists inside the object.
 Object:
 
 {
-  user: {
-    profile: {
-      name: "Asim"
-    }
-  }
+   user: {
+      profile: {
+         name: "Asim"
+      }
+   }
 }
 
 Property path:
@@ -210,6 +208,8 @@ Before solving, think about:
 👉 If any level is missing → return false.
 */
 
+// - This bottom information is most important part, so be carefull when reading
+
 /*
 ===============================================================================
 🧠 PROBLEM: Check if an object has a nested property (dot notation)
@@ -218,11 +218,11 @@ Before solving, think about:
 Example object:
 
 {
-  user: {
-    profile: {
-      name: "Asim"
-    }
-  }
+   user: {
+      profile: {
+         name: "Asim"
+      }
+   }
 }
 
 Path:
