@@ -1,114 +1,178 @@
 /*
 ===============================================================================
-🧠 PROBLEM: “Check if the object has a nested property”
+🧠 PROBLEM: “Count total properties including nested”
 ===============================================================================
 
 📌 What does this mean?
 
-You are given:
+You are given an object.
 
-1️⃣ An object
-2️⃣ A property path that may point to a nested value
+Your task is to count how many properties exist in that object,
+INCLUDING properties inside nested objects.
 
-Your task is to determine whether that nested property exists inside the object.
-
-You only need to check existence — NOT retrieve the value.
+The goal is NOT just to count the top-level keys,
+but also the keys inside deeper objects.
 
 
 ===============================================================================
-🔍 What is a Nested Property?
+🔍 Understanding the Structure
 ===============================================================================
 
-A nested property means a property that exists inside another object.
+Objects in JavaScript can contain other objects.
 
 Example:
 
-const user = {
-   profile: {
-      name: "Asim",
-      address: {
-         city: "Dhaka"
-      }
-   }
-};
+{
+  user: {
+    name: "Asim",
+    address: {
+      city: "Dhaka"
+    }
+  },
+  age: 30
+}
 
-Here:
-
-profile        → first level
-profile.name   → nested property
-profile.address.city → deeply nested property
+This object contains nested levels.
 
 
 ===============================================================================
-📌 Example Scenario
+📌 Example
 ===============================================================================
 
 Object:
 
 {
-   user: {
-      profile: {
-         name: "Asim"
-      }
-   }
+  user: {
+    name: "Asim",
+    address: {
+      city: "Dhaka"
+    }
+  },
+  age: 30
 }
 
-Property path to check:
+We must count ALL properties.
 
-"user.profile.name"
+Step-by-step breakdown:
 
-Expected result:
+Level 1:
+user
+age
 
-true
+Count = 2
 
-Because the full path exists inside the object.
+
+Inside "user":
+
+name
+address
+
+Count = 2
+
+
+Inside "address":
+
+city
+
+Count = 1
+
+
+Total properties:
+
+2 + 2 + 1 = 5
+
+
+Final Result:
+
+5
 
 
 ===============================================================================
-📌 Another Example
+🧠 Why This Problem Is Interesting
 ===============================================================================
 
-Object:
+Because objects may contain other objects inside them.
+
+You cannot simply use:
+
+Object.keys(obj).length
+
+That only counts the first level.
+
+Example:
+
+Object.keys(obj)
+
+Result:
+
+["user", "age"]
+
+Count = 2 ❌ (incorrect for this problem)
+
+
+===============================================================================
+🎯 Conceptual Goal
+===============================================================================
+
+You must count:
+
+✔ top-level properties
+✔ nested properties
+✔ deeply nested properties
+
+No matter how many levels exist.
+
+
+===============================================================================
+📌 Example with deeper nesting
+===============================================================================
 
 {
-   user: {
-      profile: {
-         name: "Asim"
+  a: 1,
+  b: {
+    c: 2,
+    d: {
+      e: 3,
+      f: {
+        g: 4
       }
-   }
+    }
+  }
 }
 
-Property path:
+Count breakdown:
 
-"user.profile.age"
+Level 1:
+a
+b
 
-Expected result:
+Count = 2
 
-false
 
-Because "age" does not exist.
+Inside b:
 
-===============================================================================
-🎯 Conceptual Breakdown
-===============================================================================
+c
+d
 
-Example path:
+Count = 2
 
-"user.profile.name"
 
-Step 1 → Break the path into parts
+Inside d:
 
-["user", "profile", "name"]
+e
+f
 
-Step 2 → Start from the root object
+Count = 2
 
-Step 3 → Check each level:
 
-object["user"]
-object["user"]["profile"]
-object["user"]["profile"]["name"]
+Inside f:
 
-If all levels exist → property exists.
+g
+
+Count = 1
+
+
+Total = 7
 
 
 ===============================================================================
@@ -117,437 +181,362 @@ If all levels exist → property exists.
 
 It is NOT asking you to:
 
-❌ Return the property value
+❌ Count values
+❌ Count array elements
 ❌ Modify the object
-❌ Hardcode property names
-❌ Assume only one level of depth
+❌ Flatten the object
 
-It must work for any depth like:
-
-"user.name"
-"user.profile.email"
-"user.profile.address.city"
-"settings.theme.colors.primary"
+It only wants the TOTAL number of properties.
 
 
 ===============================================================================
 ⚠️ Important Edge Cases
 ===============================================================================
 
-1️⃣ Property does not exist
+1️⃣ Empty object
 
-"user.phone"
+{}
 
-Should return:
+Result:
 
-false
-
-
-2️⃣ Intermediate property missing
-
-"user.profile.address.city"
-
-But "address" does not exist.
-
-The check should stop and return false
-without throwing an error.
+0
 
 
-3️⃣ Empty property path
+2️⃣ Object with nested empty objects
 
-""
+{
+  a: {}
+}
 
-Should typically return false.
+Result:
+
+1
+
+Because property "a" exists.
 
 
-4️⃣ Object is null or not an object
-
-If input is:
+3️⃣ Non-object input
 
 null
 undefined
 string
 number
 
-The function should safely handle it
-without crashing.
+Should typically return 0.
+
+
+4️⃣ Arrays inside objects
+
+Example:
+
+{
+  a: [1,2,3]
+}
+
+The property "a" still counts as 1.
 
 
 ===============================================================================
 🧠 What This Problem is Testing
 ===============================================================================
 
-Interviewers want to evaluate:
+Interviewers want to see if you understand:
 
-✔ Understanding of object traversal
-✔ Safe property access
-✔ Dynamic path interpretation
-✔ Defensive programming
+✔ Object traversal
+✔ Nested structures
+✔ Handling unknown depth
+✔ Recursive thinking
 
 
 ===============================================================================
 🧠 Key Thinking Pattern
 ===============================================================================
 
-Before solving, think about:
+Before solving, think:
 
-- How to break the path into steps?
-- How to move through the object level by level?
-- How to detect when a property doesn't exist?
-- How to stop safely without errors?
+- How do I inspect each property?
+- How do I detect nested objects?
+- How do I keep counting deeper levels?
 
 
 ===============================================================================
 ✅ In Simple Words
 ===============================================================================
 
-👉 You are given an object and a nested property path.
-👉 You must check whether that path exists inside the object.
-👉 Move through the object step by step.
-👉 If every level exists → return true.
-👉 If any level is missing → return false.
+👉 Look at every property in the object.
+👉 If the property contains another object, inspect it too.
+👉 Continue checking deeper objects.
+👉 Add up all properties you encounter.
+👉 Return the final count.
 */
-
-// - This bottom information is most important part, so be carefull when reading
 
 /*
 ===============================================================================
-🧠 PROBLEM: Check if an object has a nested property (dot notation)
+🧠 PROBLEM: Count total properties including nested
 ===============================================================================
-
-Example object:
-
-{
-   user: {
-      profile: {
-         name: "Asim"
-      }
-   }
-}
-
-Path:
-
-"user.profile.name"
 
 Goal:
+Count ALL properties in an object, including properties inside nested objects.
 
-Check whether the path exists in the object.
+Example:
 
-Expected Result:
+{
+  user: {
+    name: "Asim",
+    address: {
+      city: "Dhaka"
+    }
+  },
+  age: 30
+}
 
-true
+Total properties:
 
+user
+name
+address
+city
+age
 
-===============================================================================
-🧠 CONCEPTUAL BREAKDOWN
-===============================================================================
-
-The path string is basically navigation instructions.
-
-"user.profile.name"
-
-means:
-
-Step 1 → go to "user"
-Step 2 → go to "profile"
-Step 3 → go to "name"
-
-
-===============================================================================
-STEP 1 — Convert Path → Steps
-===============================================================================
-
-Split the path by "."
-
-"user.profile.name"
-
-↓
-
-["user", "profile", "name"]
-
-Now we know which properties to visit.
+Result → 5
 
 
 ===============================================================================
-STEP 2 — Start From Root Object
+🧠 THINKING PATTERN (How to approach this problem)
 ===============================================================================
 
-We begin traversal from the original object.
+When solving this problem, think in 4 logical steps.
 
-current = obj
+
+STEP 1 — Identify what to count
+--------------------------------
+We need to count object properties (keys).
+
+Example:
+
+Object.keys(obj)
+
+returns an array of keys.
+
+
+STEP 2 — Visit every property
+--------------------------------
+We must loop through each key in the object.
+
+Example:
+
+for (const key in obj)
+
+or
+
+for (const key of Object.keys(obj))
+
+
+STEP 3 — Detect nested objects
+--------------------------------
+Some properties may contain another object.
+
+Example:
+
+{
+  user: {
+    name: "Asim"
+  }
+}
+
+"user" contains another object.
+
+So we must inspect it again.
+
+
+STEP 4 — Solve unknown depth
+--------------------------------
+Nested objects can go many levels deep.
+
+Example:
+
+{
+  a: {
+    b: {
+      c: {
+        d: 1
+      }
+    }
+  }
+}
+
+We don't know the depth beforehand.
+
+So we must repeatedly apply the same logic.
+
+This is exactly what **recursion** is designed for.
 
 
 ===============================================================================
-STEP 3 — Walk Step-by-Step
+🧠 ALGORITHM
 ===============================================================================
 
-For every key in the steps:
+1️⃣ Validate input
+    If input is not an object → return 0.
 
-1. Check if the key exists in the current object.
-2. If it does NOT exist → return false.
-3. If it exists → move deeper.
+2️⃣ Initialize counter
 
-Example traversal:
+3️⃣ Loop through all properties in the object
 
-current["user"]
-current["user"]["profile"]
-current["user"]["profile"]["name"]
+4️⃣ For every key:
+      increment counter
 
+5️⃣ Check the value:
+      If the value is an object → explore it again
 
-===============================================================================
-STEP 4 — Handle Failure Safely
-===============================================================================
+6️⃣ Add nested property count
 
-If any property does not exist:
-
-current[key] === undefined
-
-Stop immediately and return false.
+7️⃣ Return total count
 
 
 ===============================================================================
-STEP 5 — If All Steps Succeed
-===============================================================================
-
-Return true.
-
-
-===============================================================================
-ALGORITHM
-===============================================================================
-
-1. Validate object input
-2. Validate path input
-3. Split path into keys
-4. Start traversal from root
-5. Loop through keys
-6. If key does not exist → return false
-7. Move current pointer
-8. After loop → return true
+SOLUTION
 ===============================================================================
 */
 
-
-
-/*
-===============================================================================
-SOLUTION: Check Nested Property
-===============================================================================
-*/
-
-function hasNestedProperty(obj, path) {
+function countProperties(obj) {
 
    if (obj === null || typeof obj !== "object") {
-      return false
+      return 0
    }
 
-   if (typeof path !== "string" || path.length === 0) {
-      return false
-   }
+   let count = 0
 
-   const keys = path.split(".")
+   for (const key in obj) {
 
-   let current = obj
+      if (Object.hasOwn(obj, key)) {
+         count++
 
-   for (const key of keys) {
-
-      if (!Object.hasOwn(current, key)) {
-         return false
-      }
-
-      current = current[key]
-
-      if (current === undefined || current === null) {
-         if (key !== keys[keys.length - 1]) { //keys[keys.length - 1] - keys[2] which is "name"
-            return false
+         if (obj[key] !== null && typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+            count += countProperties(value)
          }
       }
    }
 
-   return true
+   return count
 }
-
-
-
-/*
-===============================================================================
-EXAMPLE OBJECT
-===============================================================================
-*/
 
 const data = {
    user: {
-      profile: {
-         name: "Asim",
-         address: {
-            city: "Dhaka"
-         }
+      name: "Asim",
+      address: {
+         city: "Dhaka"
       }
-   }
+   },
+   age: 30
 }
 
 
+const total = countProperties(data)
+console.log(total) // - 5
 
 /*
-===============================================================================
-TEST CASES
-===============================================================================
-*/
+function countProperties(obj) {
 
-console.log(hasNestedProperty(data, "user.profile.name"))
-// true
+  // Step 1: Validate input
+  if (obj === null || typeof obj !== "object") {
+    return 0
+  }
 
-console.log(hasNestedProperty(data, "user.profile.address.city"))
-// true
+  let count = 0
 
-console.log(hasNestedProperty(data, "user.profile.age"))
-// false
+  // Step 2: Loop through properties
+  for (const key in obj) {
 
-console.log(hasNestedProperty(data, "user.phone"))
-// false
+    if (Object.hasOwn(obj, key)) {
 
-console.log(hasNestedProperty(data, "user.profile"))
-// true
+      // Step 3: Count current property
+      count++
 
-
-
-/*
-===============================================================================
-🧠 UNIVERSAL NESTED PATH PATTERN
-===============================================================================
-
-Many JavaScript interview problems use the SAME algorithm:
-
-1️⃣ Split path
-2️⃣ Traverse object
-3️⃣ Handle failure
-4️⃣ Perform action
-
-Example problems:
-
-- get(obj, "a.b.c")
-- has(obj, "a.b.c")
-- set(obj, "a.b.c")
-- delete(obj, "a.b.c")
-
-
-===============================================================================
-EXAMPLE 1 — Get Nested Value
-===============================================================================
-*/
-
-function getNestedValue(obj, path) {
-
-   const keys = path.split(".")
-   let current = obj
-
-   for (const key of keys) {
-
-      if (!Object.hasOwn(current, key)) {
-         return undefined
+      // Step 4: If nested object → recurse
+      if (obj[key] !== null && typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+        count += countProperties(value)
       }
 
-      current = current[key]
-   }
+    }
 
-   return current
+  }
+
+  return count
 }
-
-console.log(getNestedValue(data, "user.profile.name"))
-// "Asim"
-
-
-
-/*
-===============================================================================
-EXAMPLE 2 — Set Nested Value
-===============================================================================
 */
 
-function setNestedValue(obj, path, value) {
-
-   const keys = path.split(".")
-   let current = obj
-
-   for (let i = 0; i < keys.length - 1; i++) {
-
-      const key = keys[i]
-
-      if (!current[key]) {
-         current[key] = {}
-      }
-
-      current = current[key]
-   }
-
-   current[keys[keys.length - 1]] = value
-
-   return obj
-}
-
-setNestedValue(data, "user.profile.age", 30)
-
-console.log(data.user.profile.age)
-// 30
-
-
 
 /*
 ===============================================================================
-EXAMPLE 3 — Delete Nested Property
+STEP-BY-STEP EXECUTION
 ===============================================================================
-*/
 
-function deleteNestedProperty(obj, path) {
+Object:
 
-   const keys = path.split(".")
-   let current = obj
-
-   for (let i = 0; i < keys.length - 1; i++) {
-
-      const key = keys[i]
-
-      if (!current[key]) {
-         return
+{
+   user: {
+      name: "Asim",
+      address: {
+         city: "Dhaka"
       }
-
-      current = current[key]
-   }
-
-   delete current[keys[keys.length - 1]]
+   },
+   age: 30
 }
 
-deleteNestedProperty(data, "user.profile.name")
 
-console.log(data.user.profile)
-// { address: { city: 'Dhaka' }, age: 30 }
+Traversal:
+
+user → count = 1
+  name → count = 2
+  address → count = 3
+    city → count = 4
+
+age → count = 5
+
+Final result:
+
+5
 
 
-
-/*
 ===============================================================================
-🧠 CORE IDEA (IMPORTANT)
+🧠 WHY RECURSION WORKS HERE
 ===============================================================================
 
-Whenever you see a problem like:
+Recursion means a function calling itself.
 
-"a.b.c"
+Example:
 
-Think immediately:
+countProperties(value)
 
-1. Split the path
-2. Traverse object step-by-step
-3. Perform an action
-
-Actions can be:
-
-✔ Check property
-✔ Get value
-✔ Set value
-✔ Delete property
+This allows the function to explore deeper objects automatically.
 
 
-Mastering this pattern makes many object problems EASY.
+===============================================================================
+🧠 KEY TAKEAWAY
+===============================================================================
 
+Whenever you see problems like:
+
+✔ nested objects
+✔ unknown depth
+✔ repeated structure
+
+Think:
+
+→ recursion
+→ traversal
+→ accumulate result
+
+
+This same pattern is used in problems like:
+
+- Flatten object
+- Deep clone
+- Find value in nested object
+- Calculate nested sum
+- Tree traversal
+
+Mastering this pattern solves many interview questions.
 ===============================================================================
 */
