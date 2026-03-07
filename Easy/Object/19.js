@@ -376,14 +376,14 @@ EXAMPLE OBJECT
 */
 
 const data = {
-  user: {
-    profile: {
-      name: "Asim",
-      address: {
-        city: "Dhaka"
+   user: {
+      profile: {
+         name: "Asim",
+         address: {
+            city: "Dhaka"
+         }
       }
-    }
-  }
+   }
 }
 
 
@@ -438,19 +438,19 @@ EXAMPLE 1 — Get Nested Value
 
 function getNestedValue(obj, path) {
 
-  const keys = path.split(".")
-  let current = obj
+   const keys = path.split(".")
+   let current = obj
 
-  for (const key of keys) {
+   for (const key of keys) {
 
-    if (!Object.hasOwn(current, key)) {
-      return undefined
-    }
+      if (!Object.hasOwn(current, key)) {
+         return undefined
+      }
 
-    current = current[key]
-  }
+      current = current[key]
+   }
 
-  return current
+   return current
 }
 
 console.log(getNestedValue(data, "user.profile.name"))
@@ -466,23 +466,23 @@ EXAMPLE 2 — Set Nested Value
 
 function setNestedValue(obj, path, value) {
 
-  const keys = path.split(".")
-  let current = obj
+   const keys = path.split(".")
+   let current = obj
 
-  for (let i = 0; i < keys.length - 1; i++) {
+   for (let i = 0; i < keys.length - 1; i++) {
 
-    const key = keys[i]
+      const key = keys[i]
 
-    if (!current[key]) {
-      current[key] = {}
-    }
+      if (!current[key]) {
+         current[key] = {}
+      }
 
-    current = current[key]
-  }
+      current = current[key]
+   }
 
-  current[keys[keys.length - 1]] = value
+   current[keys[keys.length - 1]] = value
 
-  return obj
+   return obj
 }
 
 setNestedValue(data, "user.profile.age", 30)
@@ -500,21 +500,21 @@ EXAMPLE 3 — Delete Nested Property
 
 function deleteNestedProperty(obj, path) {
 
-  const keys = path.split(".")
-  let current = obj
+   const keys = path.split(".")
+   let current = obj
 
-  for (let i = 0; i < keys.length - 1; i++) {
+   for (let i = 0; i < keys.length - 1; i++) {
 
-    const key = keys[i]
+      const key = keys[i]
 
-    if (!current[key]) {
-      return
-    }
+      if (!current[key]) {
+         return
+      }
 
-    current = current[key]
-  }
+      current = current[key]
+   }
 
-  delete current[keys[keys.length - 1]]
+   delete current[keys[keys.length - 1]]
 }
 
 deleteNestedProperty(data, "user.profile.name")
