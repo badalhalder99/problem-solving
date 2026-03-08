@@ -4,37 +4,35 @@
 ===============================================================================
 */
 
-const user = {
-   profile: {
-      name: "Asim",
-      address: {
-         city: "Dhaka"
-      }
-   }
-};
-
-const countObjectProperties = (obj) => {
-
-   if (obj === null || typeof obj !== 'object') {
-      return 0
-   }
-
-   let count = 0
-
-   for (let key in obj) {
-
-      if (Object.hasOwn(obj, key)) {
-         count++
-
-         if (obj[key] !== null && typeof obj[key] === "object" && !Array.isArray(value)) {
-            count += countObjectProperties(obj[key])
-         }
-      }
-   }
-
-   return count
+const product = {
+  search: "laptop",
+  page: 1,
+  category: "electronics"
 }
 
-const output = countObjectProperties(user)
-console.log(output)
+const convertQuestString = (obj) => {
 
+   if (obj === null || typeof obj !== 'object') {
+      return ""
+   }
+
+   const arr = Object.keys(obj) // ["search", "page", "category"]
+
+   let result = []
+
+   for (let item of arr) {
+
+      const store = item + "=" + obj[item]
+      console.log(store)
+      result.push(store)
+   }
+
+   console.log("result", result)
+
+   const queryStr = result.join("&")
+
+   return queryStr
+}
+
+const output = convertQuestString(product)
+console.log(output) // name=Asim&age=30&country=Bangladesh
