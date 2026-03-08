@@ -1,0 +1,394 @@
+/*
+=====================================================================
+🧠 JAVASCRIPT OBJECT / ARRAY ALGORITHM CATEGORIES
+=====================================================================
+
+These problems are grouped by algorithm pattern used in interviews.
+Understanding the pattern helps you solve many problems faster.
+
+Most object manipulation questions fall into a few reusable patterns.
+
+=====================================================================
+1️⃣ OBJECT KEY TRANSFORMATION ALGORITHMS
+=====================================================================
+
+PATTERN
+-------
+Iterate through object keys → transform the key name → build a new object.
+
+General workflow:
+
+1. Extract keys
+2. Transform key names
+3. Build a new object
+
+Problems in this category:
+--------------------------
+
+• Transform object keys to camelCase
+• Transform object keys to snake_case
+• Rename property in object
+• Convert object to array of objects with key
+• Convert object to Map
+• Convert Map to object
+
+Example transformation:
+
+Input
+{
+  first_name: "John",
+  last_name: "Doe"
+}
+
+Output
+{
+  firstName: "John",
+  lastName: "Doe"
+}
+
+Core JavaScript skills used:
+----------------------------
+
+Object.keys()
+Object.entries()
+Object.fromEntries()
+Array.reduce()
+String manipulation (regex / replace / split / join)
+
+Category Name:
+--------------
+Key Transformation Algorithms
+
+=====================================================================
+2️⃣ OBJECT TRAVERSAL (DEEP WALK ALGORITHMS)
+=====================================================================
+
+PATTERN
+-------
+Recursively walk through nested objects.
+
+These algorithms explore deep structures like trees.
+
+Traversal approach often uses:
+
+• recursion
+• depth-first search (DFS)
+
+Problems in this category:
+--------------------------
+
+• Find all nested values of a specific key
+• Flatten a nested object one level
+• Pick nested properties
+• Safely access nested property with default
+• Deep merge two objects
+• Find the difference between two objects
+
+Example nested object:
+
+{
+  user: {
+    profile: {
+      name: "John"
+    }
+  }
+}
+
+Traversal must walk through:
+
+user → profile → name
+
+Core JavaScript skills used:
+----------------------------
+
+recursion
+for...in
+Object.entries()
+path traversal
+
+Category Name:
+--------------
+Deep Object Traversal Algorithms
+
+=====================================================================
+3️⃣ ARRAY OF OBJECTS PROCESSING
+=====================================================================
+
+PATTERN
+-------
+Iterate through an array → transform / filter / group elements.
+
+Very common in frontend development and API data processing.
+
+Problems in this category:
+--------------------------
+
+• Group array of objects by a key
+• Sort array of objects by a property
+• Filter array of objects by property value
+• Map array of objects to array of values
+• Remove duplicate objects from the array
+• Count occurrences of values in an array of objects
+
+Example:
+
+Input
+
+[
+  { type: "fruit", name: "apple" },
+  { type: "fruit", name: "banana" },
+  { type: "vegetable", name: "carrot" }
+]
+
+Group by "type":
+
+{
+  fruit: [...],
+  vegetable: [...]
+}
+
+Core JavaScript skills used:
+----------------------------
+
+Array.map()
+Array.filter()
+Array.reduce()
+Set
+sorting comparator functions
+
+Category Name:
+--------------
+Array Transformation Algorithms
+
+=====================================================================
+4️⃣ OBJECT VALIDATION & TYPE CHECKING
+=====================================================================
+
+PATTERN
+-------
+Check the type, structure, or behavior of an object.
+
+These algorithms ensure data integrity before processing.
+
+Problems in this category:
+--------------------------
+
+• Check if an object is a plain object
+• Check if the object implements a specific shape
+• Get object prototype name
+
+Example validation:
+
+Check if value is a plain object:
+
+{}
+✔ true
+
+[]
+❌ false
+
+new Date()
+❌ false
+
+Core JavaScript skills used:
+----------------------------
+
+typeof
+Object.getPrototypeOf()
+instanceof
+constructor
+
+Category Name:
+--------------
+Object Validation Algorithms
+
+=====================================================================
+5️⃣ OBJECT MUTABILITY / IMMUTABILITY CONTROL
+=====================================================================
+
+PATTERN
+-------
+Control whether an object can be modified.
+
+These algorithms protect data from unintended mutations.
+
+Problems in this category:
+--------------------------
+
+• Seal an object and check if sealed
+• Freeze an object and check if frozen
+• Create immutable object updates
+• Create a deep readonly object type (conceptual)
+
+Example:
+
+Object.freeze(obj)
+
+Prevents:
+
+• property changes
+• adding new properties
+• deleting properties
+
+Core JavaScript skills used:
+----------------------------
+
+Object.freeze()
+Object.seal()
+immutability patterns
+spread operator
+
+Category Name:
+--------------
+Immutability Algorithms
+
+=====================================================================
+6️⃣ OBJECT STRUCTURE CREATION
+=====================================================================
+
+PATTERN
+-------
+Build special object structures.
+
+These patterns control object inheritance and safety.
+
+Problems in this category:
+--------------------------
+
+• Create objects without a prototype
+• Destructure nested objects safely
+• Default values for missing object properties
+
+Example:
+
+Object without prototype:
+
+Object.create(null)
+
+This prevents prototype pollution.
+
+Core JavaScript skills used:
+----------------------------
+
+Object.create(null)
+optional chaining (?.)
+destructuring
+default parameters
+
+Category Name:
+--------------
+Object Construction Algorithms
+
+=====================================================================
+7️⃣ OBJECT VALUE TRANSFORMATION
+=====================================================================
+
+PATTERN
+-------
+Iterate through values → modify them → return a new object.
+
+This focuses on changing values while keeping keys.
+
+Problems in this category:
+--------------------------
+
+• Transform object values (e.g., uppercase strings)
+
+Example:
+
+Input:
+
+{
+  name: "john",
+  city: "dhaka"
+}
+
+Output:
+
+{
+  name: "JOHN",
+  city: "DHAKA"
+}
+
+Core JavaScript skills used:
+----------------------------
+
+Object.entries()
+Array.map()
+Array.reduce()
+
+Category Name:
+--------------
+Value Transformation Algorithms
+
+=====================================================================
+📊 FINAL CATEGORIZATION MAP
+=====================================================================
+
+Category
+--------
+
+Key Transformation
+Problems:
+camelCase conversion
+snake_case conversion
+rename property
+object ↔ Map conversion
+
+Deep Object Traversal
+Problems:
+find nested values
+flatten object
+deep merge
+pick nested properties
+
+Array Object Processing
+Problems:
+group objects
+sort objects
+filter objects
+remove duplicates
+
+Object Validation
+Problems:
+plain object detection
+shape validation
+
+Immutability
+Problems:
+freeze objects
+seal objects
+immutable updates
+
+Object Construction
+Problems:
+create object without prototype
+
+Value Transformation
+Problems:
+uppercase object values
+
+=====================================================================
+⭐ INTERVIEW INSIGHT
+=====================================================================
+
+Most JavaScript object problems rely on 4 fundamental algorithm patterns:
+
+1️⃣ Traversal
+   (DFS recursion)
+
+2️⃣ Transformation
+   (map / reduce)
+
+3️⃣ Filtering & Grouping
+   (filter / reduce / Set)
+
+4️⃣ Structural Validation
+   (typeof / prototype checks)
+
+If you master these four patterns,
+you can solve about 80% of JavaScript object manipulation problems
+in frontend and backend interviews.
+
+=====================================================================
+*/
