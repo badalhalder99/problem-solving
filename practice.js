@@ -1,38 +1,43 @@
 /*
 ===============================================================================
-🧠 PROBLEM: Count total properties including nested?”
+🧠 PROBLEM: Transform object keys to camelCase?”
 ===============================================================================
 */
 
 const product = {
-  search: "laptop",
-  page: 1,
-  category: "electronics"
+   product_name: "Laptop",
+   product_price: 1200,
+   stock_quantity: 50
 }
 
-const convertQuestString = (obj) => {
+const convertKeyToCamelCase = (obj) => {
 
    if (obj === null || typeof obj !== 'object') {
-      return ""
+      return {}
    }
 
-   const arr = Object.keys(obj) // ["search", "page", "category"]
+   const keys = Object.keys(obj)
 
-   let result = []
+   let newObj = {}
 
-   for (let item of arr) {
+   for (let key of keys) {
+      const words = key.split("_")
 
-      const store = item + "=" + obj[item]
-      console.log(store)
-      result.push(store)
+      const camelKey = words.map((word, index) => {
+         if (index === 0) return word
+         return word.charAt(0).toUpperCase() + word.slice(1)
+      }).join("")
+
+      newObj[camelKey] = obj[key]
    }
 
-   console.log("result", result)
+   return newObj
 
-   const queryStr = result.join("&")
-
-   return queryStr
 }
 
-const output = convertQuestString(product)
-console.log(output) // name=Asim&age=30&country=Bangladesh
+const output = convertKeyToCamelCase(product)
+console.log(output)
+
+
+
+
