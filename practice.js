@@ -1,11 +1,10 @@
+
+
 /*
 ===============================================================================
-🧠 PROBLEM: Transform object keys to snake_case?
+🧠 PROBLEM: Rename property in object with edge case handling
 ===============================================================================
 */
-
-
-
 
 const product = {
    productName: "Laptop",
@@ -13,31 +12,47 @@ const product = {
    stockQuantity: 50
 }
 
-const toSnakeCase = (obj) => {
-   if (obj === null || typeof obj !== 'object') {
+const renameObjKey = (obj, oldKey, newKey) => {
+
+   // Edge Case 1: Invalid object
+   if (obj === null || typeof obj !== "object" || Array.isArray(obj)) {
       return {}
    }
 
-   let newObj = {}
-   const keys = Object.keys(obj)
+   // Edge Case 2: Keys must be valid strings
+   if (typeof oldKey !== "string" || typeof newKey !== "string") {
+      return { ...obj }
+   }
 
-   for (let key of keys) {
-      const words = key.split("")
-      let snake = ""
+   // Edge Case 3: Empty keys
+   if (oldKey.length === 0 || newKey.length === 0) {
+      return { ...obj }
+   }
 
-      for (let char of words) {
-         if (char === char.toUpperCase() && char !== char.toLowerCase()) {
-            snake += "_" + char.toLowerCase()
-         } else {
-            snake += char
-         }
+   // Edge Case 4: oldKey does not exist
+   if (!Object.hasOwn(obj, oldKey)) {
+      return { ...obj }
+   }
+
+   // Edge Case 5: oldKey and newKey are same
+   if (oldKey === newKey) {
+      return { ...obj }
+   }
+
+   const newObj = {}
+
+   for (let key in obj) {
+
+      if (key === oldKey) {
+         newObj[newKey] = obj[key]
+      } else {
+         newObj[key] = obj[key]
       }
 
-      newObj[snake] = obj[key]
    }
 
    return newObj
 }
 
-const output = toSnakeCase(product)
+const output = renameObjKey(product, "productName", "name")
 console.log(output)
