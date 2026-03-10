@@ -1,16 +1,16 @@
 /*
 ===============================================================================
-🧠 PROBLEM: Transform object keys to camelCase?”
+🧠 PROBLEM: Transform object keys to snake_case?
 ===============================================================================
 */
 
 const product = {
-   product_name: "Laptop",
-   product_price: 1200,
-   stock_quantity: 50
+   productName: "Laptop",
+   productPrice: 1200,
+   stockQuantity: 50
 }
 
-const convertKeyToCamelCase = (obj) => {
+const toSnakeCase = (obj) => {
 
    if (obj === null || typeof obj !== 'object') {
       return {}
@@ -21,23 +21,27 @@ const convertKeyToCamelCase = (obj) => {
    let newObj = {}
 
    for (let key of keys) {
-      const words = key.split("_")
+      const chars = key.split("")
 
-      const camelKey = words.map((word, index) => {
-         if (index === 0) return word
-         return word.charAt(0).toUpperCase() + word.slice(1)
-      }).join("")
+      let snake = ""
 
-      newObj[camelKey] = obj[key]
+      for (let char of chars) {
+         if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+            snake += "_" + char.toLowerCase()
+         } else {
+            snake += char
+         }
+      }
+
+      newObj[snake] = obj[key]
    }
 
    return newObj
 
 }
 
-const output = convertKeyToCamelCase(product)
+const output = toSnakeCase(product)
 console.log(output)
-
 
 
 
