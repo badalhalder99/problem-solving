@@ -4,6 +4,9 @@
 ===============================================================================
 */
 
+
+
+
 const product = {
    productName: "Laptop",
    productPrice: 1200,
@@ -11,21 +14,18 @@ const product = {
 }
 
 const toSnakeCase = (obj) => {
-
    if (obj === null || typeof obj !== 'object') {
       return {}
    }
 
+   let newObj = {}
    const keys = Object.keys(obj)
 
-   let newObj = {}
-
    for (let key of keys) {
-      const chars = key.split("")
-
+      const words = key.split("")
       let snake = ""
 
-      for (let char of chars) {
+      for (let char of words) {
          if (char === char.toUpperCase() && char !== char.toLowerCase()) {
             snake += "_" + char.toLowerCase()
          } else {
@@ -37,11 +37,7 @@ const toSnakeCase = (obj) => {
    }
 
    return newObj
-
 }
 
 const output = toSnakeCase(product)
 console.log(output)
-
-
-
