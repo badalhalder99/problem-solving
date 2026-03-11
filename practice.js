@@ -1,55 +1,39 @@
 /*
 ===============================================================================
-🧠 PROBLEM: Convert object to Map
+🧠 PROBLEM: Flatten a Nested Object One Level?
 ===============================================================================
 */
 
-/**
- *
- * ---------------------------------------------------------------------
-📌 INPUT EXAMPLE
----------------------------------------------------------------------
 
-const userMap = new Map([
-  ["name", "Badal"],
-  ["age", 26],
-  ["country", "Bangladesh"]
-]);
-
-
----------------------------------------------------------------------
-📌 EXPECTED OUTPUT
----------------------------------------------------------------------
-
-{
-  name: "Badal",
-  age: 26,
-  country: "Bangladesh"
+const letters = {
+   a: 1,
+   b: {
+      c: 2,
+      d: 3
+   },
+   e: 4
 }
-*/
 
-const userMap = new Map([
-   ["name", "Badal"],
-   ["age", 26],
-   ["country", "Bangladesh"]
-]);
+const flattenNestedObj = (obj) => {
 
-const convertMapToObj = (map) => {
+   let newObj = {}
 
-   if (!(map instanceof Map)) {
-      throw new TypeError("Enter valid map")
-   }
+   if (obj && typeof obj === "object") {
+      for (let key in obj) {
 
-   const newObj = {}
+         const value = obj[key]
 
+         if (value && typeof value === "object" && !Array.isArray(value)) {
+            Object.assign(newObj, value)
 
-   for (let [key, value] of map) {
-      newObj[key] = value
+         } else {
+            newObj[key] = obj[key]
+         }
+      }
    }
 
    return newObj
-
 }
 
-const output = convertMapToObj(userMap)
-console.log(output) //
+const output = flattenNestedObj(letters)
+console.log(output) // ["Emon", "Milon", "Shaim", "Badol"]
