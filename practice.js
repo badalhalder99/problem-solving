@@ -1,67 +1,74 @@
 /*
 ===============================================================================
-🧠 PROBLEM: Convert object to (array of objects) with key
+🧠 PROBLEM: Convert object to Map
 ===============================================================================
 */
 
-/*
-=============================================================================================================================
- ###: Solution - 01: Using Object.keys() and for..in
-=============================================================================================================================
+/**
+ *
+ * ---------------------------------------------------------------------
+📌 INPUT EXAMPLE
+---------------------------------------------------------------------
+
+const userMap = new Map([
+  ["name", "Badal"],
+  ["age", 26],
+  ["country", "Bangladesh"]
+]);
+
+
+---------------------------------------------------------------------
+📌 EXPECTED OUTPUT
+---------------------------------------------------------------------
+
+{
+  name: "Badal",
+  age: 26,
+  country: "Bangladesh"
+}
 */
 
-const product = {
-   productName: "Laptop",
-   productPrice: 1200,
-   stockQuantity: 50
+// const userMap = new Map([
+//    ["name", "Badal"],
+//    ["age", 26],
+//    ["country", "Bangladesh"]
+// ]);
+
+// const convertMapToObj = (map) => {
+
+//    const newObj = {}
+
+//    const entries = Object.entries(map)
+
+//    for (let [key, value] of entries) {
+//       newObj[key] = value
+//    }
+
+//    return newObj
+
+// }
+
+// const output = convertMapToObj(userMap)
+// console.log(output) //
+
+const user = {
+  name: "Badal",
+  age: 26,
+  country: "Bangladesh"
 }
 
-const convertObjToArrayOfObject = (obj) => {
+const convertObjToMap = (obj) => {
 
-   if (obj === null || typeof obj !== "object" || Array.isArray(obj)) {
-      return []
+   if (obj === null || typeof obj !== "object") {
+      throw new TypeError("Input must be a non-null object");
    }
 
-   const result = []
+   const entries = Object.entries(obj)
 
-   for (let key in obj) {
-      result.push({
-         key: key,
-         value: obj[key]
-      })
-   }
+   const result = new Map(entries)
 
    return result
 }
 
-const output = convertObjToArrayOfObject(product)
+const output = convertObjToMap(user)
 console.log(output)
-
-/*
-=============================================================================================================================
- ###: Solution - 02: Using Object.keys() and for..of
-=============================================================================================================================
-*/
-
-const convertObjToArrayOfObject2 = (obj) => {
-
-   if (obj === null || typeof obj !== "object" || Array.isArray(obj)) {
-      return []
-   }
-
-   const keys = Object.entries(obj)
-
-   const result = []
-
-   for (let [key, value] of keys) {
-      result.push({
-         key: key,
-         value: value
-      })
-   }
-
-   return result
-}
-
-const output2 = convertObjToArrayOfObject2(product)
-console.log(output2)
