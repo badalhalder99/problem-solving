@@ -216,6 +216,15 @@ Flattening one level means:
 // ✅ APPROACH 1 — for...in + spread (simple)
 //  ─────────────────────────────────────────────────────────────────────────────────────────
 
+const letters = {
+   a: 1,
+   b: {
+      c: 2,
+      d: 3
+   },
+   e: 4
+}
+
 const flattenOneLevel_v1 = (obj) => {
 
    if (obj === null || typeof obj !== "object") {
@@ -241,15 +250,6 @@ console.log("v1:", flattenOneLevel_v1(letters))
 // ──────────────────────────────────────────────────────────────────────────────────────────
 // ✅ APPROACH 2 — for...in + for..fo
 //  ─────────────────────────────────────────────────────────────────────────────────────────
-
-const letters = {
-   a: 1,
-   b: {
-      c: 2,
-      d: 3
-   },
-   e: 4
-}
 
 const flattenNestedObj = (obj) => {
 
