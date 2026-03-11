@@ -327,7 +327,7 @@ const userMap = new Map([
 ]);
 
 const convertMapToObj = (map) => {
-   
+
    if (!(map instanceof Map)) {
       throw new TypeError("Input must be a Map");
    }
@@ -350,7 +350,7 @@ SOLUTION 1 — Using Object.fromEntries() (Modern & Recommended)
 =============================================================================================================================
 */
 
-const mapToObject1 = (map) => { {
+const mapToObject1 = (map) =>  {
 
   if (!(map instanceof Map)) {
     throw new TypeError("Input must be a Map");
@@ -433,4 +433,4 @@ const mapToObject3 = (map) => {
    return obj;
 }
 
-console.log(mapToObject3(userMap));
+console.log(mapToObject3(userMap))
