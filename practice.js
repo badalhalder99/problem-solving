@@ -1,11 +1,11 @@
 /*
 ===============================================================================
-🧠 PROBLEM: Flatten a Nested Object One Level?
+🧠 PROBLEM: Pick nested properties?
 ===============================================================================
 */
 
 
-const letters = {
+const user = {
    a: 1,
    b: {
       c: 2,
@@ -14,26 +14,13 @@ const letters = {
    e: 4
 }
 
-const flattenNestedObj = (obj) => {
-
-   let newObj = {}
-
-   if (obj && typeof obj === "object") {
-      for (let key in obj) {
-
-         const value = obj[key]
-
-         if (value && typeof value === "object" && !Array.isArray(value)) {
-            Object.assign(newObj, value)
-
-         } else {
-            newObj[key] = obj[key]
-         }
-      }
+const pickNestedProperties = (obj) => {
+   
+   if (obj === null || typeof obj !== "object") {
+      return {}
    }
 
-   return newObj
 }
 
-const output = flattenNestedObj(letters)
-console.log(output) // ["Emon", "Milon", "Shaim", "Badol"]
+const output = pickNestedProperties(letters)
+console.log(output)
