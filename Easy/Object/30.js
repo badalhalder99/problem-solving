@@ -227,7 +227,7 @@ const letters = {
 
 const flattenOneLevel_v1 = (obj) => {
 
-   if (obj === null || typeof obj !== "object") {
+   if (obj === null || typeof obj !== "object" || Array.isArray(obj)) {
       return {}
    }
 

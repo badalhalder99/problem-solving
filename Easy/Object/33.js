@@ -216,6 +216,9 @@ Return the merged object.
 
 const deepMerge = (obj1, obj2) => {
 
+   if (obj1 === null || typeof obj1 !== "object") return obj2
+   if (obj2 === null || typeof obj2 !== "object") return obj1
+   
    const result = { ...obj1 }
 
    for (let key in obj2) {
