@@ -33,7 +33,7 @@ const deepMerge = (obj1, obj2) => {
       const value2 = obj2[key]
 
       if (value1 && value2 &&
-         typeof obj1 === 'object' && typeof obj2 === "object" &&
+         typeof value1 === 'object' && typeof value2 === "object" &&
          !Array.isArray(value1) && !Array.isArray(value2)
       ) {
          result[key] = deepMerge(value1, value2)
