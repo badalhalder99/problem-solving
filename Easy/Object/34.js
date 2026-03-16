@@ -280,3 +280,21 @@ const diffObjects = (obj1, obj2) => {
 
 const output = diffObjects(obj1, obj2)
 console.log(output)
+
+/*
+Output 1:
+{
+  b: { obj1: 2, obj2: 5 },
+  c: { obj1: 3, obj2: undefined },
+  d: { obj1: undefined, obj2: 4 }
+}
+
+-------------------------------------------------------->
+- Output -2:
+{
+  b: { obj1: 2, obj2: 5 },
+  c: { y: { obj1: 20, obj2: 30 } },
+  d: { obj1: undefined, obj2: 4 }
+}
+
+*/
