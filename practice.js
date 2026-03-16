@@ -1,48 +1,66 @@
 /*
 ===============================================================================
-🧠 PROBLEM: “How to do Deep Merge Two Objects?
+🧠 PROBLEM: “Find the Difference Between Two Objects” ?
 ===============================================================================
 */
 
-const one = {
-   a: 1,
-   b: {
-      x: 10,
-      y: 20
-   }
-}
+// const obj1 = {
+//    a: 1,
+//    b: 2,
+//    c: {
+//       x: 10,
+//       y: 20
+//    }
+// }
 
-const two = {
-   b: {
-      y: 30,
-      z: 40
-   },
+// const obj2 = {
+//    a: 1,
+//    b: 5,
+//    c: {
+//       x: 10,
+//       y: 30
+//    },
+//    d: 4
+// }
+
+const obj1 = {
+   a: 1,
+   b: 2,
    c: 3
 }
 
-const deepMerge = (obj1, obj2) => {
+const obj2 = {
+   a: 1,
+   b: 5,
+   d: 4
+}
 
-   if (obj1 === null || typeof obj1 !== "object") return obj2
-   if (obj2 === null || typeof obj2 !== "object") return obj1
+const isObject = (val) => val !== null && typeof val === "object" && !Array.isArray(val)
 
-   let result = {...obj1}
+const diffObjects = (obj1, obj2) => {
 
-   for (let key in obj2) {
+   const result = {}
 
-      const value1 = result[key]
-      const value2 = obj2[key]
+   const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)])
 
-      if (value1 && value2 &&
-         typeof value1 === 'object' && typeof value2 === "object" &&
-         !Array.isArray(value1) && !Array.isArray(value2)
-      ) {
-         result[key] = deepMerge(value1, value2)
-      } else {
-         result[key] = value2
+   for (const key of allKeys) {
+      const val1 = obj1[key]
+      const val2 = obj2[key]
+
+      // If both values are objects → compare recursively
+      if (isObject(val1) && isObject(val2)) {
+         const nested = diffObjects(val1, val2)        // recurse into nested objects
+
+         if (Object.keys(nested).length > 0) result[key] = nested
+      }
+      // If values are different
+      else if (val1 !== val2) {
+         result[key] = { obj1: val1, obj2: val2 }         // values differ → record both
       }
    }
+
    return result
 }
 
-const output = deepMerge(one, two)
+const output = diffObjects(obj1, obj2)
 console.log(output)
