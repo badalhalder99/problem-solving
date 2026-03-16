@@ -39,7 +39,7 @@ const isObject = (val) => val !== null && typeof val === "object" && !Array.isAr
 
 const diffObjects = (obj1, obj2) => {
 
-   const result = {}
+   let result = {}
 
    const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)])
 
