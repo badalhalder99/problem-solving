@@ -1,65 +1,48 @@
 /*
 ===============================================================================
-🧠 PROBLEM: “Find the Difference Between Two Objects” ?
+🧠 PROBLEM: “Group Array of Objects by a Key”
 ===============================================================================
 */
 
-const obj1 = {
-   a: 1,
-   b: 2,
-   c: {
-      x: 10,
-      y: 20
-   }
-}
+const users = [
+   { name: "Badal", role: "admin" },
+   { name: "Emon", role: "user" },
+   { name: "Shaim", role: "admin" },
+   { name: "Milon", role: "user" }
+]
 
-const obj2 = {
-   a: 1,
-   b: 5,
-   c: {
-      x: 10,
-      y: 30
-   },
-   d: 4
-}
+const groupByKey = (arr, key) => {
 
-const isObject = (val) => {
-   return val !== null && typeof val === "object" && !Array.isArray(val)
-}
-
-const diffObjects = (obj1, obj2) => {
    let result = {}
 
-   const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)])
+   for (let item of arr) {
 
-   for (let key of allKeys) {
-      const val1 = obj1[key]
-      const val2 = obj2[key]
+      const groupKey = item[key]
 
-      if (isObject(val1) && isObject(val2)) {
-         const nested = diffObjects(val1, val2)
-         if (Object.keys(nested).length > 0) result[key] = nested
-      } else if (val1 !== val2) {
-         result[key] = {
-            obj1: val1,
-            obj2: val2
-         }
+      if (!result[groupKey]) {
+         result[groupKey] = []
       }
+
+      result[groupKey].push(item)
    }
 
    return result
 }
 
-const output = diffObjects(obj1, obj2)
+const output = groupByKey(users, "role")
 console.log(output)
 
 /*
 -------------------------------------------------------->
-- Output -2:
 {
-  b: { obj1: 2, obj2: 5 },
-  c: { y: { obj1: 20, obj2: 30 } },
-  d: { obj1: undefined, obj2: 4 }
+   admin: [
+      { name: "Badal", role: "admin" },
+      { name: "Shaim", role: "admin" }
+   ],
+   user: [
+      { name: "Emon", role: "user" },
+      { name: "Milon", role: "user" }
+   ]
 }
 
 */
