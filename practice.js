@@ -1,44 +1,31 @@
 /*
 ===============================================================================
-🧠 PROBLEM: “Filter Array of Objects by Property Value”
+🧠 PROBLEM: Map array of objects to array of values?
 ===============================================================================
 */
 
 const users = [
-  { name: "Badal", role: "admin" },
-  { name: "Emon", role: "user" },
-  { name: "Shaim", role: "admin" },
-  { name: "Milon", role: "user" }
+  { name: "Badal", age: 20 },
+  { name: "Emon", age: 16 },
+  { name: "Shaim", age: 19 }
 ]
 
-const filterArr = (arr, key, value) => {
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (!key || value === undefined) return []
-   
-   return arr.filter(item => item[key] === value)
-}
-
-const output = filterArr(users, "role", "admin")
-console.log(output)
-
-// - Solution - 02:
-const filterArr2 = (arr, key, value) => {
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (!key || value === undefined) return []
+// - Solution - 01:
+const mapArr = (arr, key) => {
+   if (!Array.isArray(arr)) return []
+   if (typeof key !== "string") return []
 
    let result = []
 
    for (let item of arr) {
-      if (item[key] === value) {
-         result.push(item)
-      }
+      result.push(item[key])
    }
 
    return result
 }
 
-const output2 = filterArr2(users, "role", "admin")
-console.log(output2)
+const output = mapArr(users, "name")
+console.log(output) // [ 'Badal', 'Emon', 'Shaim' ]
 
 /*
 -------------------------------------------------------->
