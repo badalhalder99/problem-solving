@@ -1,33 +1,50 @@
 /*
 ===============================================================================
-🧠 PROBLEM: “Sort Array of Objects by a Property”
+🧠 PROBLEM: “Filter Array of Objects by Property Value”
 ===============================================================================
 */
 
 const users = [
-   { name: "Badal", age: 20 },
-   { name: "Emon", age: 16 },
-   { name: "Shaim", age: 19 },
-   { name: "Milon", age: 12 }
+  { name: "Badal", role: "admin" },
+  { name: "Emon", role: "user" },
+  { name: "Shaim", role: "admin" },
+  { name: "Milon", role: "user" }
 ]
 
-const groupByKey = (arr, fn) => {
-
-   return [...arr].sort((a, b) => {
-      const valueA = fn(a)
-      const valueB = fn(b)
-
-      if (valueA < valueB) return -1
-      if (valueA > valueB) return 1
-      return 0
-   })
+const filterArr = (arr, key, value) => {
+   if (!Array.isArray(arr) || arr.length === 0) return []
+   if (!key || value === undefined) return []
+   
+   return arr.filter(item => item[key] === value)
 }
 
-const output = groupByKey(users, user => user.age)
+const output = filterArr(users, "role", "admin")
 console.log(output)
+
+// - Solution - 02:
+const filterArr2 = (arr, key, value) => {
+   if (!Array.isArray(arr) || arr.length === 0) return []
+   if (!key || value === undefined) return []
+
+   let result = []
+
+   for (let item of arr) {
+      if (item[key] === value) {
+         result.push(item)
+      }
+   }
+
+   return result
+}
+
+const output2 = filterArr2(users, "role", "admin")
+console.log(output2)
 
 /*
 -------------------------------------------------------->
-
+[
+  { name: "Badal", role: "admin" },
+  { name: "Shaim", role: "admin" }
+]
 
 */
