@@ -1,48 +1,33 @@
 /*
 ===============================================================================
-🧠 PROBLEM: “Group Array of Objects by a Key”
+🧠 PROBLEM: “Sort Array of Objects by a Property”
 ===============================================================================
 */
 
 const users = [
-   { name: "Badal", role: "admin" },
-   { name: "Emon", role: "user" },
-   { name: "Shaim", role: "admin" },
-   { name: "Milon", role: "user" }
+   { name: "Badal", age: 20 },
+   { name: "Emon", age: 16 },
+   { name: "Shaim", age: 19 },
+   { name: "Milon", age: 12 }
 ]
 
-const groupByKey = (arr, key) => {
+const groupByKey = (arr, fn) => {
 
-   let result = {}
+   return [...arr].sort((a, b) => {
+      const valueA = fn(a)
+      const valueB = fn(b)
 
-   for (let item of arr) {
-
-      const groupKey = item[key]
-
-      if (!result[groupKey]) {
-         result[groupKey] = []
-      }
-
-      result[groupKey].push(item)
-   }
-
-   return result
+      if (valueA < valueB) return -1
+      if (valueA > valueB) return 1
+      return 0
+   })
 }
 
-const output = groupByKey(users, "role")
+const output = groupByKey(users, user => user.age)
 console.log(output)
 
 /*
 -------------------------------------------------------->
-{
-   admin: [
-      { name: "Badal", role: "admin" },
-      { name: "Shaim", role: "admin" }
-   ],
-   user: [
-      { name: "Emon", role: "user" },
-      { name: "Milon", role: "user" }
-   ]
-}
+
 
 */
