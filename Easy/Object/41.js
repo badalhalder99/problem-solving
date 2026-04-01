@@ -131,7 +131,7 @@ Else → return false
 
 
 ===============================================================================
-✅ APPROACH 1 — Object.getPrototypeOf (strictest) (Strict & Recommended)
+✅ APPROACH 1 — Object.getPrototypeOf (strictest) (Strict & Recommended):
 ===============================================================================
 */
 
@@ -167,7 +167,7 @@ isPlainObject(Object.create(null))   // true
 
 /*
 ==========================================================================================
-🧠 Alternative (Simple but Less Strict) && APPROACH 2 — typeof + null check (simplest)
+🧠 Alternative (Simple but Less Strict) && APPROACH 2 — typeof + null check (simplest)::
 ==========================================================================================
 */
 
