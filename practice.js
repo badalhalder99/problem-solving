@@ -60,3 +60,20 @@ Count by:
   user: 2
 }
 */
+
+const isPlainObject = (value) =>
+   value !== null &&
+   typeof value === "object" &&
+   !Array.isArray(value)
+
+   isPlainObject({})                // true
+isPlainObject({ a: 1 })         // true
+isPlainObject(new Object())     // true
+
+isPlainObject([])               // false
+isPlainObject(null)             // false
+isPlainObject(() => {})         // false
+isPlainObject(new Date())       // false
+isPlainObject(new Map())        // false
+
+isPlainObject(Object.create(null)) // true
