@@ -171,14 +171,14 @@ isPlainObject(Object.create(null))   // true
 ==========================================================================================
 */
 
-const isPlainObject_v1 = (val) => {
+const isObject = (val) => {
   return val !== null && typeof val === "object" && !Array.isArray(val)
 }
 
-console.log("v1:", isPlainObject_v1({ name: "Nabil" }))  // - output: true
-console.log("v1:", isPlainObject_v1([1, 2, 3]))           // - output: false
-console.log("v1:", isPlainObject_v1(null))                // - output: false
-console.log("v1:", isPlainObject_v1("string"))            // - output: false
+console.log("v1:", isObject({ name: "Nabil" }))  // - output: true
+console.log("v1:", isObject([1, 2, 3]))           // - output: false
+console.log("v1:", isObject(null))                // - output: false
+console.log("v1:", isObject("string"))            // - output: false
 
 
 /*
