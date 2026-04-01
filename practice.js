@@ -1,37 +1,44 @@
 /*
 ===============================================================================
-🧠 PROBLEM: Map array of objects to array of values?
+🧠 PROBLEM: Remove duplicate objects from the array?
 ===============================================================================
 */
 
 const users = [
   { name: "Badal", age: 20 },
   { name: "Emon", age: 16 },
+  { name: "Badal", age: 20 },
   { name: "Shaim", age: 19 }
 ]
 
 // - Solution - 01:
-const mapArr = (arr, key) => {
+const removeDuplicateObj = (arr) => {
    if (!Array.isArray(arr)) return []
-   if (typeof key !== "string") return []
 
    let result = []
+   let seen = new Set()
 
    for (let item of arr) {
-      result.push(item[key])
+      const key = JSON.stringify(item)
+
+      if (!seen.has(key)) {
+         seen.add(key)
+         result.push(item)
+      }
    }
 
    return result
 }
 
-const output = mapArr(users, "name")
-console.log(output) // [ 'Badal', 'Emon', 'Shaim' ]
+const output = removeDuplicateObj(users)
+console.log(output)
 
 /*
 -------------------------------------------------------->
 [
-  { name: "Badal", role: "admin" },
-  { name: "Shaim", role: "admin" }
+  { name: "Badal", age: 20 },
+  { name: "Emon", age: 16 },
+  { name: "Shaim", age: 19 }
 ]
 
 */
