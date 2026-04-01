@@ -23,8 +23,6 @@ const countOccaranceValue = (arr, key) => {
       if (groupKey == null) continue
 
       result[groupKey] = (result[groupKey] || 0) + 1
-
-      result[groupKey] = (result[groupKey || 0]) + 1
    }
 
    return result
@@ -38,42 +36,12 @@ console.log(output)
 📌 Example Input
 ===============================================================================
 
-const users = [
-  { name: "Badal", role: "admin" },
-  { name: "Emon", role: "user" },
-  { name: "Shaim", role: "admin" },
-  { name: "Milon", role: "user" },
-  { name: "John", role: "admin" }
-]
 
-Count by:
-
-"role"
-
-
-===============================================================================
-📌 Expected Output
-===============================================================================
-
-{
-  admin: 3,
-  user: 2
-}
 */
 
-const isPlainObject = (value) =>
-   value !== null &&
-   typeof value === "object" &&
-   !Array.isArray(value)
+const isObject = (val) => {
+   return val !== null && typeof val === 'object' && !Array.isArray(val)
+}
 
-   isPlainObject({})                // true
-isPlainObject({ a: 1 })         // true
-isPlainObject(new Object())     // true
-
-isPlainObject([])               // false
-isPlainObject(null)             // false
-isPlainObject(() => {})         // false
-isPlainObject(new Date())       // false
-isPlainObject(new Map())        // false
-
-isPlainObject(Object.create(null)) // true
+const result = isObject({})
+console.log(result)
