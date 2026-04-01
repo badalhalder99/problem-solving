@@ -1,44 +1,62 @@
 /*
 ===============================================================================
-🧠 PROBLEM: Remove duplicate objects from the array?
+🧠 PROBLEM: Count occurrences of values in an array of objects?
 ===============================================================================
 */
 
 const users = [
-  { name: "Badal", age: 20 },
-  { name: "Emon", age: 16 },
-  { name: "Badal", age: 20 },
-  { name: "Shaim", age: 19 }
+  { name: "Badal", role: "admin" },
+  { name: "Emon", role: "user" },
+  { name: "Shaim", role: "admin" },
+  { name: "Milon", role: "user" },
+  { name: "John", role: "admin" }
 ]
 
 // - Solution - 01:
-const removeDuplicateObj = (arr) => {
-   if (!Array.isArray(arr)) return []
+const countOccaranceValue = (arr, key) => {
+   if (!Array.isArray(arr)) return {}
 
-   let result = []
-   let seen = new Set()
+   let result = {}
 
    for (let item of arr) {
-      const key = JSON.stringify(item)
+      const groupKey = item?.[key]
+      if (groupKey == null) continue
 
-      if (!seen.has(key)) {
-         seen.add(key)
-         result.push(item)
-      }
+      result[groupKey] = (result[groupKey] || 0) + 1
+
+      result[groupKey] = (result[groupKey || 0]) + 1
    }
 
    return result
 }
 
-const output = removeDuplicateObj(users)
+const output = countOccaranceValue(users, "role")
 console.log(output)
 
 /*
--------------------------------------------------------->
-[
-  { name: "Badal", age: 20 },
-  { name: "Emon", age: 16 },
-  { name: "Shaim", age: 19 }
+===============================================================================
+📌 Example Input
+===============================================================================
+
+const users = [
+  { name: "Badal", role: "admin" },
+  { name: "Emon", role: "user" },
+  { name: "Shaim", role: "admin" },
+  { name: "Milon", role: "user" },
+  { name: "John", role: "admin" }
 ]
 
+Count by:
+
+"role"
+
+
+===============================================================================
+📌 Expected Output
+===============================================================================
+
+{
+  admin: 3,
+  user: 2
+}
 */
