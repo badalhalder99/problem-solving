@@ -1,7 +1,7 @@
 const show = (val) => console.log(val)
 /*
 ===============================================================================
-🧠 PROBLEM: Get object prototype name? / Get the prototype name of an object?
+🧠 PROBLEM: Seal an object and check if sealed?
 ===============================================================================
 */
 
