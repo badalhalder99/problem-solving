@@ -1,193 +1,117 @@
 /*
 ===============================================================================
-PROBLEM: Move All Zeros To The End Of The Array?
+PROBLEM: Sort an array of strings alphabetically
 ===============================================================================
 
---------------------------------
 PROBLEM STATEMENT
---------------------------------
-তোমাকে একটা array দেওয়া হবে।
-এই array-এর ভেতরে কিছু সংখ্যা থাকবে,
-এবং কিছু 0 (zero) থাকবে।
+-----------------
+Given:
+- an array of strings
 
-তোমার কাজ হলো:
-সব 0 গুলোকে array-এর একদম শেষে সরিয়ে নিতে হবে।
+Return the array sorted in alphabetical (A → Z) order.
 
-IMPORTANT:
-✔ অন্য সংখ্যাগুলোর order (sequence) পরিবর্তন করা যাবে না।
-✔ শুধু 0 গুলোকে শেষে নিতে হবে।
-✔ নতুন array বানানো যাবে কিনা, সেটা problem অনুযায়ী বলা থাকতে পারে।
 
---------------------------------
-EXAMPLE 1
---------------------------------
+EXAMPLE
+-------
+["banana", "apple", "cherry"] → ["apple", "banana", "cherry"]
+["Dog", "cat", "apple"]       → ["apple", "cat", "Dog"]
+["z", "a", "m"]               → ["a", "m", "z"]
+[]                            → []
 
-Input:
-[0, 1, 0, 3, 12]
 
-Goal:
-সব 0 শেষে যাবে
-কিন্তু 1, 3, 12 এর order ঠিক থাকবে
+KEY IDEA (BEGINNER WAY)
+----------------------
+Alphabetical order means:
+A comes before B, B before C, and so on.
 
-Expected Conceptual Output:
-[1, 3, 12, 0, 0]
+We compare strings and move the ones that come first in the alphabet to the front.
 
---------------------------------
-EXAMPLE 2
---------------------------------
 
-Input:
-[4, 0, 5, 0, 0, 3]
+CORNER CASES TO HANDLE
+---------------------
+1. Not an array → return empty array
+2. Array with 0 or 1 string → already sorted
+3. Case sensitivity → we will sort ignoring case for better results
 
-After operation:
-[4, 5, 3, 0, 0, 0]
 
---------------------------------
-MAIN IDEA (Conceptually)
---------------------------------
+@params
+-------
+@param {string[]} arr → array of strings
 
-তুমি array টাকে একবার ঘুরে দেখবে।
+@returns
+--------
+@return {string[]}
+*/
 
-যখন 0 পাবে:
-→ সেটাকে এখনই শেষে পাঠাবে না
-→ আগে সব non-zero সংখ্যা ঠিকভাবে সাজাবে
 
-সব non-zero সংখ্যা আগের মতো থাকবে
-শুধু 0 গুলো পিছনে জমা হবে।
 
---------------------------------
-VERY IMPORTANT CONDITION
---------------------------------
-
-Order must be preserved.
-
-উদাহরণ:
-
-Input:
-[2, 0, 1]
-
-Wrong:
-[1, 2, 0] ❌ (order change হয়ে গেছে)
-
-Correct:
-[2, 1, 0] ✅ (order ঠিক আছে)
-
---------------------------------
-EDGE CASES
---------------------------------
-
-1) Empty array:
-[]
-
-2) No zeros:
-[1, 2, 3]
-→ কিছুই বদলাবে না
-
-3) All zeros:
-[0, 0, 0]
-→ একই থাকবে
-
-4) Single element:
-[0] or [5]
-
---------------------------------
-REAL LIFE ANALOGY
---------------------------------
-
-ভাবো একটা লাইনে দাঁড়ানো মানুষদের মধ্যে
-কিছু মানুষ "0" লেখা টি-শার্ট পরে আছে।
-
-তোমাকে করতে হবে:
-সব 0 লেখা মানুষদের লাইনের শেষে পাঠাতে হবে
-কিন্তু বাকি মানুষদের অবস্থান নষ্ট করা যাবে না।
-
---------------------------------
-TIME COMPLEXITY EXPECTATION (Interview)
---------------------------------
-
-সাধারণত interviewer চাইবে:
-✔ O(n) time complexity
-✔ Extra memory কম ব্যবহার
-
---------------------------------
-ONE LINE SUMMARY
---------------------------------
-
-"Array-এর সব zero-কে শেষে সরিয়ে নিতে হবে
-কিন্তু non-zero element-এর order ঠিক রাখতে হবে।"
-
+/*
+===============================================================================
+SOLUTION 1: MODERN (Built-in sort + localeCompare)
 ===============================================================================
 */
 
-const arr = [4, 0, 5, 0, 0, 3]
+const sortStringsModern = (arr) => {
+   if (!Array.isArray(arr)) return [];
 
-const moveAllZeroEnd = (arr) => {
+   return arr.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()) );
+};
 
-   if (!Array.isArray(arr) || arr.length === 0) return []
+const fruits1 = ["banana", "apple", "cherry"];
+console.log(sortStringsModern(fruits1)); // ["apple", "banana", "cherry"]
 
-   let movedZeroEnd = []
 
-   for (let item of arr) {
-      if (item !== 0) {
-         movedZeroEnd.push(item)
-      }
-   }
 
-   for (let item of arr) {
-      if (item === 0) {
-         movedZeroEnd.push(item)
-      }
-   }
+/*
+LINE BY LINE EXPLANATION — SOLUTION 1 (MODERN)
+----------------------------------------------
 
-   return movedZeroEnd
-}
+const sortStringsModern = (arr) => {
+→ Function that takes an array of strings
 
-const output = moveAllZeroEnd(arr)
-console.log(output) // [4, 5, 3, 0, 0, 0]
+if (!Array.isArray(arr)) return [];
+→ Safety check: if input is not an array, return empty array
 
-/**
- *---------------------------------------------------------------------------------------------------------------------------
- * SOLUTION - 02: (BEST SOLUTION)
- * --------------------------------------------------------------------------------------------------------------------------
-**/
+return arr.sort((a, b) =>
+   a.toLowerCase().localeCompare(b.toLowerCase())
+);
+→ sort() rearranges the array
 
-const array = [4, 0, 5, 0, 0, 3]
+→ We use localeCompare() to compare strings alphabetically
 
-const moveAllZeroToEnd = (arr) => {
+a.toLowerCase()
+b.toLowerCase()
+→ Convert both strings to lowercase so sorting is case-insensitive
 
-   if (!Array.isArray(arr) || arr.length === 0) return []
+localeCompare returns:
+- Negative → a comes before b
+- Positive → b comes before a
+- 0 → they are equal
 
-   let nonZero = []
-   let zero = []
+This results in proper A–Z alphabetical sorting
+*/
 
-   for (let item of arr) {
-      if (item !== 0) {
-         nonZero.push(item)
-      } else if (item === 0){
-         zero.push(item)
-      }
-   }
 
-   const result = [...nonZero, ...zero]
 
-   return result
-}
+/*
+SOLUTION 1 — DIAGRAM
+--------------------
 
-const outputs = moveAllZeroToEnd(array)
-console.log(outputs) // [4, 5, 3, 0, 0, 0]
+Before: ["banana", "apple", "cherry"]
 
-/**
- *---------------------------------------------------------------------------------------------------------------------------
- * SOLUTION - 03:
- * --------------------------------------------------------------------------------------------------------------------------
-**/
+Comparisons reorder values →
 
-const moveAllZeroToEndModern = (arr) => {
+After:  ["apple", "banana", "cherry"]
+*/
 
-   if (!Array.isArray(arr) || arr.length === 0) return []
 
-   const movedZeroEnd = arr.filter(item => item !== 0)
-   const zero = arr.filter(item => item === 0)
 
-   return [...movedZeroEnd, ...zero]
-}
+/*
+SOLUTION 1 — PSEUDOCODE
+----------------------
+if input is not array → return []
+
+sort array using alphabetical string comparison
+
+return array
+*/

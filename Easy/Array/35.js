@@ -1,267 +1,276 @@
 /*
-===============================================================================
-PROBLEM: Return Unique Values from the Array
-===============================================================================
+════════════════════════════════════════════════════════════
+1️⃣ Problem: Reverse an Array In Place?
+════════════════════════════════════════════════════════════
+
+// Easy solution using js - 00:
+
+const arr = [1, 2, 3, 4, 5];
+arr.reverse();
+console.log(arr); // [5, 4, 3, 2, 1]
+
+- But this is not enough need to learn from deep:
 
 PROBLEM STATEMENT
------------------
-Given:
-- an array containing numbers (may have duplicates)
-
-Return:
-- an array with only unique values (no duplicates)
-
+Given an array, reverse its elements **in place**.
+You must not use extra arrays.
+Modify the original array itself.
 
 EXAMPLE
--------
-arr = [1, 2, 2, 3, 4, 4, 5]
+Input:  [1, 2, 3, 4, 5]
+Output: [5, 4, 3, 2, 1]
 
-Expected → [1, 2, 3, 4, 5]
+KEY IDEA (Beginner Way)
+Swap the first and last elements,
+then move inward until the middle is reached.
 
-
-KEY IDEA (BEGINNER WAY)
------------------------
-1. Loop through the array
-2. Check if we've already seen this number
-3. If not seen → add it to result
-4. If already seen → skip it
-
-
-CORNER CASES TO HANDLE
-----------------------
-1. Not an array          → return []
-2. Empty array           → return []
-3. No duplicates         → return array as is
-4. All same values       → return single element
-
+CORNER CASES
+- Empty array → []
+- Single element → same array
+- Two elements → swap once
+- Array with duplicate values
 
 @params
--------
-@param {Array} arr → input array containing numbers (may have duplicates)
+- arr : Array<number>
 
 @returns
---------
-@return {Array} → array with only unique values
+- Array<number> (same array, reversed in place)
+
+════════════════════════════════════════════════════════════================================================
+2️⃣ SOLUTION 1 — MODERN (Two Pointer Technique)- (always follow this one, this is easy for remember)
+════════════════════════════════════════════════════════════================================================
 */
 
+const arr1 = [1, 2, 3, 4, 5, 6];
 
-/*
-===============================================================================
-SOLUTION 1 — MODERN
-===============================================================================
-*/
+const reverseArrayInPlace = (arr) => {
 
-const getUniqueValuesModern = (arr) => {
+   let left = 0;
+   let right = arr.length - 1;
 
-   if (!Array.isArray(arr) || arr.length === 0) return []
+   while (left < right) {
+      // Swap elements
+      [arr[left], arr[right]] = [arr[right], arr[left]]; // semicolon keep must here;
 
-   return [...new Set(arr)]
-}
-
-console.log(getUniqueValuesModern([1, 2, 2, 3, 4, 4, 5]))      // [1, 2, 3, 4, 5]
-console.log(getUniqueValuesModern([1, 1, 1, 1]))               // [1]
-console.log(getUniqueValuesModern([1, 2, 3]))                  // [1, 2, 3]
-
-
-/*
-===============================================================================
-LINE BY LINE EXPLANATION — SOLUTION 1
-===============================================================================
-
-const getUniqueValuesModern = (arr) => {
-→ Create a function
-→ arr = input array
-
-
-if (!Array.isArray(arr) || arr.length === 0) return []
-→ If arr is not an array OR empty
-→ return []
-
-
-new Set(arr)
-→ Set is a built-in JavaScript object
-→ Automatically removes duplicates
-→ Only keeps unique values
-
-Example:
-arr = [1, 2, 2, 3, 4, 4, 5]
-new Set(arr) → Set { 1, 2, 3, 4, 5 }
-
-
-[...new Set(arr)]
-→ Spread operator converts Set back to Array
-→ Because Set is not an array, it's a Set object
-
-Example:
-Set { 1, 2, 3, 4, 5 } → [1, 2, 3, 4, 5]
-
-
-return [...new Set(arr)]
-→ Return the unique values as an array
-*/
-
-
-/*
-===============================================================================
-DIAGRAM — SOLUTION 1
-===============================================================================
-
-arr = [1, 2, 2, 3, 4, 4, 5]
-
-Step 1 — Create Set:
-1 → new, add to Set → Set { 1 }
-2 → new, add to Set → Set { 1, 2 }
-2 → duplicate, skip → Set { 1, 2 }
-3 → new, add to Set → Set { 1, 2, 3 }
-4 → new, add to Set → Set { 1, 2, 3, 4 }
-4 → duplicate, skip → Set { 1, 2, 3, 4 }
-5 → new, add to Set → Set { 1, 2, 3, 4, 5 }
-
-Set { 1, 2, 3, 4, 5 }
-
-Step 2 — Convert to Array:
-Set { 1, 2, 3, 4, 5 } → [1, 2, 3, 4, 5]
-
-Result: [1, 2, 3, 4, 5] ✅
-*/
-
-
-/*
-===============================================================================
-PSEUDOCODE — SOLUTION 1
-===============================================================================
-
-if input is invalid → return []
-
-create a Set from arr (removes duplicates)
-convert Set back to array using spread operator
-
-return unique array
-*/
-
-
-
-
-/*
-===============================================================================
-SOLUTION 2 — CUSTOM (BEGINNER FRIENDLY)
-===============================================================================
-*/
-
-const getUniqueValuesBeginner = (arr) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return []
-
-   let unique = []
-
-   for (let item of arr) {
-      if (!unique.includes(item)) {
-         unique.push(item)
-      }
+      left++;
+      right--;
    }
 
-   return unique
+   return arr;
 }
 
-console.log(getUniqueValuesBeginner([1, 2, 2, 3, 4, 4, 5]))    // [1, 2, 3, 4, 5]
-console.log(getUniqueValuesBeginner([1, 1, 1, 1]))             // [1]
-console.log(getUniqueValuesBeginner([1, 2, 3]))                // [1, 2, 3]
+console.log(reverseArrayInPlace(arr1)); // [5, 4, 3, 2, 1]
 
+const arr2 = [10];
+console.log(reverseArrayInPlace(arr2)); // [10]
+
+const arr3 = [];
+console.log(reverseArrayInPlace(arr3)); // []
 
 /*
-===============================================================================
-LINE BY LINE EXPLANATION — SOLUTION 2
-===============================================================================
 
-const getUniqueValuesBeginner = (arr) => {
-→ Create a function
-→ arr = input array
+arr = [1, 2, 3, 4, 5, 6]
 
+[arr[left], arr[right]] = [arr[right], arr[left]];
 
-if (!Array.isArray(arr) || arr.length === 0) return []
-→ If arr is not an array OR empty
-→ return []
+[arr[1], arr[6]] = [arr[6], arr[1]];
+[arr[2], arr[5]] = [arr[5], arr[2]];
+[arr[3], arr[4]] = [arr[4], arr[3]];
 
 
-let unique = []
-→ Empty array to store unique values
+════════════════════════════════════════════════════════════
+REVERSE ARRAY IN PLACE — FULL CODE + EXPLANATION
+EVERYTHING INSIDE JS MULTILINE COMMENT
+════════════════════════════════════════════════════════════
+
+GOAL:
+Reverse an array WITHOUT creating a new array.
+We modify the original array itself (in-place).
+
+------------------------------------------------------------
+FUNCTION CODE (COMMENTED EXPLANATION INLINE)
+------------------------------------------------------------
+
+function reverseArrayInPlace(arr) {
+
+  // `arr` is the input array
+  // Example: [1, 2, 3, 4, 5]
+
+  let left = 0;
+  // `left` pointer starts from the beginning of the array
+  // Index 0 → first element
+
+  let right = arr.length - 1;
+  // `right` pointer starts from the end of the array
+  // Last index = length - 1
+
+  while (left < right) {
+    // Loop runs until both pointers meet in the middle
+    // Prevents unnecessary extra swaps
+
+    [arr[left], arr[right]] = [arr[right], arr[left]];
+
+    SWAPPING USING DESTRUCTURING
+
+    Suppose:
+    arr = [1, 2, 3, 4, 5]
+    left = 0 → value 1
+    right = 4 → value 5
+
+    Right side creates temporary values:
+    [5, 1]
+
+    Assignment happens:
+    arr[left]  = 5
+    arr[right] = 1
+
+    Array becomes:
+    [5, 2, 3, 4, 1]
 
 
-for (let item of arr) {
-→ Loop through every item in array
+    left++;
+    // Move left pointer one step forward
 
+    right--;
+    // Move right pointer one step backward
+  }
 
-if (!unique.includes(item)) {
-→ Check if item does NOT exist in unique array
-→ includes() returns true if item exists, false if not
+  // When left >= right, array is fully reversed
 
-Example:
-item = 1, unique = []
-unique.includes(1) → false → not in array yet
+  return arr;
+  // Return the same reversed array
+}
+*/
 
+/*
+DIAGRAM
+--------------------------------
+Initial:
+Index:  0   1   2   3   4
+Array: [1,  2,  3,  4,  5]
+         ↑               ↑
+       left            right
 
-unique.push(item)
-→ If item is not in unique array
-→ Add it to unique array
+After 1st swap:
+[5, 2, 3, 4, 1]
 
-Example:
-item = 1 → unique = [1]
-item = 2 → unique = [1, 2]
-item = 2 → already in unique, skip
-item = 3 → unique = [1, 2, 3]
+Pointers move inward:
+        ↑       ↑
 
+Final:
+[5, 4, 3, 2, 1]
+--------------------------------
+*/
 
-return unique
-→ Return array with only unique values
+/*
+PSEUDOCODE
+--------------------------------
+SET left = 0
+SET right = length - 1
+
+WHILE left < right
+    SWAP arr[left] and arr[right]
+    INCREMENT left
+    DECREMENT right
+
+RETURN arr
+--------------------------------
 */
 
 
+
+
 /*
-===============================================================================
-DIAGRAM — SOLUTION 2
-===============================================================================
+════════════════════════════════════════════════════════════
+3️⃣ SOLUTION 2 — CUSTOM (Beginner Friendly)
+════════════════════════════════════════════════════════════
 
-arr = [1, 2, 2, 3, 4, 4, 5]
+CODE
+*/
+function reverseArraySimple(arr) {
+   let start = 0;
+   let end = arr.length - 1;
 
-Loop through each item:
+   while (start < end) {
+      let temp = arr[start];
+      arr[start] = arr[end];
+      arr[end] = temp;
 
-item = 1 → unique.includes(1) → false → push → unique = [1]
-item = 2 → unique.includes(2) → false → push → unique = [1, 2]
-item = 2 → unique.includes(2) → true  → skip → unique = [1, 2]
-item = 3 → unique.includes(3) → false → push → unique = [1, 2, 3]
-item = 4 → unique.includes(4) → false → push → unique = [1, 2, 3, 4]
-item = 4 → unique.includes(4) → true  → skip → unique = [1, 2, 3, 4]
-item = 5 → unique.includes(5) → false → push → unique = [1, 2, 3, 4, 5]
+      start++;
+      end--;
+   }
 
-Result: [1, 2, 3, 4, 5] ✅
+   return arr;
+}
+
+/*
+FUNCTION CALLS (TEST CASES)
+*/
+const arr4 = [7, 8, 9];
+reverseArraySimple(arr4); // [9, 8, 7]
+
+const arr5 = [1, 1, 1];
+reverseArraySimple(arr5); // [1, 1, 1]
+
+/*
+LINE BY LINE EXPLANATION
+--------------------------------
+let start = 0;
+→ Start pointer at first index
+
+let end = arr.length - 1;
+→ End pointer at last index
+
+let temp = arr[start];
+→ Store first value temporarily
+
+arr[start] = arr[end];
+→ Put last value in first position
+
+arr[end] = temp;
+→ Put stored value in last position
+
+start++;
+end--;
+→ Move both pointers toward center
+
+return arr;
+→ Return same reversed array
+--------------------------------
 */
 
-
 /*
-===============================================================================
-PSEUDOCODE — SOLUTION 2
-===============================================================================
+DIAGRAM
+--------------------------------
+Before:
+[7, 8, 9]
+ ↑     ↑
+start end
 
-if input is invalid → return []
+Swap:
+temp = 7
+[9, 8, 7]
 
-create empty unique array
+Pointers move:
+   ↑ ↑
 
-loop through arr
-   if item is not in unique array
-      push item to unique array
-
-return unique array
+Loop ends
+--------------------------------
 */
 
-
 /*
-===============================================================================
-⚠️ PERFORMANCE NOTE
-===============================================================================
+PSEUDOCODE
+--------------------------------
+SET start = 0
+SET end = length - 1
 
-Solution 1 (Set)      → O(n) time, faster
-Solution 2 (includes) → O(n²) time, slower (includes loops every time)
+WHILE start < end
+    STORE arr[start] in temp
+    SET arr[start] = arr[end]
+    SET arr[end] = temp
+    MOVE start forward
+    MOVE end backward
 
-For large arrays, Solution 1 is much better.
-For small arrays or learning, Solution 2 is more readable.
+RETURN arr
+--------------------------------
 */

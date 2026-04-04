@@ -1,177 +1,220 @@
 /*
 ===============================================================================
-🧠 PROBLEM: “Remove all occurrences of a value from an array”
+PROBLEM: Group Array by Even/Odd?
 ===============================================================================
 
-📌 What does this mean?
+🧠 What does “Group array by even/odd” mean?
 
-You are given:
+You are given an array of numbers.
 
-1️⃣ An array of values
-2️⃣ A specific value that needs to be removed
+Your task is to separate the numbers into two groups:
 
-Your task is to make sure that this value does NOT exist in the array anymore.
+👉 One group containing EVEN numbers
+👉 One group containing ODD numbers
 
-Not even once ❌
+That’s it.
 
-Every time it appears — it must be removed.
+This problem is about classification (grouping),
+NOT about sorting by value.
 
 
 ===============================================================================
-🔍 Understanding “occurrences”
+📌 What is EVEN and ODD?
+
+Even number:
+A number divisible by 2
+Condition: number % 2 === 0
+
+Examples:
+2, 4, 6, 8, 10, 0, -2
+
+Odd number:
+A number NOT divisible by 2
+Condition: number % 2 !== 0
+
+Examples:
+1, 3, 5, 7, 9, -3
+
+
 ===============================================================================
+📌 Example to Understand
 
-An occurrence simply means:
+Input:
+[1, 2, 3, 4, 5, 6]
 
-➡️ Every time that value shows up in the array.
+Even numbers → [2, 4, 6]
+Odd numbers  → [1, 3, 5]
+
+Final grouped result could look like:
+{
+  even: [2, 4, 6],
+  odd: [1, 3, 5]
+}
+
+OR sometimes:
+[[2,4,6], [1,3,5]]
+
+Depends on how the interviewer wants it.
+
+
+===============================================================================
+🔍 What the Interviewer is Testing
+
+• Can you loop through an array?
+• Do you understand condition checking?
+• Can you classify data into groups?
+• Do you understand modulus operator (%)?
+• Can you return structured data?
+
+
+===============================================================================
+⚠️ Important Clarifications
+
+1️⃣ This is NOT sorting ascending/descending.
+   ❌ Not like: [1,2,3,4,5,6]
+   ✅ It is grouping by type.
+
+2️⃣ Order inside even/odd group
+   Usually original order should stay same
+   unless stated otherwise.
+
+3️⃣ Zero (0) is EVEN.
+
+4️⃣ Negative numbers follow same rule:
+   -2 → even
+   -3 → odd
+
+
+===============================================================================
+CORNER CASES
+
+• Empty array → return empty groups
+• Only even numbers → odd group empty
+• Only odd numbers → even group empty
+• One element → goes to one group
+• Non-number values → depends on validation rules
+
+
+===============================================================================
+@params
+
+arr → Array of integers
 
 Example:
-
-Array → [2, 5, 2, 7, 2, 9]
-
-Value to remove → 2
-
-Here, the number 2 appears in multiple positions.
-
-These are ALL occurrences:
-Index → 0, 2, 4
-
-All of them must be removed.
+[1,2,3,4,5,6]
 
 
 ===============================================================================
-🎯 Expected Result Concept
-===============================================================================
+@returns
 
-After removing all occurrences:
+Grouped structure containing:
 
-The array should contain ONLY the values
-that are NOT equal to the given value.
-
-Example:
-
-Before → [2, 5, 2, 7, 2, 9]
-After  → [5, 7, 9]
-
-✔ Order of remaining elements stays the same
-✔ Only the unwanted value disappears
-✔ Array length becomes smaller
+Even numbers
+Odd numbers
 
 
 ===============================================================================
-🚫 What This Problem is NOT Asking
-===============================================================================
+GOAL SUMMARY
 
-It is NOT asking to:
+You are NOT removing elements.
+You are NOT changing values.
+You are NOT sorting numerically.
 
-❌ Remove only the first match
-❌ Remove only the last match
-❌ Replace the value
-❌ Remove by index
+You are simply:
+👉 Checking each number
+👉 Deciding: even or odd
+👉 Putting it into correct group
 
-It is ONLY about removing by VALUE everywhere it exists.
+That’s the full meaning of:
+“Group array by even/odd.”
 
-
-===============================================================================
-🧠 What the Question is Testing
-===============================================================================
-
-Interviewers want to see if you understand:
-
-- How to scan through an entire array
-- How to compare each element with a target value
-- How to keep only the elements you want
-- The difference between:
-  👉 removing one item
-  👉 removing all matching items
-
-
-===============================================================================
-⚠️ Important Edge Cases You Must Think About
-===============================================================================
-
-1️⃣ Value does not exist in the array
-   → Array should remain unchanged.
-
-2️⃣ All elements are the value to remove
-   → Result will be an empty array.
-
-3️⃣ Empty array
-   → Still empty, nothing to remove.
-
-4️⃣ Different data types
-   Example:
-   → 2 vs "2" (number vs string)
-
-5️⃣ Value appears only once
-   → Remove that single occurrence.
-
-
-===============================================================================
-🧠 Key Thinking Pattern
-===============================================================================
-
-Before solving, ask:
-
-- What value do I need to remove?
-- How many times does it appear?
-- How do I check every element?
-- How do I keep only the allowed values?
-
-
-===============================================================================
-✅ In Simple Words
-===============================================================================
-
-👉 Look at every element in the array.
-👉 If it matches the unwanted value → remove it.
-👉 If it does NOT match → keep it.
-
-Final array should contain zero occurrences of that value.
 */
 
+/*
+=============================================================================================================================
+🔑 KEY IDEA — Group Array by Even/Odd (Beginner Way)
+=============================================================================================================================
 
-//- Problem: Remove all occurrences of a value.?
+Step 1: Prepare two empty groups
+   - evenGroup = []
+   - oddGroup = []
 
-const arr = [2, 5, 2, 7, 2, 9]
+Step 2: Loop through the array
+   for each number in array:
+      - Check if it is even (number % 2 === 0)
+        → Add to evenGroup
+      - Else it is odd
+        → Add to oddGroup
 
-const removeAllOccurance = (arr, target) => {
-   if (!Array.isArray(arr) || arr.length === 0) return [];
-   if (!target || typeof target !== 'number') return []
+Step 3: Return both groups together
+   - Could be as an object { even: [...], odd: [...] }
+   - Or as a nested array [[even numbers], [odd numbers]]
 
-   let result = []
+Beginner Tip:
+- Always start by thinking “classification first, sorting second”
+- Modulus operator (%) is the key to check even/odd
+- Keep the original order while grouping
+=============================================================================================================================
+*/
 
-   for (let i = 0; i < arr.length; i++) {
-      let item = arr[i]
+/*
+===============================================================================
+SOLUTION 1 — Using Simple Loop (Beginner Friendly)
+===============================================================================
+*/
 
-      if (item !== target) {
-         result.push(item)
+function groupEvenOdd(arr) {
+
+   if (!Array.isArray(arr)) return { even: [], odd: [] };
+
+   const even = [];
+   const odd = [];
+
+   for (let number of arr) {
+
+      if (number % 2 === 0) {
+         even.push(number);
+      } else {
+         odd.push(number);
       }
    }
 
-   return result
-};
-
-const output = removeAllOccurance(arr, 2)
-console.log(output);
-
-```js
-- Solution - 02: Using filter(): 
-```
-
-const arr2 = [1, 2, 3, 4, 5, 6, 5, 23, 12, 5, 9, 5, 4, 20, 5, 25, 2, 5]
-const target = 5
-
-const removeAllOccuranceModern = (arr, target) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (!target || typeof target !== 'number') []
-
-   const result = arr.filter(item => item !== target)
-
-   return result
-
+   return { even, odd };
 }
 
-const output2 = removeAllOccuranceModern(arr, target)
-console.log(output2)
+console.log(groupEvenOdd([1,2,3,4,5,6]));// { even: [2,4,6], odd: [1,3,5] }
+console.log(groupEvenOdd([2,4,6]));// { even: [2,4,6], odd: [] }
+console.log(groupEvenOdd([1,3,5]));// { even: [], odd: [1,3,5] }
+console.log(groupEvenOdd([]));// { even: [], odd: [] }
+
+/*
+===============================================================================
+SOLUTION 2 — Using filter
+===============================================================================
+*/
+
+function groupByEvenOdd(arr) {
+   return {
+      even: arr.filter(num => num % 2 === 0),
+      odd:  arr.filter(num => num % 2 !== 0)
+   };
+}
+
+/*
+===============================================================================
+SOLUTION 3 — Using forEach
+===============================================================================
+*/
+
+const groupByEvenOdd = (arr) => {
+
+   const result = {
+      even: [],
+      odd: []
+   }
+
+   arr.forEach(num => num % 2 === 0 ? result.even.push(num) : result.odd.push(num))
+
+   return result;
+}
+

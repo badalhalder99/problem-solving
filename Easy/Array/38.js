@@ -1,120 +1,162 @@
 /*
-***Problem: Find intersection of two arrays?
+===============================================================================
+PROBLEM: Rotate an Array to the Left by 1 Position
+===============================================================================
 
-🧠 What does “Find intersection of two arrays” mean?
+PROBLEM STATEMENT
+-----------------
+Given:
+- an array of elements
 
-In JavaScript, this question is asking you to:
+Rotate the array to the LEFT by 1 position.
 
-👉 Take two arrays
-👉 Find the common elements that appear in both arrays
-
-That’s it — no need to calculate anything else.
-
-
-📌 Example to understand
-
-Suppose you have:
-
-Array A → [1, 2, 3, 4]
-Array B → [3, 4, 5, 6]
-
-The intersection means:
-
-✅ Which values exist in both arrays?
-
-Here:
-
-3 is in both
-4 is in both
-
-So the intersection would contain those common values.
+This means:
+- The first element moves to the end
+- All other elements shift one step to the left
 
 
-🔍 What the interviewer is actually testing
-
-When someone asks this in JS, they usually want to check:
-
-• Can you work with arrays?
-• Do you understand comparison between collections?
-• Can you use JS array methods (includes, filter, Set, etc.)?
-• Can you handle duplicates (sometimes)?
+EXAMPLE
+-------
+[1, 2, 3, 4, 5] → [2, 3, 4, 5, 1]
+["a", "b", "c"] → ["b", "c", "a"]
+[10] → [10]
 
 
-⚠️ Important things that may vary in the question
-
-Interviewers may secretly expect you to think about:
-
-• Duplicates allowed or not
-  Should [2,2] appear once or twice?
-
-• Order matters or not
-
-• Performance for large arrays
-
-• Data types:
-  - numbers
-  - strings
-  - objects (harder case)
+KEY IDEA (BEGINNER WAY)
+----------------------
+Left rotation by 1 means:
+1. Remove the first element
+2. Put it at the end of the array
 
 
-✅ In simple words
+CORNER CASES TO HANDLE
+---------------------
+1. Not an array → return empty array
+2. Empty array → return empty array
+3. Array with one element → return same array
 
-“Find intersection of two arrays” means:
 
-👉 Return a new array containing elements
-   that are present in both input arrays.
+@params
+-------
+@param {Array} arr → input array
+
+@returns
+--------
+@return {Array} → rotated array
 */
 
-// - Solution - 01:
 
-const arr1 = [1, 2, 3, 4];
-const arr2 = [3, 4, 5, 6];
+/*
+===============================================================================
+SOLUTION 1: MODERN (shift + push)
+===============================================================================
+*/
 
-const getIntersection = (arr1, arr2) => {
+const rotateLeftModern = (arr) => {
+   if (!Array.isArray(arr)) return [];
+   if (arr.length <= 1) return arr;
 
-   const commonElements = arr1.filter(item => arr2.includes(item))
+   const first = arr.shift();
+   arr.push(first);
 
-   return commonElements;
-}
+   return arr;
+};
 
-const output = getIntersection(arr1, arr2)
-console.log(output)
+console.log(rotateLeftModern([1, 2, 3, 4, 5])); // [2, 3, 4, 5, 1]
+console.log(rotateLeftModern(["a", "b", "c"])); // ["b", "c", "a"]
 
-// ************************************************************************************************************************//
 
-// - Solution - 02:
+/*
+LINE BY LINE EXPLANATION — SOLUTION 1 (MODERN)
+----------------------------------------------
 
-function getIntersection2(arr1, arr2) {
+const rotateLeftModern = (arr) => {
 
-   // Convert second array into Set
-   const set2 = new Set(arr2);
+→ Create a function that rotates array left
 
-   // Filter common elements
-   const filtered = arr1.filter(item => set2.has(item))
 
-   // Remove duplicates using Set
-   const unique = [...new Set(filtered)];
+if (!Array.isArray(arr)) return [];
 
-   return unique;
-}
+→ If input is not an array, return empty array
 
-console.log(getIntersection2(arr1, arr2));
 
-// ************************************************************************************************************************//
-// - Solution - 03:
+if (arr.length <= 1) return arr;
 
-function getIntersection(arr1, arr2) {
+→ If array has 0 or 1 element, rotation does nothing
 
-   const result = [];
 
-   for (let item of arr1) {
-      if (arr2.includes(aitem)) {
-         result.push(item);
-      }
+const first = arr.shift();
+
+→ shift() removes the FIRST element from the array
+→ That removed element is stored in variable "first"
+
+Example:
+[1,2,3,4] → shift() → first = 1
+Array becomes [2,3,4]
+
+
+arr.push(first);
+
+→ push() adds the element to the END of the array
+→ Now array becomes [2,3,4,1]
+
+
+return arr;
+
+→ Return the rotated array
+*/
+
+
+/*
+SOLUTION 1 — DIAGRAM
+--------------------
+
+Original Array:
+[1, 2, 3, 4, 5]
+
+Step 1: Remove first
+first = 1
+Array → [2, 3, 4, 5]
+
+Step 2: Add to end
+[2, 3, 4, 5, 1]
+
+Result → [2, 3, 4, 5, 1]
+*/
+
+
+/*
+SOLUTION 1 — PSEUDOCODE
+----------------------
+if input not array → return []
+
+if array length <= 1 → return array
+
+remove first element
+add it to end
+
+return array
+*/
+
+// - Problem: Rotate the array to the left by 1 position?
+
+const arr = [1, 2, 3, 4, 5]
+
+const leftRotateByOnePosition = (arr) => {
+   if (!Array.isArray(arr) || arr.length === 0) return []
+
+   let leftRotate = []
+   let first = arr[0]
+
+   for (let i = 1; i < arr.length; i++) {
+      let current = arr[i]
+      leftRotate.push(current)
    }
 
-   return result;
+   leftRotate.push(first)
+
+   return leftRotate;
 }
 
-console.log(getIntersection(arr1, arr2));
-// Output: [3, 4]
+const output = leftRotateByOnePosition(arr)
+console.log(output)

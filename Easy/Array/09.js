@@ -1,10 +1,10 @@
 /*
 ====================================================
-PROBLEM: Return the Last Element of an Array
+PROBLEM: Return the First Element of an Array
 ====================================================
 
 PROBLEM STATEMENT
-Given an array, return its LAST element.
+Given an array, return its FIRST element.
 If the array is empty, return undefined.
 
 ----------------------------------------------------
@@ -14,21 +14,21 @@ Input:
 [10, 20, 30]
 
 Output:
-30
+10
 
 ----------------------------------------------------
 KEY IDEA (Beginner Way)
 ----------------------------------------------------
 - Arrays store values in order
-- The last element index is always (length - 1)
-- JavaScript provides modern and classic ways to access it
+- Indexing in JavaScript starts from 0
+- The first element is always at index 0
 
 ----------------------------------------------------
 CORNER CASES
 ----------------------------------------------------
 1. Empty array → undefined
 2. Single element array → return that element
-3. Mixed data types → return last item only
+3. Array with mixed data types → return first item only
 
 ----------------------------------------------------
 @params
@@ -38,7 +38,7 @@ CORNER CASES
 ----------------------------------------------------
 @returns
 ----------------------------------------------------
-@return {*} - last element of the array or undefined
+@return {*} - first element of the array or undefined
 
 
 ====================================================
@@ -49,8 +49,8 @@ SOLUTION 1 — Modern
 CODE
 --------------------
 */
-const getLastElementModern = (arr) => {
-  return arr.at(-1);
+const getFirstElementModern = (arr) => {
+  return arr.at(0);
 };
 
 /*
@@ -58,18 +58,18 @@ const getLastElementModern = (arr) => {
 FUNCTION CALLS (TEST CASES)
 --------------------
 */
-console.log(getLastElementModern([10, 20, 30]));
-console.log(getLastElementModern(["a", "b", "c"]));
-console.log(getLastElementModern([true, false]));
-console.log(getLastElementModern([]));
+console.log(getFirstElementModern([10, 20, 30]));
+console.log(getFirstElementModern(["a", "b", "c"]));
+console.log(getFirstElementModern([true, false]));
+console.log(getFirstElementModern([]));
 
 /*
 --------------------
 LINE BY LINE EXPLANATION
 --------------------
-1. arr.at(-1)
-   - at() supports negative indexing
-   - -1 means last element
+1. arr.at(0)
+   - at() is a modern array method
+   - 0 means first position
 2. If array is empty, it returns undefined
 3. Does not modify the original array
 
@@ -78,15 +78,15 @@ DIAGRAM
 --------------------
 Array:
 [10, 20, 30]
-            ↑
-         index -1
+ ↑
+ index 0
 
 --------------------
 PSEUDOCODE
 --------------------
 START
 Take array
-Return element at index -1
+Return element at index 0
 END
 
 
@@ -98,8 +98,8 @@ SOLUTION 2 — Custom (Beginner Friendly)
 CODE
 --------------------
 */
-const getLastElementCustom = (arr) => {
-  return arr[arr.length - 1];
+const getFirstElementCustom = (arr) => {
+  return arr[0];
 };
 
 /*
@@ -107,37 +107,32 @@ const getLastElementCustom = (arr) => {
 FUNCTION CALLS (TEST CASES)
 --------------------
 */
-console.log(getLastElementCustom([10, 20, 30]));
-console.log(getLastElementCustom(["x", "y"]));
-console.log(getLastElementCustom([99]));
-console.log(getLastElementCustom([]));
+console.log(getFirstElementCustom([10, 20, 30]));
+console.log(getFirstElementCustom(["x", "y"]));
+console.log(getFirstElementCustom([99]));
+console.log(getFirstElementCustom([]));
 
 /*
 --------------------
 LINE BY LINE EXPLANATION
 --------------------
-1. arr.length gives total number of elements
-2. Last index = length - 1
-3. arr[arr.length - 1] accesses last element
-4. Empty array → arr.length is 0 → index -1 → returns undefined
+1. arr[0] accesses the first element
+2. JavaScript arrays start from index 0
+3. If array is empty, arr[0] returns undefined
 
 --------------------
 DIAGRAM
 --------------------
 arr = ["a", "b", "c"]
 
-length = 3
-last index = 2
-
-arr[2] → "c"
+arr[0] → "a"
 
 --------------------
 PSEUDOCODE
 --------------------
 START
 Take array
-Find length
-Access length - 1 index
+Access index 0
 Return value
 END
 ====================================================

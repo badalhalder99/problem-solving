@@ -1,327 +1,168 @@
 /*
-===============================================================================
-PROBLEM: Insert an Element at a Specific Index?
-===============================================================================
+====================================================
+PROBLEM: Flatten a Nested Array One Level
+====================================================
 
 PROBLEM STATEMENT
------------------
-Given:
-- an array
-- an element to insert
-- an index position
+Given an array that may contain nested arrays, flatten the array by only ONE level.
+Do NOT deeply flatten the array.
 
-Return:
-- new array with element inserted at the specified index
-
-
+----------------------------------------------------
 EXAMPLE
--------
-arr = [10, 20, 40, 50]
-element = 30
-index = 2
+----------------------------------------------------
+Input:
+[1, [2, 3], [4, 5], 6]
 
-Expected → [10, 20, 30, 40, 50]
+Output:
+[1, 2, 3, 4, 5, 6]
 
+----------------------------------------------------
+KEY IDEA (Beginner Way)
+----------------------------------------------------
+- We go through each element of the array
+- If the element is an array, we open it ONE time
+- If it is not an array, we keep it as it is
+- We do NOT touch deeper nested arrays
 
-KEY IDEA (BEGINNER WAY)
------------------------
-1. Split array into two parts at the index
-2. Part 1: everything before the index
-3. Part 2: everything from the index onwards
-4. Combine: Part 1 + new element + Part 2
+----------------------------------------------------
+CORNER CASES
+----------------------------------------------------
+1. Empty array → []
+2. No nested array → remains same
+3. Deep nesting → only first level is flattened
 
+Example:
+[1, [2, [3, 4]]] → [1, 2, [3, 4]]
 
-CORNER CASES TO HANDLE
-----------------------
-1. Not an array             → return []
-2. Empty array              → return []
-3. Index is not a number    → return []
-4. Index is 0               → insert at beginning
-5. Index >= array length    → insert at end
-
-
+----------------------------------------------------
 @params
--------
-@param {Array}  arr             → input array
-@param {number} insertedElement → element to insert
-@param {number} indexNumber     → position to insert at
+----------------------------------------------------
+@param {Array} arr - input array with possible nested arrays
 
+----------------------------------------------------
 @returns
---------
-@return {Array} → new array with element inserted
-*/
+----------------------------------------------------
+@return {Array} - new array flattened one level only
 
+
+====================================================
+SOLUTION 1 — Modern (Using flat)
+====================================================
+
+*/
+const flattenOneLevelModern = (arr) => {
+  return arr.flat(1);
+};
+
+console.log(flattenOneLevelModern([1, [2, 3], [4, 5], 6]));
+console.log(flattenOneLevelModern([1, [2, [3, 4]]]));
+console.log(flattenOneLevelModern([]));
+console.log(flattenOneLevelModern([1, 2, 3]));
 
 /*
-===============================================================================
-SOLUTION 1 — MODERN
-===============================================================================
+=============================================================================================================================
+SOLUTION 2 — Modern (Using loop)
+=============================================================================================================================
+
+---------------------------------------------------------------------->
+PSEUDOCODE
+---------------------------------------------------------------------->
+
+START
+   Create empty result array
+   FOR each element in input array
+   IF element is array
+      add its items to result
+   ELSE
+      add element to result
+   RETURN result
+END
+
 */
 
-const insertElementAtSpecificIndexModern = (arr, insertedElement, indexNumber) => {
+const arr = [1, [2, 3], [4, 5], 6]
 
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (typeof indexNumber !== 'number') return []
+const flattenArr = (arr) => {
+   let newArr = []
 
-   const beforeIndex = arr.slice(0, indexNumber)
-   const afterIndex = arr.slice(indexNumber)
-
-   const newArr = [...beforeIndex, insertedElement , ...afterIndex]
+   for (let i = 0; i < arr.length; i++) {
+      if (Array.isArray(arr[i])) {
+         // If it's an array, push each element
+         for (let j = 0; j < arr[i].length; j++) {
+            newArr.push(arr[i][j])
+         }
+      } else {
+         // If it's a number, push directly
+         newArr.push(arr[i])
+      }
+   }
 
    return newArr
 }
 
-console.log(insertElementAtSpecificIndexModern([10, 20, 40, 50], 30, 2))  // [10, 20, 30, 40, 50]
-console.log(insertElementAtSpecificIndexModern([10, 20, 40, 50], 5, 0))   // [5, 10, 20, 40, 50]
-console.log(insertElementAtSpecificIndexModern([10, 20, 40, 50], 60, 4))  // [10, 20, 40, 50, 60]
-
+const output = flattenArr(arr)
+console.log(output)  // [1, 2, 3, 4, 5, 6]
 
 /*
-===============================================================================
-LINE BY LINE EXPLANATION — SOLUTION 1
-===============================================================================
-
-const insertElementAtSpecificIndexModern = (arr, insertedElement, indexNumber) => {
-→ Create a function
-→ arr             = input array
-→ insertedElement = element to insert
-→ indexNumber     = position to insert at
-
-
-if (!Array.isArray(arr) || arr.length === 0) return []
-→ If arr is not an array OR empty
-→ return []
-
-
-if (typeof indexNumber !== 'number') return []
-→ If indexNumber is not a number
-→ return []
-
-
-arr.slice(0, indexNumber)
-→ Get all elements from start to index (not including index)
-
-Example:
-arr = [10, 20, 40, 50]
-indexNumber = 2
-arr.slice(0, 2) → [10, 20]
-
-
-arr.slice(indexNumber)
-→ Get all elements from index to end (including index)
-
-Example:
-arr = [10, 20, 40, 50]
-indexNumber = 2
-arr.slice(2) → [40, 50]
-
-
-return [
-   ...arr.slice(0, indexNumber),
-   insertedElement,
-   ...arr.slice(indexNumber)
-]
-→ Combine three parts:
-→ 1. Elements before index
-→ 2. New element
-→ 3. Elements from index onwards
-
-Example:
-[10, 20] + 30 + [40, 50] → [10, 20, 30, 40, 50]
+====================================================
+SOLUTION 3 — Modern (Using spreed operator)
+====================================================
 */
 
-
-/*
-===============================================================================
-DIAGRAM — SOLUTION 1
-===============================================================================
-
-arr = [10, 20, 40, 50]
-insertedElement = 30
-indexNumber = 2
-
-Step 1 — Split at index 2:
-Before index: arr.slice(0, 2) → [10, 20]
-From index:   arr.slice(2)    → [40, 50]
-
-Step 2 — Insert element:
-[10, 20] + 30 + [40, 50]
-
-Step 3 — Combine:
-[10, 20, 30, 40, 50]
-
-Result: [10, 20, 30, 40, 50] ✅
-*/
-
-
-/*
-===============================================================================
-PSEUDOCODE — SOLUTION 1
-===============================================================================
-
-if input is invalid → return []
-
-split array at index into two parts
-combine: before + new element + after
-
-return new array
-*/
-
-
-
-
-/*
-===============================================================================
-SOLUTION 2 — CUSTOM (BEGINNER FRIENDLY)
-===============================================================================
-*/
-
-const insertElementAtSpecificIndexBeginner = (arr, insertedElement, indexNumber) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (typeof indexNumber !== 'number') return []
+const flattenArr2 = (arr) => {
 
    let newArr = []
 
-   // Add elements before the index
-   for (let i = 0; i < indexNumber; i++) {
-      newArr.push(arr[i])
+   for (let item of arr) {
+      if (Array.isArray(item)) {
+         newArr.push(...item)  // Spread the array elements
+      } else {
+         newArr.push(item)
+      }
    }
+   return newArr
+}
 
-   // Add the new element
-   newArr.push(insertedElement)
+/*
+====================================================
+SOLUTION 4 — Modern (Using bulit in loop)
+====================================================
+*/
 
-   // Add elements from the index onwards
-   for (let i = indexNumber; i < arr.length; i++) {
-      newArr.push(arr[i])
+const arrs = [1, [2, 3], [4, 5], 6]
+
+const flattenArrs = (arr) => {
+   let newArr = []
+
+   for (let outerItem of arr) {
+      if (Array.isArray(outerItem)) {
+         for (let innerItem of outerItem) {
+            newArr.push(innerItem)  // ✅ Correct! item is already the value
+         }
+      } else {
+         newArr.push(outerItem)
+      }
    }
 
    return newArr
 }
 
-console.log(insertElementAtSpecificIndexBeginner([10, 20, 40, 50], 30, 2))  // [10, 20, 30, 40, 50]
-console.log(insertElementAtSpecificIndexBeginner([10, 20, 40, 50], 5, 0))   // [5, 10, 20, 40, 50]
-console.log(insertElementAtSpecificIndexBeginner([10, 20, 40, 50], 60, 4))  // [10, 20, 40, 50, 60]
-
+const outputs = flattenArr(arr)
+console.log(outputs)  // [1, 2, 3, 4, 5, 6]
 
 /*
-===============================================================================
-LINE BY LINE EXPLANATION — SOLUTION 2
-===============================================================================
+====================================================
+SOLUTION 5 — Modern (Using concat())
+====================================================
+*/
 
-const insertElementAtSpecificIndexBeginner = (arr, insertedElement, indexNumber) => {
-→ Create a function
-→ arr             = input array
-→ insertedElement = element to insert
-→ indexNumber     = position to insert at
+const flattenArrss = (arr) => {
 
+   let newArr = []
 
-if (!Array.isArray(arr) || arr.length === 0) return []
-→ If arr is not an array OR empty
-→ return []
+   for (let item of arr) {
+      newArr = newArr.concat(item)  // concat handles both arrays and values
+   }
 
-
-if (typeof indexNumber !== 'number') return []
-→ If indexNumber is not a number
-→ return []
-
-
-let newArr = []
-→ Empty array to build the result
-
-
-for (let i = 0; i < indexNumber; i++) {
-   newArr.push(arr[i])
+   return newArr
 }
-→ Loop from 0 to index (not including index)
-→ Push all elements before the index
-
-Example:
-arr = [10, 20, 40, 50]
-indexNumber = 2
-i=0 → newArr.push(arr[0]) → newArr = [10]
-i=1 → newArr.push(arr[1]) → newArr = [10, 20]
-
-
-newArr.push(insertedElement)
-→ Add the new element at the index position
-
-Example:
-insertedElement = 30
-newArr = [10, 20, 30]
-
-
-for (let i = indexNumber; i < arr.length; i++) {
-   newArr.push(arr[i])
-}
-→ Loop from index to end of array
-→ Push all remaining elements
-
-Example:
-i=2 → newArr.push(arr[2]) → newArr = [10, 20, 30, 40]
-i=3 → newArr.push(arr[3]) → newArr = [10, 20, 30, 40, 50]
-
-
-return newArr
-→ Return the new array with inserted element
-*/
-
-
-/*
-===============================================================================
-DIAGRAM — SOLUTION 2
-===============================================================================
-
-arr = [10, 20, 40, 50]
-insertedElement = 30
-indexNumber = 2
-
-Step 1 — Add elements before index:
-i=0 → push arr[0] → newArr = [10]
-i=1 → push arr[1] → newArr = [10, 20]
-
-Step 2 — Add new element:
-push 30 → newArr = [10, 20, 30]
-
-Step 3 — Add elements from index onwards:
-i=2 → push arr[2] → newArr = [10, 20, 30, 40]
-i=3 → push arr[3] → newArr = [10, 20, 30, 40, 50]
-
-Result: [10, 20, 30, 40, 50] ✅
-*/
-
-
-/*
-===============================================================================
-PSEUDOCODE — SOLUTION 2
-===============================================================================
-
-if input is invalid → return []
-
-create empty newArr
-
-loop from 0 to index (not including index)
-   push arr[i] to newArr
-
-push insertedElement to newArr
-
-loop from index to end of array
-   push arr[i] to newArr
-
-return newArr
-*/
-
-
-/*
-===============================================================================
-⚠️ ALTERNATIVE — Using splice() (Mutates Original Array)
-===============================================================================
-
-const insertWithSplice = (arr, element, index) => {
-   arr.splice(index, 0, element)  // mutates original array
-   return arr
-}
-
-⚠️ Note: This changes the original array!
-If you want to keep the original array unchanged, use the solutions above.
-*/

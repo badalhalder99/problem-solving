@@ -1,209 +1,237 @@
 /*
 ===============================================================================
-PROBLEM: Find Union of Two Arrays?
+PROBLEM: Rotate the array to the right by K positions
 ===============================================================================
 
-🧠 What does “Find union of two arrays” mean?
+PROBLEM STATEMENT
+-----------------
+Given:
+- an array `arr`
+- a number `k`
 
-In JavaScript, this question is asking you to:
+Rotate the array to the RIGHT by `k` positions.
 
-👉 Take two arrays
-👉 Combine their elements
-👉 Return all unique elements that appear in either array
-
-Union means:
-Everything from both arrays — without duplicates.
-
-
-===============================================================================
-📌 Example to Understand
-
-Example 1:
-
-Array A → [1, 2, 3]
-Array B → [3, 4, 5]
-
-Union means:
-
-Take all values from both arrays:
-[1, 2, 3, 3, 4, 5]
-
-Remove duplicates:
-[1, 2, 3, 4, 5]
-
-Final Answer:
-[1, 2, 3, 4, 5]
+That means:
+- The last `k` elements move to the front
+- The rest shift to the right
 
 
-Example 2:
-
-Array A → [1, 1, 2]
-Array B → [2, 3]
-
-Union:
-[1, 2, 3]
-===============================================================================
-
-🔑 KEY IDEA (Beginner Way to Think)
-
-Step 1:
-First, think — union means “everything from both”.
-
-So combine both arrays into one big array.
-
-Step 2:
-Now think — union does NOT allow duplicates.
-
-So remove duplicate values.
-
-That’s it.
-
-In simple thinking:
-👉 Merge
-👉 Remove duplicates
-👉 Return result
-
-===============================================================================
-
-🔍 What the Interviewer is Testing
-
-When this question is asked, they want to check:
-
-• Can you merge arrays?
-• Do you understand uniqueness?
-• Can you remove duplicates?
-• Do you know how to use:
-  - Set
-  - spread operator (...)
-  - filter
-  - loops
-• Can you handle edge cases?
+EXAMPLE
+-------
+[1,2,3,4,5], k = 2 → [4,5,1,2,3]
+["a","b","c","d"], k = 1 → ["d","a","b","c"]
 
 
-===============================================================================
-⚠️ Important Things That May Vary
-
-1️⃣ Should duplicates be removed?
-   Usually YES (true union concept)
-
-2️⃣ Should order be preserved?
-   Sometimes they expect:
-   - First array order first
-   - Then second array's new elements
-
-3️⃣ What about different data types?
-   - numbers
-   - strings
-   - objects (harder case)
-
-4️⃣ Large arrays?
-   They may check performance.
+KEY IDEA (BEGINNER WAY)
+----------------------
+1. Take the last `k` elements
+2. Put them into a new array
+3. Then add the remaining elements after them
 
 
-===============================================================================
-CORNER CASES TO THINK ABOUT
-
-1️⃣ One array is empty
-   A = []
-   B = [1,2]
-   Union = [1,2]
-
-2️⃣ Both arrays empty
-   Union = []
-
-3️⃣ Arrays contain same elements
-   A = [1,2]
-   B = [1,2]
-   Union = [1,2]
-
-4️⃣ Negative numbers or zero
-   Should work normally
+CORNER CASES TO HANDLE
+---------------------
+1. Not an array → return []
+2. Empty array → return []
+3. k is not a number → return []
+4. k larger than length → use modulo (k % length)
 
 
-===============================================================================
 @params
+-------
+@param {Array} arr → input array
+@param {number} k  → number of right rotations
 
-arr1 → First array
-arr2 → Second array
-
-Example:
-arr1 = [1,2,3]
-arr2 = [3,4,5]
-
-
-===============================================================================
 @returns
-
-A new array containing all unique elements
-that appear in either arr1 or arr2.
-
-Example:
-Input:
-[1,2,3] and [3,4,5]
-
-Return:
-[1,2,3,4,5]
+--------
+@return {Array}
+*/
 
 
+/*
 ===============================================================================
-GOAL SUMMARY
-
-Union means:
-
-👉 Everything from both arrays
-👉 But no duplicates
-👉 Return as a new array
-
-That’s it.
+SOLUTION (CUSTOM — LOOP BASED)
 ===============================================================================
 */
 
-// *************************************************************************************************************************/
-// - Solution - 01:
+const rightRotateByKPosition = (arr, k) => {
 
-const arr1 = [1, 2, 3, 4]
-const arr2 = [3, 4, 5, 6]
+   if (!Array.isArray(arr) || arr.length === 0) return []
+   if (!k || typeof k !== 'number') return []
 
+   k = k % arr.length
 
-function getUnion(arr1, arr2) {
+   let rightRotate = []
 
-   if (!Array.isArray(arr1) || arr1.length === 0) return []
-   if (!Array.isArray(arr2) || arr2.length === 0) return []
-
-   const combined = [...arr1, ...arr2]
-
-   const result = []
-
-   for (let item of combined) {
-      if (!result.includes(item)) {
-         result.push(item)
-      }
+   // push the last k elements first
+   for (let i = arr.length - k; i < arr.length; i++) {
+      rightRotate.push(arr[i])
    }
 
-   return result
+   // then push the remaining elements
+   for (let i = 0; i < arr.length - k; i++) {
+      rightRotate.push(arr[i])
+   }
+
+   return rightRotate
 }
 
-console.log(getUnion(arr1, arr2));
+const rightRotateByKPosition2 = (arr, k) => {
+  if (!Array.isArray(arr) || arr.length === 0) return []
+  if (!k || typeof k !== 'number') return []
 
-// *************************************************************************************************************************/
-// - Solution - 02:
+  k = k % arr.length
 
-const arrOne = [1, 2, 3, 4]
-const arrTwo = [3, 4, 5, 6]
-
-
-function getUnion(arr1, arr2) {
-
-   if (!Array.isArray(arr1) || arr1.length === 0) return []
-   if (!Array.isArray(arr2) || arr2.length === 0) return []
-
-   const combined = [...arr1, ...arr2]
-
-   const set = new Set(combined)
-
-   const unique = [...set]
-
-   return unique
+  return [...arr.slice(-k), ...arr.slice(0, -k)]
 }
 
-console.log(getUnion(arrOne, arrTwo));
+/*
+===============================================================================
+LINE BY LINE EXPLANATION
+===============================================================================
+
+const rightRotateByKPosition = (arr, k) => {
+
+→ Create a function that takes:
+   arr = array
+   k   = number of positions to rotate
+
+
+if (!Array.isArray(arr) || arr.length === 0) return []
+
+→ If input is not an array OR array is empty
+→ Return empty array
+→ Because rotation is not possible
+
+
+if (!k || typeof k !== 'number') return []
+
+→ If k is missing or not a number
+→ Return empty array
+→ Rotation needs a valid number
+
+----------------------------------------------->
+k = k % arr.length
+
+→ Prevent unnecessary extra rotations
+
+Example:
+arr = [1,2,3,4,5]
+length = 5
+k = 7
+
+7 % 5 = 2
+So rotating 7 times = rotating 2 times
+
+🧠 Real Life Analogy
+
+ধরো ঘড়ি আছে 🕒
+
+12 টা বাজে।
+
+তুমি 15 ঘণ্টা এগাও।
+
+15 % 12 = 3
+
+মানে এখন 3 টা বাজবে।
+
+ঘড়ির মতো array-ও circular।
+------------------------------------------------->
+
+let rightRotate = []
+
+→ Create a new array to store rotated result
+
+
+// push the last k elements first
+for (let i = arr.length - k; i < arr.length; i++) {
+
+→ Start from index (length - k)
+→ Go until the last index
+
+Example:
+arr = [1,2,3,4,5]
+k = 2
+length = 5
+
+5 - 2 = 3
+
+Loop runs:
+i = 3 → arr[3] = 4
+i = 4 → arr[4] = 5
+
+rightRotate = [4,5]
+
+
+rightRotate.push(arr[i])
+
+→ Add last k elements into new array
+
+
+// then push the remaining elements
+for (let i = 0; i < arr.length - k; i++) {
+
+→ Now loop from start (0)
+→ Stop before (length - k)
+
+Example:
+i = 0 → 1
+i = 1 → 2
+i = 2 → 3
+
+rightRotate becomes:
+[4,5,1,2,3]
+
+
+return rightRotate
+
+→ Return the final rotated array
+*/
+
+
+/*
+===============================================================================
+DIAGRAM
+===============================================================================
+
+Original:
+[1, 2, 3, 4, 5]
+ length = 5
+ k = 2
+
+Step 1:
+Start from index = 5 - 2 = 3
+
+Take:
+[4, 5]
+
+Step 2:
+Take remaining:
+[1, 2, 3]
+
+Final:
+[4, 5, 1, 2, 3]
+*/
+
+
+/*
+===============================================================================
+PSEUDOCODE
+===============================================================================
+
+if not array OR empty → return []
+
+if k invalid → return []
+
+reduce k using modulo
+
+create empty result array
+
+for i from length - k to length - 1
+   push arr[i]
+
+for i from 0 to length - k - 1
+   push arr[i]
+
+return result
+*/

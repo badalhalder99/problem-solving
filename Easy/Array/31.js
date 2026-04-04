@@ -1,213 +1,135 @@
-// - Problem: How to find the missing number in the array from 1 to n?
-
 /*
 ===============================================================================
-PROBLEM: Find the missing number in the array from 1 to n
+PROBLEM: Sort an array of numbers in ascending order
 ===============================================================================
 
 PROBLEM STATEMENT
 -----------------
 Given:
-- an array containing numbers from 1 to n
-- one or more numbers are missing
+- an array of numbers
 
-Return:
-- the missing number(s)
+Return the array sorted from smallest to largest.
 
 
 EXAMPLE
 -------
-arr = [1, 3, 6, 7, 8, 9, 10], n = 10
-
-Expected → [2, 4, 5]
+[5, 2, 9, 1]      → [1, 2, 5, 9]
+[10, -3, 7, 4]    → [-3, 4, 7, 10]
+[1]               → [1]
+[]                → []
 
 
 KEY IDEA (BEGINNER WAY)
 ----------------------
-We know the full range should be:
+Ascending order means:
+SMALL → BIG
 
-1 → n
-
-So:
-1. Loop from 1 to n
-2. For each number:
-   check if it exists in the array
-3. If it does NOT exist → it is missing
+We compare numbers and move smaller numbers to the front.
 
 
 CORNER CASES TO HANDLE
 ---------------------
-1. Not an array → return []
-2. Empty array → return []
-3. n is not a number → return []
+1. Not an array → return empty array
+2. Array with 0 or 1 element → already sorted
 
 
 @params
 -------
-@param {Array} arr → input array
-@param {number} n  → max number
+@param {number[]} arr → array of numbers
 
 @returns
 --------
-@return {Array}
+@return {number[]}
 */
+
 
 
 /*
 ===============================================================================
-CORRECT SOLUTION (CUSTOM — BEGINNER FRIENDLY)
+SOLUTION 1: MODERN (Built-in sort with compare function)
 ===============================================================================
 */
 
-const findMissingNumber = (arr, n) => {
+const sortAscendingModern = (arr) => {
 
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (!n || typeof n !== 'number') return []
+   if (!Array.isArray(arr)) return [];
 
-   let missingArr = []
+   return arr.sort((a, b) => a - b);
+};
 
-   for (let i = 1; i <= n; i++) {
-      if (!arr.includes(i)) {
-         missingArr.push(i)
-      }
-   }
+const nums1 = [5, 2, 9, 1];
+console.log(sortAscendingModern(nums1)); // [1, 2, 5, 9]
 
-   return missingArr
-}
-
-const arr = [1, 3, 6, 7, 8, 9, 10]
-const output = findMissingNumber(arr, 10)
-console.log(output) // [2, 4, 5]
 
 
 /*
-===============================================================================
-LINE BY LINE EXPLANATION
-===============================================================================
+LINE BY LINE EXPLANATION — SOLUTION 1 (MODERN)
+----------------------------------------------
 
-const findMissingNumber = (arr, n) => {
+const sortAscendingModern = (arr) => {
+→ Function that takes an array of numbers
 
-→ Create a function
-→ arr = input array
-→ n   = last number of the range
+if (!Array.isArray(arr)) return [];
+→ Safety check: if input is not an array, return empty array
 
+return arr.sort((a, b) => a - b);
+→ sort() is a built-in JavaScript array method
 
-if (!Array.isArray(arr) || arr.length === 0) return []
+→ By default, sort() treats values as STRINGS (wrong for numbers)
+   Example: [10, 2] → [10, 2]
 
-→ If arr is not an array OR empty
-→ return []
+→ So we provide a compare function:
+   (a, b) => a - b
 
+How compare works:
+- If result < 0 → a comes before b
+- If result > 0 → b comes before a
+- If result = 0 → order stays same
 
-if (!n || typeof n !== 'number') return []
+So:
+2 - 5 = -3 → 2 comes before 5
+9 - 1 = 8  → 1 comes before 9
 
-→ If n is missing or not a number
-→ return []
-
-
-let missingArr = []
-
-→ Create an empty array
-→ This will store missing numbers
-
-
-for (let i = 1; i <= n; i++) {
-
-→ Start from 1
-→ Go up to n
-→ Because full range should be 1 → n
-
-
-if (!arr.includes(i)) {
-
-→ Check if current number i
-→ does NOT exist in the array
-
-Example:
-i = 2
-arr = [1,3,6,7,8,9,10]
-
-arr.includes(2) → false
-So 2 is missing
-
-
-missingArr.push(i)
-
-→ Add missing number into result array
-
-
-return missingArr
-
-→ Return all missing numbers
+This sorts numbers in ascending order
 */
+
 
 
 /*
-===============================================================================
-DIAGRAM
-===============================================================================
+SOLUTION 1 — DIAGRAM
+--------------------
 
-arr = [1, 3, 6, 7, 8, 9, 10]
-n = 10
+Before: [5, 2, 9, 1]
 
-We check:
+Comparisons reorder values →
 
-1 → exists
-2 → missing ✅
-3 → exists
-4 → missing ✅
-5 → missing ✅
-6 → exists
-7 → exists
-8 → exists
-9 → exists
-10 → exists
-
-Result:
-[2, 4, 5]
+After:  [1, 2, 5, 9]
 */
+
 
 
 /*
-===============================================================================
-PSEUDOCODE
-===============================================================================
+SOLUTION 1 — PSEUDOCODE
+----------------------
+if input is not array → return []
 
-if input is invalid → return []
+sort array using compare function (a - b)
 
-create empty missing array
-
-loop from 1 → n
-   if number not in arr
-      add to missing array
-
-return missing array
+return array
 */
-
 
 /*
 ===============================================================================
-Here's the simplest modern solution:
+PROBLEM: Sort an array of numbers in decending order
 ===============================================================================
 */
 
-const arr1 = [1, 3, 6, 7, 8, 9, 10]
+const sortDecending = (arr) => {
 
-const findMissingNumber1 = (arr, n) => {
-   
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (!n || typeof n !== 'number') return []
+   if (!Array.isArray(arr)) return [];
 
-   const set = new Set(arr)
-   let missingArr = []
+   return arr.sort((a, b) => b - a);
+};
 
-   for (let i = 1; i <= n; i++) {
-      if (!set.has(i)) {
-         missingArr.push(i)
-      }
-   }
-
-   return missingArr
-}
-
-const result = findMissingNumber1(arr1, 10)
-console.log(result)  // [2, 4, 5]
+const numbers = [5, 2, 9, 1];
+console.log(sortDecending(numbers));

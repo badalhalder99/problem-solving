@@ -1,46 +1,26 @@
+// - Check if an array contains a specific value?
 
-// - Problem: Merge two arrays and remove duplicates?
+const numbers = [1, 2, 3, 4, 5]
 
-const arr1 = [1, 2, 3, 4, 5]
-const arr2 = [6, 2, 3, 7, 8]
+const checkValue = (arr, search) => {
 
-const merageArrayAndRemoveDuplicate = (arr1, arr2) => {
-   if (!Array.isArray(arr1) || arr1.length === 0) return []
-   if (!Array.isArray(arr2) || arr2.length === 0) return []
-
-   const combinedArray = [...arr1, ...arr2]
-   console.log(combinedArray)
-
-   let uniqueArr = []
-
-   for (let item of combinedArray) {
-      if (!uniqueArr.includes(item)) {
-         uniqueArr.push(item)
-      }
+   if (!arr.includes(search)) {
+      return false
+   } else {
+      return true
    }
-
-   return uniqueArr
 }
 
-const output = merageArrayAndRemoveDuplicate(arr1, arr2)
+const output = checkValue(numbers, 5)
 console.log(output)
 
-// - Solution - 02:------------------------------------------------------------------------------------------------------
+// simplier approach:
 
-// - Option 2: Using Set (best and simplest)
-const mergeArrayAndRemoveDuplicate = (arr1, arr2) => {
-   if (!Array.isArray(arr1) || arr1.length === 0) return []
-   if (!Array.isArray(arr2) || arr2.length === 0) return []
+const numbers2 = [10, 20, 30, 40, 50]
 
-   const combinedArray = [...arr1, ...arr2]
-   return [...new Set(combinedArray)]
+const checkValues = (arr, search) => {
+   return arr.includes(search);
 }
 
-// - Option 4: Using filter:
-const mergeArrayAndRemoveDuplicate2 = (arr1, arr2) => {
-   if (!Array.isArray(arr1) || arr1.length === 0) return []
-   if (!Array.isArray(arr2) || arr2.length === 0) return []
-
-   const combinedArray = [...arr1, ...arr2]
-   return combinedArray.filter((item, index) => combinedArray.indexOf(item) === index)
-}
+const outputs = checkValue(numbers2, 30)
+console.log(outputs)

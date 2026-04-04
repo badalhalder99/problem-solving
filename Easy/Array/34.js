@@ -1,205 +1,264 @@
+
 /*
 ===============================================================================
-PROBLEM: Sort Array by Parity (Even First)
+🧠 PROBLEM: “Find the Top K Largest Elements in an Array”
 ===============================================================================
 
-PROBLEM STATEMENT:
+📌 What does this mean?
 
-You are given an array of numbers.
+You are given:
 
-Your task is to rearrange the array so that:
-👉 All EVEN numbers come first
-👉 All ODD numbers come after
+1️⃣ An array of numbers
+2️⃣ A number K
 
-This is called sorting by parity.
-Parity means whether a number is even or odd.
+Your task is to return the K biggest values from the array.
 
-IMPORTANT:
-You are NOT sorting by value (like ascending or descending).
-You are sorting by TYPE (even vs odd).
+But…
+
+❗ You are NOT asked to return just the single largest number.
+❗ You must return the TOP K largest numbers.
 
 
 ===============================================================================
-WHAT IS EVEN AND ODD?
+🎯 Understanding “TOP K”
+===============================================================================
 
-Even number:
-A number divisible by 2.
+K represents HOW MANY largest elements you need.
+
 Example:
-2, 4, 6, 8, 10
 
-Condition:
-number % 2 === 0
+Array → [3, 10, 5, 20, 8]
+K = 2
 
-Odd number:
-A number NOT divisible by 2.
-Example:
-1, 3, 5, 7, 9
+This means:
 
-Condition:
-number % 2 !== 0
+👉 Return the 2 largest values from the array
 
+Result:
 
-===============================================================================
-EXAMPLES:
+👉 [20, 10]
 
-Example 1:
-Input:
-[3, 1, 2, 4]
+NOT:
 
-Even numbers → 2, 4
-Odd numbers  → 3, 1
-
-Valid Output:
-[2, 4, 3, 1]
-
-⚠ Notice:
-Even numbers are first.
-Odd numbers are after.
-Inside even or odd group, order does NOT necessarily matter
-(unless problem says maintain original order).
-
-
-Example 2:
-Input:
-[5, 7, 2, 8, 1]
-
-Even → 2, 8
-Odd  → 5, 7, 1
-
-Possible Output:
-[2, 8, 5, 7, 1]
+❌ 20 only
+❌ [3, 5]
+❌ Any random 2 values
 
 
 ===============================================================================
-KEY IDEA (Beginner Thinking):
+🔍 The Core Idea
+===============================================================================
 
-Step 1:
-Separate numbers into two groups:
-   - Even group
-   - Odd group
+You are selecting the biggest values based on their magnitude.
 
-Step 2:
-Combine them:
-   Even group first
-   Odd group after
+So you are mentally:
+
+✔ Comparing numbers
+✔ Identifying which are larger
+✔ Picking the top K among them
 
 
 ===============================================================================
-IMPORTANT CLARIFICATIONS:
+📊 Example Walkthrough
+===============================================================================
 
-1️⃣ We are NOT sorting numerically.
-   ❌ Not like: [1,2,3,4]
-   ✅ Like: [2,4,1,3]
+Array → [7, 2, 9, 4, 1, 8]
+K = 3
 
-2️⃣ We only care about EVEN vs ODD.
+Step 1: Understand the order from largest to smallest
 
-3️⃣ Multiple correct answers are possible
-   unless problem says:
-   "Maintain original order"
+Largest values are:
+
+9, 8, 7
+
+Step 2: Since K = 3
+
+Return:
+
+👉 [9, 8, 7]
 
 
 ===============================================================================
-CORNER CASES TO THINK ABOUT:
+❗ Important Clarification: It’s NOT About Index
+===============================================================================
+
+This question is about VALUE — not position.
+
+We don’t care where the number is in the array.
+
+We only care about:
+
+👉 How big the number is.
+
+
+===============================================================================
+🧠 What the Interviewer is Testing
+===============================================================================
+
+They want to check if you understand:
+
+• How to identify largest elements
+• Difference between:
+  - “largest element”
+  - “top K largest elements”
+• How K controls the result size
+• Your thinking for performance (in advanced discussions)
+
+This problem is often used to evaluate:
+
+⭐ Sorting knowledge
+⭐ Heap / priority queue (advanced)
+⭐ Time complexity thinking
+
+
+===============================================================================
+⚠️ Edge Cases You Must Think About
+===============================================================================
 
 1️⃣ Empty array
-   → Return empty array
+   → No elements exist
+   → What should you return?
 
-2️⃣ Only even numbers
-   Example: [2,4,6]
-   → Same array
+2️⃣ K = 0
+   → You are asked to return ZERO elements
 
-3️⃣ Only odd numbers
-   Example: [1,3,5]
-   → Same array
+3️⃣ K = 1
+   → Return only the largest value
 
-4️⃣ One element
-   → Return same element
+4️⃣ K = array length
+   → Return all elements
 
-5️⃣ Negative numbers
-   -2 is even
-   -3 is odd
+5️⃣ K > array length
+   → Invalid case — what should happen?
 
-6️⃣ Zero
-   0 is EVEN (because 0 % 2 === 0)
-
-
-===============================================================================
-@params
-
-arr → An array of integers
-Example:
-arr = [3, 1, 2, 4]
-
-
-===============================================================================
-@returns
-
-An array where:
-All even numbers appear before all odd numbers.
+6️⃣ Duplicate values
 
 Example:
-Input:  [3,1,2,4]
-Output: [2,4,3,1]
+[5, 5, 5, 2]
+K = 2
+
+Top 2 largest are:
+
+👉 [5, 5]
+
+Duplicates are valid.
 
 
 ===============================================================================
-GOAL SUMMARY:
+📦 Expected Output Type
+===============================================================================
 
-We are NOT changing numbers.
-We are NOT removing numbers.
-We are NOT sorting by value.
+Usually:
 
-We are simply:
-👉 Grouping even numbers first
-👉 Then placing odd numbers after
+✔ An array of K elements
 
-That’s it.
+NOT a single number.
+
+
+===============================================================================
+🧠 Key Thinking Pattern
+===============================================================================
+
+Before solving, ask:
+
+• How many values do I need? → K
+• What does “largest” mean? → Greater value
+• Do duplicates count? → Yes
+• What if K is invalid?
+
+
+===============================================================================
+✅ In Simple Words
+===============================================================================
+
+You are given a list of numbers.
+
+Your job is to:
+
+👉 Pick the K biggest numbers from that list
+👉 Return them as an array
+
+
+===============================================================================
+📍 Real Life Analogy
+===============================================================================
+
+Array = marks of students
+
+[55, 90, 87, 60, 95]
+
+K = 3
+
+You are asked:
+
+🏆 “Who are the TOP 3 scorers?”
+
+Answer:
+
+95, 90, 87
 ===============================================================================
 */
 
-// - Problem:  Sort Array by Parity (Even First)
 
-const arr = [5, 7, 2, 8, 11, 20]
+//- Problem: Find the top k largest elements?
 
-const sortArrayByParity = (arr) => {
+const arr = [7, 2, 9, 4, 1, 8]
+
+const findTopKLargestElement = (arr, k) => {
+   if (!Array.isArray(arr) || arr.length === 0) return []
+   if (typeof k !== "number" || k <= 0) return []
+
+   const sortedArr = arr.sort((a, b) => a-b)
+
+   const topKLargest = sortedArr.slice(-k)
+
+   return [...topKLargest]
+
+};
+
+const output = findTopKLargestElement(arr, 3)
+console.log(output);
+
+// - Soluton - 02:
+
+const findTopKLargestElement2 = (arr, k) => {
+   if (!Array.isArray(arr) || arr.length === 0) return []
+   if (typeof k !== "number" || k <= 0) return []
+
+   const sortedArr = arr.sort((a, b) => b - a)
+
+   const topKLargest = sortedArr.slice(0, k)
+
+   return [...topKLargest]
+
+};
+
+const output2 = findTopKLargestElement2(arr, 2)
+console.log(output2);
+
+// - Solution - 03:
+const topKLargestCustom = (arr, k) => {
 
    if (!Array.isArray(arr) || arr.length === 0) return []
+   if (typeof k !== "number" || k <= 0) return []
 
-   let evens = []
-   let odds = []
+   let result = []
 
-   for (let item of arr) {
-      if (item % 2 === 0) {
-         evens.push(item)
-      } else {
-         odds.push(item)
+   for (let num of arr) {
+
+      result.push(num)
+
+      result.sort((a, b) => b - a)
+
+      if (result.length > k) {
+         result.pop()
       }
    }
 
-   const sorted = [...evens, ...odds]
-
-   return sorted
+   return result
 }
 
-const output = sortArrayByParity(arr)
-console.log(output)
-
-/*
------------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------Solution- 02---------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------
-*/
-
-const sortArrayByParity2 = (arr) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return []
-
-   const evens = arr.filter(item => item % 2 === 0)
-   const odds = arr.filter(item => item % 2 !== 0)
-
-   return [...evens, ...odds]
-}
-
-const result = sortArrayByParity2(arr)
-console.log(result)
-
+console.log(topKLargestCustom([3, 10, 5, 20, 8], 2)) // [20,10]
+console.log(topKLargestCustom([1, 2, 3], 1))         // [3]
+console.log(topKLargestCustom([9, 4, 6, 2], 3))      // [9,6,4]
+console.log(topKLargestCustom([], 2))                // []

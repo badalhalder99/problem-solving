@@ -1,264 +1,120 @@
-
 /*
-===============================================================================
-🧠 PROBLEM: “Find the Top K Largest Elements in an Array”
-===============================================================================
+***Problem: Find intersection of two arrays?
 
-📌 What does this mean?
+🧠 What does “Find intersection of two arrays” mean?
 
-You are given:
+In JavaScript, this question is asking you to:
 
-1️⃣ An array of numbers
-2️⃣ A number K
+👉 Take two arrays
+👉 Find the common elements that appear in both arrays
 
-Your task is to return the K biggest values from the array.
+That’s it — no need to calculate anything else.
 
-But…
 
-❗ You are NOT asked to return just the single largest number.
-❗ You must return the TOP K largest numbers.
+📌 Example to understand
 
+Suppose you have:
 
-===============================================================================
-🎯 Understanding “TOP K”
-===============================================================================
+Array A → [1, 2, 3, 4]
+Array B → [3, 4, 5, 6]
 
-K represents HOW MANY largest elements you need.
+The intersection means:
 
-Example:
+✅ Which values exist in both arrays?
 
-Array → [3, 10, 5, 20, 8]
-K = 2
+Here:
 
-This means:
+3 is in both
+4 is in both
 
-👉 Return the 2 largest values from the array
+So the intersection would contain those common values.
 
-Result:
 
-👉 [20, 10]
+🔍 What the interviewer is actually testing
 
-NOT:
+When someone asks this in JS, they usually want to check:
 
-❌ 20 only
-❌ [3, 5]
-❌ Any random 2 values
+• Can you work with arrays?
+• Do you understand comparison between collections?
+• Can you use JS array methods (includes, filter, Set, etc.)?
+• Can you handle duplicates (sometimes)?
 
 
-===============================================================================
-🔍 The Core Idea
-===============================================================================
+⚠️ Important things that may vary in the question
 
-You are selecting the biggest values based on their magnitude.
+Interviewers may secretly expect you to think about:
 
-So you are mentally:
+• Duplicates allowed or not
+  Should [2,2] appear once or twice?
 
-✔ Comparing numbers
-✔ Identifying which are larger
-✔ Picking the top K among them
+• Order matters or not
 
+• Performance for large arrays
 
-===============================================================================
-📊 Example Walkthrough
-===============================================================================
+• Data types:
+  - numbers
+  - strings
+  - objects (harder case)
 
-Array → [7, 2, 9, 4, 1, 8]
-K = 3
 
-Step 1: Understand the order from largest to smallest
+✅ In simple words
 
-Largest values are:
+“Find intersection of two arrays” means:
 
-9, 8, 7
-
-Step 2: Since K = 3
-
-Return:
-
-👉 [9, 8, 7]
-
-
-===============================================================================
-❗ Important Clarification: It’s NOT About Index
-===============================================================================
-
-This question is about VALUE — not position.
-
-We don’t care where the number is in the array.
-
-We only care about:
-
-👉 How big the number is.
-
-
-===============================================================================
-🧠 What the Interviewer is Testing
-===============================================================================
-
-They want to check if you understand:
-
-• How to identify largest elements
-• Difference between:
-  - “largest element”
-  - “top K largest elements”
-• How K controls the result size
-• Your thinking for performance (in advanced discussions)
-
-This problem is often used to evaluate:
-
-⭐ Sorting knowledge
-⭐ Heap / priority queue (advanced)
-⭐ Time complexity thinking
-
-
-===============================================================================
-⚠️ Edge Cases You Must Think About
-===============================================================================
-
-1️⃣ Empty array
-   → No elements exist
-   → What should you return?
-
-2️⃣ K = 0
-   → You are asked to return ZERO elements
-
-3️⃣ K = 1
-   → Return only the largest value
-
-4️⃣ K = array length
-   → Return all elements
-
-5️⃣ K > array length
-   → Invalid case — what should happen?
-
-6️⃣ Duplicate values
-
-Example:
-[5, 5, 5, 2]
-K = 2
-
-Top 2 largest are:
-
-👉 [5, 5]
-
-Duplicates are valid.
-
-
-===============================================================================
-📦 Expected Output Type
-===============================================================================
-
-Usually:
-
-✔ An array of K elements
-
-NOT a single number.
-
-
-===============================================================================
-🧠 Key Thinking Pattern
-===============================================================================
-
-Before solving, ask:
-
-• How many values do I need? → K
-• What does “largest” mean? → Greater value
-• Do duplicates count? → Yes
-• What if K is invalid?
-
-
-===============================================================================
-✅ In Simple Words
-===============================================================================
-
-You are given a list of numbers.
-
-Your job is to:
-
-👉 Pick the K biggest numbers from that list
-👉 Return them as an array
-
-
-===============================================================================
-📍 Real Life Analogy
-===============================================================================
-
-Array = marks of students
-
-[55, 90, 87, 60, 95]
-
-K = 3
-
-You are asked:
-
-🏆 “Who are the TOP 3 scorers?”
-
-Answer:
-
-95, 90, 87
-===============================================================================
+👉 Return a new array containing elements
+   that are present in both input arrays.
 */
 
+// - Solution - 01:
 
-//- Problem: Find the top k largest elements?
+const arr1 = [1, 2, 3, 4];
+const arr2 = [3, 4, 5, 6];
 
-const arr = [7, 2, 9, 4, 1, 8]
+const getIntersection = (arr1, arr2) => {
 
-const findTopKLargestElement = (arr, k) => {
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (typeof k !== "number" || k <= 0) return []
+   const commonElements = arr1.filter(item => arr2.includes(item))
 
-   const sortedArr = arr.sort((a, b) => a-b)
+   return commonElements;
+}
 
-   const topKLargest = sortedArr.slice(-k)
+const output = getIntersection(arr1, arr2)
+console.log(output)
 
-   return [...topKLargest]
+// ************************************************************************************************************************//
 
-};
+// - Solution - 02:
 
-const output = findTopKLargestElement(arr, 3)
-console.log(output);
+function getIntersection2(arr1, arr2) {
 
-// - Soluton - 02:
+   // Convert second array into Set
+   const set2 = new Set(arr2);
 
-const findTopKLargestElement2 = (arr, k) => {
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (typeof k !== "number" || k <= 0) return []
+   // Filter common elements
+   const filtered = arr1.filter(item => set2.has(item))
 
-   const sortedArr = arr.sort((a, b) => b - a)
+   // Remove duplicates using Set
+   const unique = [...new Set(filtered)];
 
-   const topKLargest = sortedArr.slice(0, k)
+   return unique;
+}
 
-   return [...topKLargest]
+console.log(getIntersection2(arr1, arr2));
 
-};
-
-const output2 = findTopKLargestElement2(arr, 2)
-console.log(output2);
-
+// ************************************************************************************************************************//
 // - Solution - 03:
-const topKLargestCustom = (arr, k) => {
 
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (typeof k !== "number" || k <= 0) return []
+function getIntersection(arr1, arr2) {
 
-   let result = []
+   const result = [];
 
-   for (let num of arr) {
-
-      result.push(num)
-
-      result.sort((a, b) => b - a)
-
-      if (result.length > k) {
-         result.pop()
+   for (let item of arr1) {
+      if (arr2.includes(aitem)) {
+         result.push(item);
       }
    }
 
-   return result
+   return result;
 }
 
-console.log(topKLargestCustom([3, 10, 5, 20, 8], 2)) // [20,10]
-console.log(topKLargestCustom([1, 2, 3], 1))         // [3]
-console.log(topKLargestCustom([9, 4, 6, 2], 3))      // [9,6,4]
-console.log(topKLargestCustom([], 2))                // []
+console.log(getIntersection(arr1, arr2));
+// Output: [3, 4]

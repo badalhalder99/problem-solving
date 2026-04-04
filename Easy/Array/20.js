@@ -1,14 +1,14 @@
 
 /*
 ===============================================================================
-PROBLEM: Filter odd numbers from an array.?
+PROBLEM: Filter even numbers from an array.?
 ===============================================================================
 
 */
 
 const numbers = [15, 30, 55, 13, 27, 48, 35, 12, 17, 23, 36, 44, 93, 76]
 
-const findOdd = (arr) => {
+const findEven = (arr) => {
 
    if (!Array.isArray(arr) || arr.length === 0) return 0
 
@@ -26,13 +26,13 @@ const findOdd = (arr) => {
    return `The even number is ${even} and The odd number is ${odd}`
 }
 
-const output = findOdd(numbers)
+const output = findEven(numbers)
 console.log(output)
 
 // - Solution- 02:
 
 const numbers2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-const oddNumbers = numbers2.filter(num => num % 2 === 1 || num % 2 !== 0)
+const evenNumbers = numbers2.filter(num => num % 2 === 0)
 
-console.log(oddNumbers)  // [2, 4, 6, 8, 10]
+console.log(evenNumbers)  // [2, 4, 6, 8, 10]

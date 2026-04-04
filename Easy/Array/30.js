@@ -1,46 +1,51 @@
+// - Problem: How to find the missing number in the array from 1 to n?
+
 /*
 ===============================================================================
-PROBLEM: Rotate the array to the right by K positions
+PROBLEM: Find the missing number in the array from 1 to n
 ===============================================================================
 
 PROBLEM STATEMENT
 -----------------
 Given:
-- an array `arr`
-- a number `k`
+- an array containing numbers from 1 to n
+- one or more numbers are missing
 
-Rotate the array to the RIGHT by `k` positions.
-
-That means:
-- The last `k` elements move to the front
-- The rest shift to the right
+Return:
+- the missing number(s)
 
 
 EXAMPLE
 -------
-[1,2,3,4,5], k = 2 → [4,5,1,2,3]
-["a","b","c","d"], k = 1 → ["d","a","b","c"]
+arr = [1, 3, 6, 7, 8, 9, 10], n = 10
+
+Expected → [2, 4, 5]
 
 
 KEY IDEA (BEGINNER WAY)
 ----------------------
-1. Take the last `k` elements
-2. Put them into a new array
-3. Then add the remaining elements after them
+We know the full range should be:
+
+1 → n
+
+So:
+1. Loop from 1 to n
+2. For each number:
+   check if it exists in the array
+3. If it does NOT exist → it is missing
 
 
 CORNER CASES TO HANDLE
 ---------------------
 1. Not an array → return []
 2. Empty array → return []
-3. k is not a number → return []
-4. k larger than length → use modulo (k % length)
+3. n is not a number → return []
 
 
 @params
 -------
 @param {Array} arr → input array
-@param {number} k  → number of right rotations
+@param {number} n  → max number
 
 @returns
 --------
@@ -50,142 +55,89 @@ CORNER CASES TO HANDLE
 
 /*
 ===============================================================================
-SOLUTION (CUSTOM — LOOP BASED)
+CORRECT SOLUTION (CUSTOM — BEGINNER FRIENDLY)
 ===============================================================================
 */
 
-const rightRotateByKPosition = (arr, k) => {
+const findMissingNumber = (arr, n) => {
 
    if (!Array.isArray(arr) || arr.length === 0) return []
-   if (!k || typeof k !== 'number') return []
+   if (!n || typeof n !== 'number') return []
 
-   k = k % arr.length
+   let missingArr = []
 
-   let rightRotate = []
-
-   // push the last k elements first
-   for (let i = arr.length - k; i < arr.length; i++) {
-      rightRotate.push(arr[i])
+   for (let i = 1; i <= n; i++) {
+      if (!arr.includes(i)) {
+         missingArr.push(i)
+      }
    }
 
-   // then push the remaining elements
-   for (let i = 0; i < arr.length - k; i++) {
-      rightRotate.push(arr[i])
-   }
-
-   return rightRotate
+   return missingArr
 }
 
-const rightRotateByKPosition2 = (arr, k) => {
-  if (!Array.isArray(arr) || arr.length === 0) return []
-  if (!k || typeof k !== 'number') return []
+const arr = [1, 3, 6, 7, 8, 9, 10]
+const output = findMissingNumber(arr, 10)
+console.log(output) // [2, 4, 5]
 
-  k = k % arr.length
-
-  return [...arr.slice(-k), ...arr.slice(0, -k)]
-}
 
 /*
 ===============================================================================
 LINE BY LINE EXPLANATION
 ===============================================================================
 
-const rightRotateByKPosition = (arr, k) => {
+const findMissingNumber = (arr, n) => {
 
-→ Create a function that takes:
-   arr = array
-   k   = number of positions to rotate
+→ Create a function
+→ arr = input array
+→ n   = last number of the range
 
 
 if (!Array.isArray(arr) || arr.length === 0) return []
 
-→ If input is not an array OR array is empty
-→ Return empty array
-→ Because rotation is not possible
+→ If arr is not an array OR empty
+→ return []
 
 
-if (!k || typeof k !== 'number') return []
+if (!n || typeof n !== 'number') return []
 
-→ If k is missing or not a number
-→ Return empty array
-→ Rotation needs a valid number
-
------------------------------------------------>
-k = k % arr.length
-
-→ Prevent unnecessary extra rotations
-
-Example:
-arr = [1,2,3,4,5]
-length = 5
-k = 7
-
-7 % 5 = 2
-So rotating 7 times = rotating 2 times
-
-🧠 Real Life Analogy
-
-ধরো ঘড়ি আছে 🕒
-
-12 টা বাজে।
-
-তুমি 15 ঘণ্টা এগাও।
-
-15 % 12 = 3
-
-মানে এখন 3 টা বাজবে।
-
-ঘড়ির মতো array-ও circular।
-------------------------------------------------->
-
-let rightRotate = []
-
-→ Create a new array to store rotated result
+→ If n is missing or not a number
+→ return []
 
 
-// push the last k elements first
-for (let i = arr.length - k; i < arr.length; i++) {
+let missingArr = []
 
-→ Start from index (length - k)
-→ Go until the last index
+→ Create an empty array
+→ This will store missing numbers
+
+
+for (let i = 1; i <= n; i++) {
+
+→ Start from 1
+→ Go up to n
+→ Because full range should be 1 → n
+
+
+if (!arr.includes(i)) {
+
+→ Check if current number i
+→ does NOT exist in the array
 
 Example:
-arr = [1,2,3,4,5]
-k = 2
-length = 5
+i = 2
+arr = [1,3,6,7,8,9,10]
 
-5 - 2 = 3
-
-Loop runs:
-i = 3 → arr[3] = 4
-i = 4 → arr[4] = 5
-
-rightRotate = [4,5]
+arr.includes(2) → false
+So 2 is missing
 
 
-rightRotate.push(arr[i])
+missingArr.push(i)
 
-→ Add last k elements into new array
-
-
-// then push the remaining elements
-for (let i = 0; i < arr.length - k; i++) {
-
-→ Now loop from start (0)
-→ Stop before (length - k)
-
-Example:
-i = 0 → 1
-i = 1 → 2
-i = 2 → 3
-
-rightRotate becomes:
-[4,5,1,2,3]
+→ Add missing number into result array
 
 
-return rightRotate
+return missingArr
 
-→ Return the final rotated array
+→ Return all missing numbers
 */
 
 
@@ -194,23 +146,24 @@ return rightRotate
 DIAGRAM
 ===============================================================================
 
-Original:
-[1, 2, 3, 4, 5]
- length = 5
- k = 2
+arr = [1, 3, 6, 7, 8, 9, 10]
+n = 10
 
-Step 1:
-Start from index = 5 - 2 = 3
+We check:
 
-Take:
-[4, 5]
+1 → exists
+2 → missing ✅
+3 → exists
+4 → missing ✅
+5 → missing ✅
+6 → exists
+7 → exists
+8 → exists
+9 → exists
+10 → exists
 
-Step 2:
-Take remaining:
-[1, 2, 3]
-
-Final:
-[4, 5, 1, 2, 3]
+Result:
+[2, 4, 5]
 */
 
 
@@ -219,19 +172,42 @@ Final:
 PSEUDOCODE
 ===============================================================================
 
-if not array OR empty → return []
+if input is invalid → return []
 
-if k invalid → return []
+create empty missing array
 
-reduce k using modulo
+loop from 1 → n
+   if number not in arr
+      add to missing array
 
-create empty result array
-
-for i from length - k to length - 1
-   push arr[i]
-
-for i from 0 to length - k - 1
-   push arr[i]
-
-return result
+return missing array
 */
+
+
+/*
+===============================================================================
+Here's the simplest modern solution:
+===============================================================================
+*/
+
+const arr1 = [1, 3, 6, 7, 8, 9, 10]
+
+const findMissingNumber1 = (arr, n) => {
+   
+   if (!Array.isArray(arr) || arr.length === 0) return []
+   if (!n || typeof n !== 'number') return []
+
+   const set = new Set(arr)
+   let missingArr = []
+
+   for (let i = 1; i <= n; i++) {
+      if (!set.has(i)) {
+         missingArr.push(i)
+      }
+   }
+
+   return missingArr
+}
+
+const result = findMissingNumber1(arr1, 10)
+console.log(result)  // [2, 4, 5]

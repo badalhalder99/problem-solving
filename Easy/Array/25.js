@@ -1,242 +1,31 @@
-/*
-=============================================================================================================================
-📌 Problem: “Chunk an array into smaller arrays of given size” ?
-=============================================================================================================================
-🤔 এর মানে কী?
+``` 
+- Problem: 
+- Compact an array (remove falsy values)?
 
-তোমাকে
-1️⃣ একটা array দেওয়া হবে
-2️⃣ আরেকটা number (size) দেওয়া হবে
+```
 
-তোমার কাজ হলো 👉
-বড় array টাকে ভেঙে ছোট ছোট array বানানো,
-যেখানে প্রতিটা ছোট array-এর size হবে নির্দিষ্ট সংখ্যার সমান।
+const arr = [10, 20, 30, undefined, null, 12, 0, false, "", 40, NaN];
 
-🧠 সহজ ভাষায় ভাবো
+const removeFalsyValue = (arr) => {
+   if (!Array.isArray(arr) || arr.length === 0) return [];
 
-ধরো,
-তোমার কাছে অনেকগুলো কলম আছে (array)
-আর তুমি চাও প্রতি বাক্সে ২টা করে কলম রাখতে (size = 2)
-
-👉 তাহলে তুমি কলমগুলোকে ২টা করে ভাগ করে বাক্সে রাখবে।
-
-📦 Example দিয়ে বুঝি
-
-ধরো:
-
-Array: [1, 2, 3, 4, 5, 6, 7]
-
-Size: 3
-
-এখন কী হবে?
-
-👉 প্রথম ৩টা একসাথে
-👉 পরের ৩টা একসাথে
-👉 শেষে যা বাকি থাকবে, সেটাও একসাথে
-
-ফলাফল ধারণা অনুযায়ী হবে এমন:
-
-[1, 2, 3]
-
-[4, 5, 6]
-
-[7]
-
-👉 শেষেরটা ৩টা না হলেও সমস্যা নেই
-👉 যা আছে তাই নিয়ে একটা chunk বানাতে হবে
-
-⚠️ Important বিষয়গুলো
-
-Array-এর order বদলানো যাবে না
-
-Size যত দেওয়া আছে, ততগুলো করে ভাগ করতে হবে
-
-শেষ chunk ছোট হতে পারে
-
-Empty array হলে result ও empty হবে
-
-🧠 Real life analogy (মাথায় বসানোর জন্য)
-
-ছাত্রদের লাইনে দাঁড় করাও → প্রতি বেঞ্চে ২ জন
-
-বইগুলো প্যাকেট করো → প্রতি প্যাকেটে ৫টা
-
-API data → pagination (প্রতি page-এ 10 item)
-
-🎯 এক লাইনে problem টা
-
-👉 একটা বড় array কে নির্দিষ্ট size অনুযায়ী ছোট ছোট array-এ ভাগ করাই হলো “chunk an array”
-
-*/
-
-/*
-===============================================================================
-CHUNK AN ARRAY INTO SMALLER ARRAYS OF GIVEN SIZE
-FULL CODE (BEGINNER FRIENDLY)
-সবকিছু JS MULTILINE DOC এর ভিতরে
-===============================================================================
-
---------------------------------
-PROBLEM
---------------------------------
-একটা বড় array দেওয়া থাকবে
-এবং একটা নির্দিষ্ট size দেওয়া থাকবে
-
-আমাদের কাজ:
-বড় array টাকে ভেঙে
-ছোট ছোট array বানানো,
-যেখানে প্রতিটা ছোট array-এর length হবে size এর সমান
-(শেষটা ছোট হতে পারে)
-
---------------------------------
-FUNCTION CODE
---------------------------------
-*/
-
-const chunkArray = (arr, size) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return []
-
-   if (size <= 0) return []
-
-   let result = []
-
-   /*
-   👉 result এর মধ্যে
-   👉 সব ছোট ছোট chunk array জমা হবে
-   */
-
-   for (let i = 0; i < arr.length; i += size) {
-      /*
-      👉 i প্রতি বার size পরিমাণ করে বাড়বে
-      👉 যেমন size = 3 হলে
-      👉 i = 0, 3, 6, 9 ...
-      */
-
-      let chunk = arr.slice(i, i + size)
-      /*
-      👉 slice দিয়ে array এর অংশ কাটা হচ্ছে
-      👉 i থেকে শুরু করে i + size পর্যন্ত
-      */
-
-      result.push(chunk)
-      /*
-      👉 কাটা chunk টাকে result এ ঢুকানো হচ্ছে
-      */
-   }
-
-   return result
-}
-
-/*
---------------------------------
-FUNCTION CALL (TEST)
---------------------------------
-*/
-
-const numbers = [1, 2, 3, 4, 5, 6, 7]
-const output = chunkArray(numbers, 3)
-console.log(output)
-
-/*
---------------------------------
-OUTPUT
---------------------------------
-
-[
-  [1, 2, 3],
-  [4, 5, 6],
-  [7]
-]
-
---------------------------------
-IMPORTANT NOTES
---------------------------------
-
-✔ Order ঠিক থাকে
-✔ Last chunk ছোট হতে পারে
-✔ O(n) time complexity
-✔ Real-life use: pagination, batching data
-
-===============================================================================
-*/
-/*
-===============================================================================
-SOLUTION 2 — PUSH + LENGTH CHECK (BEGINNER FRIENDLY LOGIC)
-===============================================================================
-
-FUNCTION CODE
-*/
-
-const chunkArrayCustom = (arr, size) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return []
-   if (size <= 0) return []
-
-   let result = []
-   let tempChunk = []
-   // tempChunk দিয়ে একটার পর একটা element জমা করা হবে
+   let result = [];
 
    for (let item of arr) {
-
-      tempChunk.push(item)
-      // element tempChunk এ ঢুকানো হচ্ছে
-
-      if (tempChunk.length === size) {
-         // যখন tempChunk পূর্ণ হয়ে যায়
-         result.push(tempChunk)
-         // result এ পাঠানো হয়
-
-         tempChunk = []
-         // আবার নতুন chunk শুরু
+      if (item) {          // falsy values (0, null, undefined, "", false, NaN) are skipped
+         result.push(item);
       }
    }
 
-   // যদি শেষে কিছু element বাকি থাকে
-   if (tempChunk.length > 0) {
-      result.push(tempChunk)
-   }
+   return result;
+};
 
-   return result
-}
+const output = removeFalsyValue(arr)
+console.log(output); // [10, 20, 30, 12, 40]
 
-/*
-HOW IT WORKS (সহজভাবে)
+```
+Solution - 02: Using filter()
+```
+const removeFalsyValues = (arr) => arr.filter(Boolean);
 
-arr = [1,2,3,4,5,6,7]
-size = 3
-
-tempChunk = [1,2,3] → result এ গেল
-tempChunk = [4,5,6] → result এ গেল
-tempChunk = [7]     → শেষে result এ গেল
-
-===============================================================================
-FUNCTION CALL (TEST)
-===============================================================================
-*/
-
-const numbers2 = [1, 2, 3, 4, 5, 6, 7]
-
-console.log(chunkArrayCustom(numbers2, 3))
-
-/*
-OUTPUT (দুটারই একই)
-
-[
-  [1, 2, 3],
-  [4, 5, 6],
-  [7]
-]
-
-===============================================================================
-INTERVIEW NOTES
-===============================================================================
-
-✔ Solution 1: Short, clean, modern
-✔ Solution 2: Logic বোঝার জন্য best
-✔ Time Complexity: O(n)
-✔ Order ঠিক থাকে
-✔ Last chunk ছোট হতে পারে
-
-===============================================================================
-*/
+console.log(removeFalsyValues(arr));

@@ -1,29 +1,64 @@
-const numbers1 = [1, 2, 3, 4, 5]
+// - Problem:  Remove element at specific index?
 
-const removeLast1 = (arr) => {
-   const lastElement = arr.pop()
+const arr = [10, 20, 30, 40, 50]
 
-   return lastElement;
+const removeElementAtSpecificIndex = (arr, indexNumber) => {
+
+   if (!Array.isArray(arr) || arr.length === 0) return []
+   if (!indexNumber || typeof indexNumber !== 'number') return []
+
+
+   const beforeIndex = arr.slice(0, indexNumber)
+   const afterIndex = arr.slice(indexNumber + 1)
+
+   const newArr = [...beforeIndex , ...afterIndex]
+
+   return newArr
 }
 
-console.log(removeLast1(numbers1))  // 5
-console.log(numbers)      // [1, 2, 3, 4]
+const output = removeElementAtSpecificIndex(arr, 2)
+console.log(output)
 
-// - ----------------------------------------------------------------------------------------------------------------------->
+// - Problem:  Remove element at specific index?
 
-const numbers = [1, 2, 3, 4, 5]
+const arr2 = [10, 20, 30, 40, 50]
 
-const removeLast = (arr) => {
-   if (arr.length === 0) return undefined
+const removeElementAtSpecificIndex2 = (arr, indexNumber) => {
 
-   const lastElement = arr[arr.length - 1]
+   if (!Array.isArray(arr) || arr.length === 0) return []
+   if (!indexNumber || typeof indexNumber !== 'number') return []
 
-   // Remove the last element by reducing the array length
-   arr.length = arr.length - 1
 
-   return lastElement
+   const beforeIndex = arr.slice(0, indexNumber)
+   const afterIndex = arr.slice(indexNumber + 1)
+
+   const newArr = arr.filter( (item, index) => index !== indexNumber)
+
+   return newArr
 }
 
-const last = removeLast(numbers)
-console.log(last)     // 5
-console.log(numbers)  // [1, 2, 3, 4]
+const output2 = removeElementAtSpecificIndex2(arr2, 2)
+console.log(output2)
+
+// - Problem:  Remove element at specific index?
+
+const arr3 = [10, 20, 30, 40, 50]
+
+const removeElementAtSpecificIndex3 = (arr, indexNumber) => {
+
+   if (!Array.isArray(arr) || arr.length === 0) return []
+   if (!indexNumber || typeof indexNumber !== 'number') return []
+
+   let newArr = []
+
+   for (let item of arr) {
+      if (arr.indexOf(item) !== indexNumber) {
+         newArr.push(item)
+      }
+   }
+
+   return newArr
+}
+
+const output3 = removeElementAtSpecificIndex3(arr3, 2)
+console.log(output3)

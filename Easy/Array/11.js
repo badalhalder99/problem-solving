@@ -1,139 +1,49 @@
-/*
-====================================================
-PROBLEM: Return the First Element of an Array
-====================================================
+// - Remove the first element and return it?
 
-PROBLEM STATEMENT
-Given an array, return its FIRST element.
-If the array is empty, return undefined.
+const arr = [10, 20, 30, 40, 50, 60]
 
-----------------------------------------------------
-EXAMPLE
-----------------------------------------------------
-Input:
-[10, 20, 30]
+const firstElementRemove = (arr) => {
 
-Output:
-10
+   const firstElement = arr.shift()
 
-----------------------------------------------------
-KEY IDEA (Beginner Way)
-----------------------------------------------------
-- Arrays store values in order
-- Indexing in JavaScript starts from 0
-- The first element is always at index 0
+   console.log(arr)
 
-----------------------------------------------------
-CORNER CASES
-----------------------------------------------------
-1. Empty array → undefined
-2. Single element array → return that element
-3. Array with mixed data types → return first item only
+   return firstElement
+}
 
-----------------------------------------------------
-@params
-----------------------------------------------------
-@param {Array} arr - input array
+const result = firstElementRemove(arr)
+console.log(result);
 
-----------------------------------------------------
-@returns
-----------------------------------------------------
-@return {*} - first element of the array or undefined
+// - Solution - 02:--------------------------------------------------------------------------------------------------------->
 
+const numbers2 = [1, 2, 3, 4, 5]
 
-====================================================
-SOLUTION 1 — Modern
-====================================================
+const [firstElement, ...rest] = numbers2
 
---------------------
-CODE
---------------------
-*/
-const getFirstElementModern = (arr) => {
-  return arr.at(0);
-};
+console.log(firstElement)  // 1
+console.log(rest)          // [2, 3, 4, 5]
+console.log(numbers)       // [1, 2, 3, 4, 5] - original unchanged
 
-/*
---------------------
-FUNCTION CALLS (TEST CASES)
---------------------
-*/
-console.log(getFirstElementModern([10, 20, 30]));
-console.log(getFirstElementModern(["a", "b", "c"]));
-console.log(getFirstElementModern([true, false]));
-console.log(getFirstElementModern([]));
+// - Solution -03:---------------------------------------------------------------------------------------------------------->
 
-/*
---------------------
-LINE BY LINE EXPLANATION
---------------------
-1. arr.at(0)
-   - at() is a modern array method
-   - 0 means first position
-2. If array is empty, it returns undefined
-3. Does not modify the original array
+const numbers = [1, 2, 3, 4, 5]
 
---------------------
-DIAGRAM
---------------------
-Array:
-[10, 20, 30]
- ↑
- index 0
+const removeFirst = (arr) => {
+   if (arr.length === 0) return undefined
 
---------------------
-PSEUDOCODE
---------------------
-START
-Take array
-Return element at index 0
-END
+   const firstElement = arr[0]
 
+   // Shift all elements one position to the left
+   for (let i = 0; i < arr.length - 1; i++) {
+      arr[i] = arr[i + 1]
+   }
 
-====================================================
-SOLUTION 2 — Custom (Beginner Friendly)
-====================================================
+   // Remove the last element (now duplicate)
+   arr.length = arr.length - 1
 
---------------------
-CODE
---------------------
-*/
-const getFirstElementCustom = (arr) => {
-  return arr[0];
-};
+   return firstElement
+}
 
-/*
---------------------
-FUNCTION CALLS (TEST CASES)
---------------------
-*/
-console.log(getFirstElementCustom([10, 20, 30]));
-console.log(getFirstElementCustom(["x", "y"]));
-console.log(getFirstElementCustom([99]));
-console.log(getFirstElementCustom([]));
-
-/*
---------------------
-LINE BY LINE EXPLANATION
---------------------
-1. arr[0] accesses the first element
-2. JavaScript arrays start from index 0
-3. If array is empty, arr[0] returns undefined
-
---------------------
-DIAGRAM
---------------------
-arr = ["a", "b", "c"]
-
-arr[0] → "a"
-
---------------------
-PSEUDOCODE
---------------------
-START
-Take array
-Access index 0
-Return value
-END
-====================================================
-*/
+const first = removeFirst(numbers)
+console.log(first)    // 1
+console.log(numbers)  // [2, 3, 4, 5]

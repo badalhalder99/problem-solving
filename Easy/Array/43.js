@@ -1,230 +1,267 @@
 /*
 ===============================================================================
-🧠 PROBLEM: “Split the Array into Two Based on a Condition”
+PROBLEM: Return Unique Values from the Array
 ===============================================================================
 
-📌 What does this mean?
+PROBLEM STATEMENT
+-----------------
+Given:
+- an array containing numbers (may have duplicates)
 
-You are given:
-
-1️⃣ An array
-2️⃣ A condition (a rule)
-
-Your task is to:
-
-👉 Divide the original array into TWO separate arrays
-based on whether each element satisfies the condition or not.
+Return:
+- an array with only unique values (no duplicates)
 
 
+EXAMPLE
+-------
+arr = [1, 2, 2, 3, 4, 4, 5]
+
+Expected → [1, 2, 3, 4, 5]
+
+
+KEY IDEA (BEGINNER WAY)
+-----------------------
+1. Loop through the array
+2. Check if we've already seen this number
+3. If not seen → add it to result
+4. If already seen → skip it
+
+
+CORNER CASES TO HANDLE
+----------------------
+1. Not an array          → return []
+2. Empty array           → return []
+3. No duplicates         → return array as is
+4. All same values       → return single element
+
+
+@params
+-------
+@param {Array} arr → input array containing numbers (may have duplicates)
+
+@returns
+--------
+@return {Array} → array with only unique values
+*/
+
+
+/*
 ===============================================================================
-🔍 Core Idea
-===============================================================================
-
-Every element in the array will be checked against a rule.
-
-After checking:
-
-✅ If the element PASSES the condition → it goes into the first array
-❌ If the element FAILS the condition → it goes into the second array
-
-
-So in the end you will have:
-
-[ elements_that_match_condition , elements_that_do_not_match ]
-
-
-===============================================================================
-📦 Simple Example
-===============================================================================
-
-Array → [1, 2, 3, 4, 5, 6]
-
-Condition → number is even
-
-Now we test each value:
-
-1 → odd  → second group
-2 → even → first group
-3 → odd  → second group
-4 → even → first group
-5 → odd  → second group
-6 → even → first group
-
-Final result:
-
-👉 Even numbers → [2, 4, 6]
-👉 Odd numbers  → [1, 3, 5]
-
-
-===============================================================================
-🎯 What the Interviewer is Testing
-===============================================================================
-
-This problem checks if you understand:
-
-• How to apply a condition to each element
-• How to group data based on logic
-• Array traversal
-• Boolean thinking (true / false separation)
-
-It also tests your ability to:
-
-👉 Transform ONE array into TWO logical groups.
-
-
-===============================================================================
-🧠 Important Clarification
-===============================================================================
-
-This is NOT about:
-
-❌ removing elements
-❌ sorting the array
-❌ modifying values
-
-It is ONLY about:
-
-✔ categorizing elements into two buckets
-
-
-===============================================================================
-📊 The Condition Can Be Anything
-===============================================================================
-
-Examples of conditions:
-
-• number is even
-• number > 10
-• string length > 5
-• value is truthy
-• user.isActive === true
-• age >= 18
-
-So this problem is really about:
-
-👉 Flexible logic-based grouping
-
-
-===============================================================================
-⚠️ Edge Cases You Must Think About
-===============================================================================
-
-1️⃣ Empty array
-   → Both result arrays will be empty
-
-2️⃣ All elements pass the condition
-   → First array = full
-   → Second array = empty
-
-3️⃣ No elements pass the condition
-   → First array = empty
-   → Second array = full
-
-4️⃣ Invalid input (not an array)
-   → Should be handled safely
-
-5️⃣ Condition always true / always false
-
-
-===============================================================================
-🧠 Key Thinking Pattern
-===============================================================================
-
-For each element ask:
-
-❓ Does it satisfy the condition?
-
-YES  → Group A
-NO   → Group B
-
-
-===============================================================================
-📍 Real Life Analogy
-===============================================================================
-
-You are a teacher dividing students based on a rule:
-
-Condition → marks ≥ 40
-
-Pass students  → first group
-Fail students  → second group
-
-
-===============================================================================
-✅ In Simple Words
-===============================================================================
-
-You are given a list.
-
-You must:
-
-✔ Check each item using a rule
-✔ Put matching items in one array
-✔ Put the rest in another array
-
-
-So you end up with TWO arrays based on the condition.
+SOLUTION 1 — MODERN
 ===============================================================================
 */
 
-const condition = (n) => {
-   return n % 2 === 0
+const getUniqueValuesModern = (arr) => {
+
+   if (!Array.isArray(arr) || arr.length === 0) return []
+
+   return [...new Set(arr)]
 }
 
-const splitArray = (arr, condition) => {
-  if (!Array.isArray(arr) || typeof condition !== "function") return [[], []];
-
-  const pass = [];
-  const fail = [];
-
-  for (const item of arr) {
-     condition(item) ? pass.push(item) : fail.push(item);
-     console.log(condition(item))
-  }
-
-  return [pass, fail];
-}
-
-const output = splitArray([1, 2, 3, 4, 5, 6], condition)
-console.log(output)// [[2, 4, 6], [1, 3, 5]]
+console.log(getUniqueValuesModern([1, 2, 2, 3, 4, 4, 5]))      // [1, 2, 3, 4, 5]
+console.log(getUniqueValuesModern([1, 1, 1, 1]))               // [1]
+console.log(getUniqueValuesModern([1, 2, 3]))                  // [1, 2, 3]
 
 
-// - Solution -02:
-const users = [
-  { name: "Alice", age: 22 },
-  { name: "Bob", age: 16 },
-  { name: "Charlie", age: 30 },
-  { name: "Dave", age: 15 },
-];
+/*
+===============================================================================
+LINE BY LINE EXPLANATION — SOLUTION 1
+===============================================================================
 
-const conditionFunc = (user) => user.age >= 18;
+const getUniqueValuesModern = (arr) => {
+→ Create a function
+→ arr = input array
 
-const splitArray3 = (arr, condition) => {
-   if (!Array.isArray(arr) || typeof condition !== "function") return [[], []];
 
-   const pass = [];
-   const fail = [];
+if (!Array.isArray(arr) || arr.length === 0) return []
+→ If arr is not an array OR empty
+→ return []
 
-   for (const item of arr) {
-      condition(item) ? pass.push(item) : fail.push(item);
+
+new Set(arr)
+→ Set is a built-in JavaScript object
+→ Automatically removes duplicates
+→ Only keeps unique values
+
+Example:
+arr = [1, 2, 2, 3, 4, 4, 5]
+new Set(arr) → Set { 1, 2, 3, 4, 5 }
+
+
+[...new Set(arr)]
+→ Spread operator converts Set back to Array
+→ Because Set is not an array, it's a Set object
+
+Example:
+Set { 1, 2, 3, 4, 5 } → [1, 2, 3, 4, 5]
+
+
+return [...new Set(arr)]
+→ Return the unique values as an array
+*/
+
+
+/*
+===============================================================================
+DIAGRAM — SOLUTION 1
+===============================================================================
+
+arr = [1, 2, 2, 3, 4, 4, 5]
+
+Step 1 — Create Set:
+1 → new, add to Set → Set { 1 }
+2 → new, add to Set → Set { 1, 2 }
+2 → duplicate, skip → Set { 1, 2 }
+3 → new, add to Set → Set { 1, 2, 3 }
+4 → new, add to Set → Set { 1, 2, 3, 4 }
+4 → duplicate, skip → Set { 1, 2, 3, 4 }
+5 → new, add to Set → Set { 1, 2, 3, 4, 5 }
+
+Set { 1, 2, 3, 4, 5 }
+
+Step 2 — Convert to Array:
+Set { 1, 2, 3, 4, 5 } → [1, 2, 3, 4, 5]
+
+Result: [1, 2, 3, 4, 5] ✅
+*/
+
+
+/*
+===============================================================================
+PSEUDOCODE — SOLUTION 1
+===============================================================================
+
+if input is invalid → return []
+
+create a Set from arr (removes duplicates)
+convert Set back to array using spread operator
+
+return unique array
+*/
+
+
+
+
+/*
+===============================================================================
+SOLUTION 2 — CUSTOM (BEGINNER FRIENDLY)
+===============================================================================
+*/
+
+const getUniqueValuesBeginner = (arr) => {
+
+   if (!Array.isArray(arr) || arr.length === 0) return []
+
+   let unique = []
+
+   for (let item of arr) {
+      if (!unique.includes(item)) {
+         unique.push(item)
+      }
    }
 
-   return [pass, fail];
-};
+   return unique
+}
 
-const output3 = splitArray3(users, conditionFunc);
-console.log(output3);
+console.log(getUniqueValuesBeginner([1, 2, 2, 3, 4, 4, 5]))    // [1, 2, 3, 4, 5]
+console.log(getUniqueValuesBeginner([1, 1, 1, 1]))             // [1]
+console.log(getUniqueValuesBeginner([1, 2, 3]))                // [1, 2, 3]
 
-// - Solution -03:
 
-const splitArray2 = (arr, condition) => {
-  if (!Array.isArray(arr) || typeof condition !== "function") return [[], []];
+/*
+===============================================================================
+LINE BY LINE EXPLANATION — SOLUTION 2
+===============================================================================
 
-  const matched   = arr.filter(item => condition(item));
-  const unmatched = arr.filter(item => !condition(item));
+const getUniqueValuesBeginner = (arr) => {
+→ Create a function
+→ arr = input array
 
-  return [matched, unmatched];
-};
 
-const output2 = splitArray2([1, 2, 3, 4, 5, 6], condition)
-console.log(output)
+if (!Array.isArray(arr) || arr.length === 0) return []
+→ If arr is not an array OR empty
+→ return []
+
+
+let unique = []
+→ Empty array to store unique values
+
+
+for (let item of arr) {
+→ Loop through every item in array
+
+
+if (!unique.includes(item)) {
+→ Check if item does NOT exist in unique array
+→ includes() returns true if item exists, false if not
+
+Example:
+item = 1, unique = []
+unique.includes(1) → false → not in array yet
+
+
+unique.push(item)
+→ If item is not in unique array
+→ Add it to unique array
+
+Example:
+item = 1 → unique = [1]
+item = 2 → unique = [1, 2]
+item = 2 → already in unique, skip
+item = 3 → unique = [1, 2, 3]
+
+
+return unique
+→ Return array with only unique values
+*/
+
+
+/*
+===============================================================================
+DIAGRAM — SOLUTION 2
+===============================================================================
+
+arr = [1, 2, 2, 3, 4, 4, 5]
+
+Loop through each item:
+
+item = 1 → unique.includes(1) → false → push → unique = [1]
+item = 2 → unique.includes(2) → false → push → unique = [1, 2]
+item = 2 → unique.includes(2) → true  → skip → unique = [1, 2]
+item = 3 → unique.includes(3) → false → push → unique = [1, 2, 3]
+item = 4 → unique.includes(4) → false → push → unique = [1, 2, 3, 4]
+item = 4 → unique.includes(4) → true  → skip → unique = [1, 2, 3, 4]
+item = 5 → unique.includes(5) → false → push → unique = [1, 2, 3, 4, 5]
+
+Result: [1, 2, 3, 4, 5] ✅
+*/
+
+
+/*
+===============================================================================
+PSEUDOCODE — SOLUTION 2
+===============================================================================
+
+if input is invalid → return []
+
+create empty unique array
+
+loop through arr
+   if item is not in unique array
+      push item to unique array
+
+return unique array
+*/
+
+
+/*
+===============================================================================
+⚠️ PERFORMANCE NOTE
+===============================================================================
+
+Solution 1 (Set)      → O(n) time, faster
+Solution 2 (includes) → O(n²) time, slower (includes loops every time)
+
+For large arrays, Solution 1 is much better.
+For small arrays or learning, Solution 2 is more readable.
+*/

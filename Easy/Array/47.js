@@ -1,238 +1,209 @@
 /*
 ===============================================================================
-🧠 PROBLEM: “Convert array to object with index as key”
+PROBLEM: Find Union of Two Arrays?
 ===============================================================================
 
-📌 What does this mean?
+🧠 What does “Find union of two arrays” mean?
 
-You are given an array.
+In JavaScript, this question is asking you to:
 
-Your task is to transform that array into an object.
+👉 Take two arrays
+👉 Combine their elements
+👉 Return all unique elements that appear in either array
 
-In this new object:
-
-➡️ Each array index becomes a KEY
-➡️ Each array element becomes the VALUE
+Union means:
+Everything from both arrays — without duplicates.
 
 
 ===============================================================================
-🔍 Basic Example
+📌 Example to Understand
+
+Example 1:
+
+Array A → [1, 2, 3]
+Array B → [3, 4, 5]
+
+Union means:
+
+Take all values from both arrays:
+[1, 2, 3, 3, 4, 5]
+
+Remove duplicates:
+[1, 2, 3, 4, 5]
+
+Final Answer:
+[1, 2, 3, 4, 5]
+
+
+Example 2:
+
+Array A → [1, 1, 2]
+Array B → [2, 3]
+
+Union:
+[1, 2, 3]
 ===============================================================================
 
-Array → ["a", "b", "c"]
+🔑 KEY IDEA (Beginner Way to Think)
 
-Indexes →   0    1    2
+Step 1:
+First, think — union means “everything from both”.
 
-After conversion:
+So combine both arrays into one big array.
 
-Object → {
-  0: "a",
-  1: "b",
-  2: "c"
+Step 2:
+Now think — union does NOT allow duplicates.
+
+So remove duplicate values.
+
+That’s it.
+
+In simple thinking:
+👉 Merge
+👉 Remove duplicates
+👉 Return result
+
+===============================================================================
+
+🔍 What the Interviewer is Testing
+
+When this question is asked, they want to check:
+
+• Can you merge arrays?
+• Do you understand uniqueness?
+• Can you remove duplicates?
+• Do you know how to use:
+  - Set
+  - spread operator (...)
+  - filter
+  - loops
+• Can you handle edge cases?
+
+
+===============================================================================
+⚠️ Important Things That May Vary
+
+1️⃣ Should duplicates be removed?
+   Usually YES (true union concept)
+
+2️⃣ Should order be preserved?
+   Sometimes they expect:
+   - First array order first
+   - Then second array's new elements
+
+3️⃣ What about different data types?
+   - numbers
+   - strings
+   - objects (harder case)
+
+4️⃣ Large arrays?
+   They may check performance.
+
+
+===============================================================================
+CORNER CASES TO THINK ABOUT
+
+1️⃣ One array is empty
+   A = []
+   B = [1,2]
+   Union = [1,2]
+
+2️⃣ Both arrays empty
+   Union = []
+
+3️⃣ Arrays contain same elements
+   A = [1,2]
+   B = [1,2]
+   Union = [1,2]
+
+4️⃣ Negative numbers or zero
+   Should work normally
+
+
+===============================================================================
+@params
+
+arr1 → First array
+arr2 → Second array
+
+Example:
+arr1 = [1,2,3]
+arr2 = [3,4,5]
+
+
+===============================================================================
+@returns
+
+A new array containing all unique elements
+that appear in either arr1 or arr2.
+
+Example:
+Input:
+[1,2,3] and [3,4,5]
+
+Return:
+[1,2,3,4,5]
+
+
+===============================================================================
+GOAL SUMMARY
+
+Union means:
+
+👉 Everything from both arrays
+👉 But no duplicates
+👉 Return as a new array
+
+That’s it.
+===============================================================================
+*/
+
+// *************************************************************************************************************************/
+// - Solution - 01:
+
+const arr1 = [1, 2, 3, 4]
+const arr2 = [3, 4, 5, 6]
+
+
+function getUnion(arr1, arr2) {
+
+   if (!Array.isArray(arr1) || arr1.length === 0) return []
+   if (!Array.isArray(arr2) || arr2.length === 0) return []
+
+   const combined = [...arr1, ...arr2]
+
+   const result = []
+
+   for (let item of combined) {
+      if (!result.includes(item)) {
+         result.push(item)
+      }
+   }
+
+   return result
 }
 
-So:
+console.log(getUnion(arr1, arr2));
 
-Array index   ➜   Object key
-Array value   ➜   Object value
+// *************************************************************************************************************************/
+// - Solution - 02:
 
+const arrOne = [1, 2, 3, 4]
+const arrTwo = [3, 4, 5, 6]
 
-===============================================================================
-🧠 Why This Transformation Matters
-===============================================================================
 
-Arrays:
-✔ Ordered
-✔ Accessed by index
+function getUnion(arr1, arr2) {
 
-Objects:
-✔ Key-value based
-✔ Useful for quick lookup
-✔ Easier to merge with other data structures
+   if (!Array.isArray(arr1) || arr1.length === 0) return []
+   if (!Array.isArray(arr2) || arr2.length === 0) return []
 
-This problem checks if you understand how to:
+   const combined = [...arr1, ...arr2]
 
-- Access indexes
-- Access values
-- Map one structure into another
+   const set = new Set(combined)
 
+   const unique = [...set]
 
-===============================================================================
-🔍 How Index Becomes the Key
-===============================================================================
+   return unique
+}
 
-In arrays:
-
-Index → automatic numeric position
-
-In objects:
-
-Keys → act like labels for values
-
-So we reuse the index as the label (key) in the object.
-
-
-===============================================================================
-🎯 What the Question is Testing
-===============================================================================
-
-Interviewers want to see if you:
-
-- Know how to loop through an array
-- Understand the relationship between index and value
-- Can build an object dynamically
-- Know the structural difference between arrays and objects
-
-
-===============================================================================
-⚠️ Important Edge Cases You Must Think About
-===============================================================================
-
-1️⃣ Empty array
-   → Result should be an empty object {}
-
-2️⃣ Array with one element
-   → { 0: value }
-
-3️⃣ Mixed data types
-   → Values can be numbers, strings, objects, etc.
-
-4️⃣ Duplicate values
-   → No problem, because keys (indexes) are always unique
-
-5️⃣ Nested arrays or objects inside the array
-   → They become object values as they are
-
-
-===============================================================================
-🧠 Key Thinking Pattern
-===============================================================================
-
-Before solving, think:
-
-- What is the current index?
-- What is the value at that index?
-- How do I assign them as key-value in an object?
-
-
-===============================================================================
-✅ In Simple Words
-===============================================================================
-
-👉 Take each item from the array
-👉 Use its position as the key
-👉 Store the item as the value inside an object
-*/
-
-// - Solution -01:
-
-const arr = ["a", "b", "c", "d", "e"]
-
-const convertArrayToObject = (arr, target) => {
-   if (!Array.isArray(arr) || arr.length === 0) return {}
-
-   let newObj = {}
-
-   for (let i = 0; i < arr.length; i++) {
-      newObj[i] = arr[i] //✅ take value from array
-   }
-
-   /*
-   - Classic for loop (still very common)
-      for (let i = 0; i < arr.length; i++) {
-         console.log(`Index ${i}: ${arr[i]}`);
-      }
-   */
-
-   return newObj
-
-};
-
-const output = convertArrayToObject(arr)
-console.log(output);
-
-//-------------------------------------------------------------------------------------------------------------------------//
-// - Solution -02:
-const arr2 = ["a", "b", "c", "d", "e"];
-
-const convertArrayToObject2 = (arr) => {
-   if (!Array.isArray(arr) || arr.length === 0) return {};
-
-   let newObj = {};
-
-   arr.forEach((value, index) => {
-      newObj[index] = value;
-   });
-
-   return newObj;
-};
-
-const output2 = convertArrayToObject2(arr2);
-console.log(output2);
-
-//-------------------------------------------------------------------------------------------------------------------------//
-// - Solution - Unique:
-const colors = ["red", "green", "blue", "yellow", "purple"];
-
-console.log(colors.at(-1));                    // "purple"
-console.log(colors[colors.length - 2]);        // "yellow"
-
-// Print only even indexes
-colors.forEach((color, i) => {
-  if (i % 2 === 0) console.log(`Even index ${i}: ${color}`);
-});
-// Even index 0: red
-// Even index 2: blue
-// Even index 4: purple
-
-//-------------------------------------------------------------------------------------------------------------------------//
-// - Solution - 03:
-const arr3 = ["a", "b", "c", "d", "e"];
-
-const convertArrayToObject3 = (arr) => {
-   if (!Array.isArray(arr) || arr.length === 0) return {};
-
-   let newObj = {};
-   let index = 0;
-
-   for (let value of arr) {
-      newObj[index] = value;
-      index++;
-   }
-
-   return newObj;
-};
-
-const output3 = convertArrayToObject3(arr3);
-console.log(output3);
-
-//-------------------------------------------------------------------------------------------------------------------------//
-// - Solution - 04:
-
-/*
-===============================================================================
-🧠 SOLUTION: for...of + entries()  (Clean & Modern)
-===============================================================================
-*/
-
-const arr4 = ["a", "b", "c", "d", "e"];
-
-const convertArrayToObject4 = (arr) => {
-   if (!Array.isArray(arr) || arr.length === 0) return {};
-
-   const newObj = {};
-
-   for (const [index, value] of arr.entries()) {
-      newObj[index] = value;
-   }
-
-   return newObj;
-};
-
-const output4 = convertArrayToObject4(arr4);
-console.log(output4);
-
-
-
-
-
+console.log(getUnion(arrOne, arrTwo));

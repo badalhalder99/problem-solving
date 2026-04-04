@@ -1,115 +1,53 @@
 /*
-একটা array-এর average (গড়) বের করতে যা যা করতে হবে:
+===============================================================================>
+ PROBLEM: Create an array of n zeros??
+===============================================================================>
 
-1. array-টা নাও
-   (যেমন: const numbers = [4, 8, 12, 3];)
+Falsy values in JavaScript:
 
-2. সব সংখ্যা যোগ করো
-   → একটা variable-এ (sum) রাখো
-   → loop চালিয়ে বা reduce() দিয়ে যোগ করা যায়
+0 → falsy
+"" → falsy
+null → falsy
+undefined → falsy
+false → falsy
+NaN → falsy
 
-3. array-এ কয়টা element আছে সেটা বের করো
-   → numbers.length দিয়ে সহজেই পাওয়া যায়
 
-4. যোগফলকে সংখ্যার পরিমাণ দিয়ে ভাগ করো
-   → average = sum / numbers.length
+// Create empty array
+let arr1 = new Array();           // same as []
+let arr2 = new Array(10);         // creates array with 10 empty slots (length = 10)
 
-5. ফলাফল দেখো বা ব্যবহার করো
-   → দরকার হলে toFixed(2) দিয়ে দশমিক ঠিক করতে পারো
+// Create array with specific elements
+let arr3 = new Array(1, 2, 3, 4); // [1, 2, 3, 4]
+let arr4 = new Array("apple", "banana");
 
-উদাহরণের ধারণা (শুধু ধাপ, কোড না):
-   sum = 4 + 8 + 12 + 3 = 27
-   count = 4
-   average = 27 / 4 = 6.75
 */
 
 
-/*
-===============================================================================
-PROBLEM: Find the average of an array of numbers?
-===============================================================================
+const numbers = [15, 30, 55, 13, 27, 48, 35, 12, 17, 23, 36, 44, 93, 76]
 
-PROBLEM STATEMENT
------------------
-Given:
-- an array of numbers
+const createArr = (count, number) => {
 
-Return the average (mean) of all numbers in the array.
+   if (typeof number !== 'number' || typeof count !== 'number') return []
 
-Average formula:
-(sum of all numbers) ÷ (total count of numbers)
+   let result = []
 
-
-EXAMPLE
--------
-[10, 20, 30]     → 20
-[5, 5, 5, 5]     → 5
-[1, 2, 3, 4, 5]  → 3
-[]               → 0
-
-
-KEY IDEA (BEGINNER WAY)
-----------------------
-To find the average:
-1. Add all the numbers together
-2. Divide the total by how many numbers there are
-
-
-CORNER CASES TO HANDLE
----------------------
-1. Not an array → return 0
-2. Empty array → return 0
-3. Array with one number → return that number
-4. Ignore non-number values (optional safety)
-
-
-@params
--------
-@param {number[]} arr → array of numbers
-
-@returns
---------
-@return {number}
-*/
-
-const numbers = [15, 30, 55, 13, 27, 48, 35]
-
-const findAverage = (arr) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return 0
-
-   const sum = arr.reduce((total, current) => total + current, 0)
-
-   const number = arr.length
-
-   const average = sum / number
-
-   return average;
-}
-
-const output = findAverage(numbers)
-console.log(output)
-
-// - Another solution: (Loop Based)
-
-
-const numbers2 = [15, 40, 55, 13, 27, 48, 35]
-
-const findAverage2 = (arr) => {
-
-   if (!Array.isArray(arr) || arr.length === 0) return 0
-
-   let sum = 0
-   const count = arr.length
-
-   for (let item of arr) {
-      sum += item
+   for (let i = 0; i < count; i++) {
+      result.push(number)
    }
 
-   const average = sum / count
-
-   return average.toFixed(2)
+   return result
 }
 
-const output2 = findAverage2(numbers2)
-console.log(output2)
+const output = createArr(12, 0)
+console.log(output)
+
+// - Soluton - 02:
+const createArr2 = (count, number) => {
+   if (typeof number !== 'number' || typeof count !== 'number') return []
+
+   return new Array(count).fill(number)
+}
+
+const output2 = createArr(0, 12)
+console.log(output2)  // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

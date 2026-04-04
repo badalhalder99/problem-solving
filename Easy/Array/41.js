@@ -1,403 +1,365 @@
-
 /*
-========================================================
-🧠 PROBLEM EXPLANATION: Find a pair of numbers that sum to target?
-========================================================
+===============================================================================
+PROBLEM: Shuffle an Array (Fisher–Yates Basic)
+===============================================================================
 
-WHAT IS THE QUESTION ASKING?
+🧠 What does “Shuffle an array” mean?
 
-You are given:
+You are given an array.
 
-1️⃣ An array of numbers
-2️⃣ A target number
+Your task is to randomly rearrange the elements so that the order becomes completely random.
 
-Your task is to FIND two numbers inside the array
-whose SUM equals the target value.
-
-That’s it.
-
-You are NOT asked to:
-❌ sort the array
-❌ modify the array
-❌ return all combinations (unless mentioned)
-❌ calculate anything else
-
-Just find TWO numbers whose addition equals the target.
+In simple words:
+👉 Same elements
+👉 Different random order
+👉 No element removed
+👉 No element duplicated
 
 
---------------------------------------------------------
-📌 SIMPLE EXAMPLE
---------------------------------------------------------
+===============================================================================
+📌 Example to Understand
 
-Array → [2, 7, 11, 15]
-Target → 9
+Input:
+[1, 2, 3, 4]
 
-Ask yourself:
+Possible Outputs:
+[3, 1, 4, 2]
+[2, 4, 1, 3]
+[4, 3, 2, 1]
+[1, 3, 2, 4]
 
-Which two numbers add up to 9?
+All are valid shuffles.
 
-2 + 7 = 9 ✅
+Important:
+Each time you shuffle, result should be random.
 
-So the answer is:
-[2, 7]
-
-
---------------------------------------------------------
-ANOTHER EXAMPLE
---------------------------------------------------------
-
-Array → [3, 2, 4]
-Target → 6
-
-Which two numbers add up to 6?
-
-2 + 4 = 6 ✅
-
-Answer:
-[2, 4]
-
-
---------------------------------------------------------
-WHAT THE INTERVIEWER IS TESTING
---------------------------------------------------------
-
-This question checks whether you understand:
-
-✔ How to compare numbers inside an array
-✔ How to search for combinations
-✔ How to think logically about sums
-✔ How to handle edge cases
-✔ Sometimes — how to optimize performance
-
-
---------------------------------------------------------
-⚠ IMPORTANT THINGS THAT MAY VARY
---------------------------------------------------------
-
-Interviewers may expect you to think about:
-
-1️⃣ Are duplicates allowed?
-   Example: [3,3] with target 6
-
-2️⃣ Can we use the same element twice?
-   Usually ❌ (unless specified)
-
-3️⃣ What if no pair exists?
-   Should return:
-   - null?
-   - empty array?
-   - -1?
-   Depends on question.
-
-4️⃣ Return values or return indices?
-   Sometimes they want:
-   [2,7]
-
-   Sometimes they want:
-   [0,1]  (index positions)
-
-5️⃣ Multiple pairs?
-   Should we return:
-   - first pair only?
-   - all possible pairs?
-
-
---------------------------------------------------------
-🧠 BEGINNER WAY TO UNDERSTAND
---------------------------------------------------------
-
-Think like this:
-
-For every number in the array,
-ask:
-
-"How much more do I need to reach the target?"
-
-Example:
-
-Target = 10
-Number = 3
-
-You need:
-10 - 3 = 7
-
-Now check:
-Does 7 exist in the array?
-
-If yes → you found a pair.
-
-
---------------------------------------------------------
-CORNER CASES TO THINK ABOUT
---------------------------------------------------------
-
-✔ Empty array
-✔ Array with only one number
-✔ Negative numbers
-✔ Target is 0
-✔ Large numbers
-✔ Duplicate values
-
-
---------------------------------------------------------
-IN SIMPLE WORDS
---------------------------------------------------------
-
-“Find a pair of numbers that sum to target”
-means:
-
-👉 Look inside the array
-👉 Pick two different numbers
-👉 If their addition equals the target
-👉 Return that pair
-
-That’s the whole problem.
-========================================================
 */
 
 /*
 ===============================================================================
-PROBLEM: Find a pair of numbers that sum to target
+PROBLEM: Shuffle an Array (Fisher–Yates Basic)
 ===============================================================================
 
 PROBLEM STATEMENT
 -----------------
 Given:
-- an array of numbers
-- a target number
+- an array
 
-Return the FIRST pair whose sum equals the target.
+Return a NEW array where the elements are randomly shuffled.
 
-If no pair is found → return null
+The shuffle must be:
+✔ unbiased
+✔ each permutation equally likely
+
+We use the Fisher–Yates algorithm.
 
 
 EXAMPLE
 -------
 Input:
-arr = [2, 7, 11, 15]
-target = 9
+[1, 2, 3, 4]
 
-Output:
-[2, 7]
+Possible Output:
+[3, 1, 4, 2]
+[2, 4, 1, 3]
+[4, 3, 2, 1]
+etc… (random every time)
 
 
 KEY IDEA (BEGINNER WAY)
 ----------------------
-We need TWO numbers.
-
-So:
-1️⃣ Pick one number
-2️⃣ Check the rest of the array
-3️⃣ If sum === target → return pair
+   1️⃣ Start from the END of the array
+   2️⃣ Pick a random index from 0 → current index
+   3️⃣ Swap both values
+   4️⃣ Move one step left
+   5️⃣ Repeat until finished
 
 
 CORNER CASES TO HANDLE
 ---------------------
-1. Invalid array → return null
-2. Array length < 2 → return null
-3. No valid pair → return null
-4. Works with negative numbers
+1. Invalid array → return []
+2. Empty array → return []
+3. Single element → return same array
 
 
 @params
 -------
 @param {Array} arr
-@param {number} target
 
 @returns
 --------
-@return {Array | null}
+@return {Array}
 */
 
+/**
+   KEY IDEA (BEGINNER WAY)
+   ------------------------------------------------->
+   1️⃣ Start from the END of the array
+   2️⃣ Pick a random index from 0 → current index
+   3️⃣ Swap both values
+   4️⃣ Move one step left
+   5️⃣ Repeat until finished
+   ------------------------------------------------->
+**/
 
+const arr = [1, 2, 3, 4, 5]
 
-/*
-===============================================================================
-SOLUTION 1 — MODERN (Using Set for O(n))
-===============================================================================
-*/
-const arr = [10, 20, 30, 40, 50]
+const shuffleAnArray = (arr) => {
 
-const findPair = (arr, target) => {
-   if (!Array.isArray(arr) || arr.length < 2) return [];
-   if (!target || typeof target !== 'number') return null;
+   if (!Array.isArray(arr) || arr.length === 0) return []
 
-   const result = [];
+   const result = [...arr] // copy to avoid mutating original // You can use arr.slice(0) instead of [...arr]
 
-   for (const num of arr) {
+   for (let i = result.length - 1; i > 0; i--) {
 
-      const need = target - num;
+      const randomIndex = Math.floor(Math.random() * (i + 1)); ;  // ← semicolon keep must here // random index in [0, i]
 
-      if (result.includes(need)) return [need, num];
-      result.push(num);
+      [result[i], result[randomIndex]] = [result[randomIndex], result[i]] // swap
    }
 
-   return [];
-};
+   return result
+}
 
-const output = findPair(arr, 90) // [40, 50]
+const output = shuffleAnArray(arr)
 console.log(output)
 
 
 /*
-LINE BY LINE EXPLANATION — SOLUTION 1 (MODERN)
-----------------------------------------------
-
-const seen = new Set()
-
-→ Stores numbers we have already visited
-
-
-for (let num of arr)
-
-→ Loop through each number
-
-
-const needed = target - num
-
-→ Find what value is required to reach target
-
-
-if (seen.has(needed))
-
-→ If we already saw the needed number
-→ We found the pair
-
-
-return [needed, num]
-
-→ Return the pair immediately
-
-
-seen.add(num)
-
-→ Store current number for future checks
-*/
-
-
-
-/*
-SOLUTION 1 — DIAGRAM
---------------------
-
-arr = [2, 7, 11, 15]
-target = 9
-
-num = 2
-needed = 7
-seen = {2}
-
-num = 7
-needed = 2
-seen has 2 ✅
-
-RETURN → [2, 7]
-*/
-
-
-
-/*
-SOLUTION 1 — PSEUDOCODE
-----------------------
-if invalid → return null
-
-create empty set
-
-for each number
-   needed = target - number
-
-   if set contains needed
-      return pair
-
-   add number to set
-
-return null
-*/
-
-
-
-/*
 ===============================================================================
-SOLUTION 2 — CUSTOM (Nested Loop — BEGINNER FRIENDLY)
+NOW COMPLETE LINE-BY-LINE EXPLANATION
 ===============================================================================
-*/
-
-const findPairCustom = (arr, target) => {
-
-   if (!Array.isArray(arr) || arr.length < 2) return null
-
-   for (let i = 0; i < arr.length; i++) {
-
-      for (let j = i + 1; j < arr.length; j++) {
-
-         if (arr[i] + arr[j] === target) {
-            return [arr[i], arr[j]]
-         }
-      }
-   }
-
-   return null
-}
 
 
-// Test cases
-console.log(findPairCustom([2, 7, 11, 15], 9))   // [2,7]
-console.log(findPairCustom([3, 2, 4], 6))        // [2,4]
-console.log(findPairCustom([1, 2, 3], 7))        // null
-console.log(findPairCustom([10, -2, 8], 6))      // [-2,8]
+const shuffleAnArray = (arr) => {
+
+👉 We create an arrow function named shuffleAnArray.
+👉 It takes one parameter: arr (an array we want to shuffle).
+
+
+if (!Array.isArray(arr) || arr.length === 0) return []
+
+👉 Validation step.
+
+Condition 1:
+!Array.isArray(arr)
+→ If arr is NOT an array, return empty array.
+
+Condition 2:
+arr.length === 0
+→ If array is empty, return empty array.
+
+Why?
+Because there is nothing to shuffle.
+
+
+const result = [...arr] --> 👉 Create a COPY of the original array.
+
+Spread operator (...) copies all elements into a new array.
+
+- Why copy?
+- Because Fisher–Yates modifies the array in-place.We don’t want to change the original input.
+
+Example:
+arr = [1,2,3]
+result = [1,2,3]  (new memory reference)
+
+
+for (let i = result.length - 1; i > 0; i--) {
+
+👉 This is the main Fisher–Yates loop.
+
+We start from the LAST index.
+
+Example:
+result = [1,2,3,4,5]
+Indexes = 0 1 2 3 4
+
+First:
+i = 4
+Then:
+i = 3
+Then:
+i = 2
+Then:
+i = 1
+
+We move BACKWARDS.
+
+Why backwards?
+Because each iteration locks the last position correctly.
+
+
+const randomIndex = Math.floor(Math.random() * (i + 1))
+
+👉 Generate a random index between 0 and i (inclusive).
+
+Math.random()
+→ gives random number between 0 and 1
+
+============================================================================================================================>
+DEEP EXPLANATION OF Math.floor(Math.random() * (i + 1))
+
+This line generates a RANDOM INTEGER from 0 to i (inclusive).
+
+Let’s break it down step by step very carefully 👇
+
+
+--------------------------------------------------------
+STEP 1: Math.random()
+--------------------------------------------------------
+
+Math.random() returns a decimal number between:
+
+0  (inclusive)
+and
+1  (exclusive)
+
+That means:
+
+0 ≤ value < 1
+
+Examples:
+0.1234
+0.9876
+0.4567
+0.0001
+
+It NEVER becomes 1.
+It can become 0.
+
+
+--------------------------------------------------------
+STEP 2: Math.random() * (i + 1)
+--------------------------------------------------------
+
+Suppose:
+
+i = 4
+
+Then:
+
+(i + 1) = 5
+
+Now we multiply:
+
+Math.random() * 5
+
+Since Math.random() gives a number between 0 and 1,
+multiplying by 5 gives:
+
+0 ≤ value < 5
+
+Examples:
+0.2  * 5 = 1.0
+0.7  * 5 = 3.5
+0.99 * 5 = 4.95
+
+So now we have a decimal number between 0 and 4.9999...
+
+
+--------------------------------------------------------
+WHY (i + 1) ?
+--------------------------------------------------------
+
+Because we want a random number BETWEEN 0 AND i.
+
+If i = 4,
+we want possible outputs:
+
+0, 1, 2, 3, 4   ← 5 total numbers
+
+That means total choices = i + 1
+
+If we only used:
+Math.random() * i
+
+Then range would be:
+
+0 ≤ value < 4
+
+After flooring:
+0,1,2,3
+
+⚠ 4 would NEVER appear.
+
+So we use (i + 1).
+============================================================================================================================>
+
+Math.floor()
+→ removes decimal part
+
+So randomIndex will be:
+0 ≤ randomIndex ≤ i
+
+This ensures fair randomness.
+
+
+[result[i], result[randomIndex]] =
+[result[randomIndex], result[i]]
+
+👉 Swap elements.
+
+This is destructuring swap syntax.
+
+Instead of:
+let temp = result[i]
+result[i] = result[randomIndex]
+result[randomIndex] = temp
+
+We do it in one line.
+
+Example:
+result = [1,2,3,4,5]
+i = 4
+randomIndex = 1
+
+Swap:
+[1,5,3,4,2]
+
+
+Loop continues...
+
+Each iteration:
+✔ Picks a random element
+✔ Swaps it with current position
+✔ Locks that position
+
+
+return result
+
+👉 After loop finishes,
+👉 return the shuffled array.
 
 
 
-/*
-LINE BY LINE EXPLANATION — SOLUTION 2 (CUSTOM)
-----------------------------------------------
+===============================================================================
+FULL DRY RUN EXAMPLE
+===============================================================================
 
-for (let i = 0; i < arr.length; i++)
+Input:
+[1,2,3,4,5]
 
-→ Pick first number
+Iteration 1:
+i = 4
+randomIndex = 1
+Swap → [1,5,3,4,2]
 
+Iteration 2:
+i = 3
+randomIndex = 0
+Swap → [4,5,3,1,2]
 
-for (let j = i + 1; j < arr.length; j++)
+Iteration 3:
+i = 2
+randomIndex = 2
+Swap → no change
 
-→ Pick second number after first
+Iteration 4:
+i = 1
+randomIndex = 0
+Swap → [5,4,3,1,2]
 
+Final shuffled result:
+[5,4,3,1,2]
 
-if (arr[i] + arr[j] === target)
-
-→ Check if sum matches target
-
-
-return [arr[i], arr[j]]
-
-→ Return the pair immediately
-*/
-
-
-
-/*
-SOLUTION 2 — DIAGRAM
---------------------
-
-arr = [2, 7, 11, 15]
-target = 9
-
-i = 0 → 2
-   j = 1 → 7 → 2+7=9 ✅
-
-RETURN → [2,7]
-*/
-
-
-
-/*
-SOLUTION 2 — PSEUDOCODE
-----------------------
-if invalid → return null
-
-for each element i
-   for each element j after i
-      if sum equals target
-         return pair
-
-return null
 */
