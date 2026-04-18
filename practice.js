@@ -150,26 +150,126 @@ Q22. String starts with "http"
 Q23. String ends with ".js"
 ---------------------------------------------------------------------*/
 
-const strUppercase = (str) => {
-   return /[A-Z]/.test(str)
+// const strUppercase = (str) => {
+//    return /[A-Z]/.test(str)
+// }
+// console.log(strUppercase("Hello"))
+
+
+// // Approach 2 — spread + some
+// function hasUppercase_v2(str) {
+//    return [...str].some(ch => ch >= "A" && ch <= "Z");
+// }
+
+// console.log(hasUppercase_v2("Hello")); // true
+
+/*
+---------------------------------------------------------------------
+Q24. String only letters
+---------------------------------------------------------------------*/
+// const isLettersOnly = (str) => {
+//    return /^[a-zA-z]+$/.test(str)
+// }
+
+// console.log(isLettersOnly("Hello"))
+
+/*
+---------------------------------------------------------------------
+Q25. String only alphanumeric
+---------------------------------------------------------------------*/
+
+// const isAlphanumeric = (str) => {
+//    return /^[a-zA-z0-9]+$/.test(str)
+// }
+
+// console.log(isAlphanumeric("Hello123"))
+/*
+---------------------------------------------------------------------
+Q26.String is palindrome
+---------------------------------------------------------------------*/
+
+// const isPalindrome = (str) => {
+
+//    const clean = str.toLowerCase().replace(/[^a-z0-9]/g, "")
+
+//    const left = 0
+//    const right = clean.length - 1
+
+//    while (left > right) {
+//       if (clean[left] !== clean[right]) return false
+//       left++
+//       right--
+//    }
+
+//    return true
+// }
+
+// console.log(isPalindrome("madam"))
+
+
+/*---------------------------------------------------------------------
+Q27.String is whitespace only
+---------------------------------------------------------------------*/
+
+// function isAllWhitespace(str) {
+//    return str.trim().length === 0
+// }
+
+// console.log(isAllWhitespace(" ")); // true
+
+
+/*---------------------------------------------------------------------
+Q28.  String is valid boolean ("true"/"false")
+---------------------------------------------------------------------*/
+
+// Approach 1 — OR comparison
+// function isValidBoolean(str) {
+//    return str === "true" || str === "false"
+// }
+
+// console.log(isValidBoolean("true")); // true
+
+
+/*---------------------------------------------------------------------
+Q29.String contains balanced quotes
+---------------------------------------------------------------------*/
+
+// Approach 1 — count even occurrences of each quote type:
+
+function hasBalancedQuotes(str) {
+   const singleCount = (str.match(/'/g) || []).length
+   const doubleCount = (str.match(/"/g) || []).length
+
+   return singleCount % 2 === 0 && doubleCount % 2 === 0
 }
-console.log(strUppercase("Hello"))
 
+console.log(hasBalancedQuotes("'hi' \"hello\"")); // true
 
-// Approach 2 — spread + some
-function hasUppercase_v2(str) {
-   return [...str].some(ch => ch >= "A" && ch <= "Z");
+/*---------------------------------------------------------------------
+Q30.String longer than its reverse (trick)
+---------------------------------------------------------------------*/
+
+function isLongerThanReverse(str) {
+   return str.length > str.split("").reverse().join("").length;
 }
-console.log(hasUppercase_v2("Hello")); // true
+console.log(isLongerThanReverse("hello")); // false
+
+/*---------------------------------------------------------------------
+Q31.
+---------------------------------------------------------------------*/
+
+
+/*
+---------------------------------------------------------------------
+Q32.
+---------------------------------------------------------------------*/
 
 
 
-
-
-
-
-
-
+/*
+---------------------------------------------------------------------
+Q25.
+---------------------------------------------------------------------*/
 
 
 

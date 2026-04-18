@@ -495,7 +495,12 @@ console.log(isLettersOnly_v2("Hello")); // true
 
 /*
 ---------------------------------------------------------------------
-Q27. String only alphanumeric
+Q27. String only alphanumeric?
+
+//...Here Alphanumeric means a combination of:
+
+👉 Letters (A–Z, a–z)
+👉 Numbers (0–9)
 ---------------------------------------------------------------------*/
 
 // Approach 1 — regex
@@ -524,46 +529,62 @@ console.log(isPalindrome("madam")); // true
 
 // Approach 2 — two pointer (O(n) time, no extra string)
 function isPalindrome_v2(str) {
-  const clean = str.toLowerCase().replace(/[^a-z0-9]/g, "");
-  let left = 0;
-  let right = clean.length - 1;
-  while (left < right) {
-    if (clean[left] !== clean[right]) return false;
-    left++;
-    right--;
-  }
-  return true;
+
+   const clean = str.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+   let left = 0;
+   let right = clean.length - 1;
+
+   while (left < right) {
+      if (clean[left] !== clean[right]) return false;
+      left++;
+      right--;
+   }
+
+   return true;
 }
+
 console.log(isPalindrome_v2("madam")); // true
 
 // /[^a-z0-9]/g — ^ inside [] means "NOT these chars". Strips spaces and punctuation.
 
-/*
+/*---------------------------------------------------------------------
+Q29. Check if a string is whitespace only
 ---------------------------------------------------------------------
-Q29. String is whitespace only
----------------------------------------------------------------------*/
+🔹 What is whitespace?
 
-// Approach 1 — .trim().length
+   Whitespace includes:
+
+   Space " "
+   Tab "\t"
+   Newline "\n"
+*/
+
+/*| Input     | Output      | Reason                              |
+| ----------- | ----------  | ----------------------------------- |
+| `"   "`     | ✅ true     | only spaces                         |
+| `"\t\n "`   | ✅ true     | only whitespace                     |
+| `"hello"`   | ❌ false    | letters exist                       |
+| `" hello "` | ❌ false    | contains text                       |
+| `""`        | ⚠️ depends | empty string (clarify in interview)  | **/
+
+// Approach 1 — .trim().length:
+
 function isAllWhitespace(str) {
-  return str.trim().length === 0;
+   return str.trim().length === 0;
 }
+
 console.log(isAllWhitespace("   ")); // true
 
-// Approach 2 — regex
-function isAllWhitespace_v2(str) {
-  return /^\s*$/.test(str);
-}
-console.log(isAllWhitespace_v2("   ")); // true
-
-/*
----------------------------------------------------------------------
-Q30. String is valid boolean ("true"/"false")
+/*---------------------------------------------------------------------
+Q30. String is valid boolean ("true"/"false")?
 ---------------------------------------------------------------------*/
 
 // Approach 1 — OR comparison
 function isValidBoolean(str) {
-  return str === "true" || str === "false";
+   return str === "true" || str === "false";
 }
+
 console.log(isValidBoolean("true")); // true
 
 // Approach 2 — array includes
@@ -574,15 +595,16 @@ console.log(isValidBoolean_v2("false")); // true
 
 /*
 ---------------------------------------------------------------------
-Q31. String contains balanced quotes
+Q31. Check if a string contains balanced quotes
 ---------------------------------------------------------------------*/
 
 // Approach 1 — count even occurrences of each quote type
 function hasBalancedQuotes(str) {
-  const singleCount = (str.match(/'/g) || []).length;
-  const doubleCount = (str.match(/"/g) || []).length;
-  return singleCount % 2 === 0 && doubleCount % 2 === 0;
+   const singleCount = (str.match(/'/g) || []).length;
+   const doubleCount = (str.match(/"/g) || []).length;
+   return singleCount % 2 === 0 && doubleCount % 2 === 0;
 }
+
 console.log(hasBalancedQuotes("'hi' \"hello\"")); // true
 
 // Balanced = even count of single AND even count of double quotes.
